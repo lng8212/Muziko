@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         bining = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bining.root)
 
+        supportActionBar?.hide()
+
         val navView: BottomNavigationView = bining.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
