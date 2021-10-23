@@ -3,13 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/activity_main.xml" value="0.1" />
+=======
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/activity_main.xml" value="0.264" />
+>>>>>>> main
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.25" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.1" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.2" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/item_song.xml" value="0.264" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/panel_header_on_collapsed.xml" value="0.264" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/song_item.xml" value="0.20092592592592592" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.25" />
       </map>
     </option>
