@@ -9,10 +9,13 @@
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.1" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/activity_main.xml" value="0.19895833333333332" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/activity_splash.xml" value="0.1953125" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.19895833333333332" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
