@@ -7,10 +7,10 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.android.music.R
-import kotlinx.android.synthetic.main.activity_splash.*
+
 
 @Suppress("DEPRECATION")
-class SplashScreen : AppCompatActivity() {
+class MuzikoScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -18,7 +18,7 @@ class SplashScreen : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
-        setContentView(R.layout.activity_splash)
+        setContentView(R.layout.screen_muziko)
 
         // This is used to hide the status bar and make
         // the splash screen as a full screen activity.
