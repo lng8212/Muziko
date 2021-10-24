@@ -6,10 +6,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.ImageView
+import com.android.music.R
 import com.android.music.ui.FilePathUtlis
 import com.bumptech.glide.Glide
 import com.example.kookplayer.R
 import java.io.FileDescriptor
+import java.lang.Exception
 
 
 object ImageUtils {
@@ -33,7 +35,7 @@ object ImageUtils {
                 var fileDescriptor: FileDescriptor? = pfd.fileDescriptor
                 bm = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options)
             }
-        } catch (exception: java.lang.Exception) {
+        } catch (exception: Exception) {
 //           TODO(handle the exception)
         }
 
