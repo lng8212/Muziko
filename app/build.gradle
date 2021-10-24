@@ -85,7 +85,9 @@ dependencies {
     // Sliding Up Panel
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
 
-
+    // Wave form seekbar
+    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+    implementation 'com.github.alexei-frolo:WaveformSeekBar:1.0'
 
     //ProgressWheel
     implementation 'com.zekapp.library:progreswheelview:1.1.5'

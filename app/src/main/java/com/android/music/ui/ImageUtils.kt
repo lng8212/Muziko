@@ -10,6 +10,7 @@ import com.android.music.R
 import com.android.music.ui.FilePathUtlis
 import com.bumptech.glide.Glide
 import java.io.FileDescriptor
+import java.lang.Exception
 
 
 object ImageUtils {
@@ -33,7 +34,7 @@ object ImageUtils {
                 var fileDescriptor: FileDescriptor? = pfd.fileDescriptor
                 bm = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options)
             }
-        } catch (exception: java.lang.Exception) {
+        } catch (exception: Exception) {
 //           TODO(handle the exception)
         }
 
