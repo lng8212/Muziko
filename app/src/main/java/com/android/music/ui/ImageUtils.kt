@@ -6,9 +6,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.ImageView
+import com.android.music.R
 import com.android.music.ui.FilePathUtlis
 import com.bumptech.glide.Glide
-import com.example.kookplayer.R
 import java.io.FileDescriptor
 
 
@@ -43,7 +43,7 @@ object ImageUtils {
     fun getDefaultAlbumArt(context: Context): Bitmap {
         return BitmapFactory.decodeResource(
             context.resources,
-            R.mipmap.ic_play_button_2_foreground
+            R.drawable.ic_song
         )
     }
 }
