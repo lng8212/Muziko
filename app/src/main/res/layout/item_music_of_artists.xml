@@ -8,7 +8,7 @@
     android:layout_height="64dp"
     android:padding="5dp">
     <ImageView
-        android:id="@+id/img_item_songs"
+        android:id="@+id/img_item_music_of_artist"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
@@ -26,13 +26,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/img_menu_item_songs"
+        app:layout_constraintEnd_toStartOf="@+id/img_menu_item_music_of_artist"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/img_item_songs"
+        app:layout_constraintStart_toEndOf="@+id/img_item_music_of_artist"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/txt_title_item_songs"
+            android:id="@+id/txt_title_item_music_of_artist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ellipsize="end"
@@ -48,7 +48,7 @@
             tools:text="song title" />
 
         <TextView
-            android:id="@+id/txt_artist_item_songs"
+            android:id="@+id/txt_artist_item_music_of_artist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -63,7 +63,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/img_menu_item_songs"
+        android:id="@+id/img_menu_item_music_of_artist"
         android:layout_width="34dp"
         android:layout_height="34dp"
         android:scaleType="center"

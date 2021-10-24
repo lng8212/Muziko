@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/song_image_on_header"
+        android:id="@+id/img_on_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="center"
@@ -15,10 +15,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_background" />
+        tools:src="@drawable/ic_img_song" />
 
     <LinearLayout
-        android:id="@+id/music_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -28,11 +27,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/song_image_on_header"
+        app:layout_constraintStart_toEndOf="@+id/img_on_header"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/song_title_on_header"
+            android:id="@+id/txt_title_on_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ellipsize="end"
@@ -43,14 +42,10 @@
             android:textColor="@color/black"
             android:textSize="15dp"
             android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
-            app:layout_constraintStart_toEndOf="@+id/song_image_on_header"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="song title" />
 
         <TextView
-            android:id="@+id/song_artist_on_header"
+            android:id="@+id/txt_artist_on_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -59,11 +54,7 @@
             android:paddingRight="10dp"
             android:singleLine="true"
             android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/song_image_on_header"
-            app:layout_constraintTop_toBottomOf="@+id/song_title_on_header"
             tools:text="artist" />
 
     </LinearLayout>
@@ -78,22 +69,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-<!--        <com.app.progresviews.ProgressWheel-->
-<!--            android:id="@+id/wheelprogress"-->
-<!--            android:layout_width="48dp"-->
-<!--            android:layout_height="48dp"-->
-<!--            app:barWidth="2dp"-->
-<!--            app:countTextColor="@android:color/transparent"-->
-<!--            app:countTextSize="20sp"-->
-<!--            app:defTextColor="@android:color/black"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintHorizontal_bias="0.5"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:marginBtwText="15dp"-->
-<!--            app:percentage="0"-->
-<!--            app:progressColor="#3c3c3c" />-->
+        <com.app.progresviews.ProgressWheel
+            android:id="@+id/wheel_progress_on_header"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:barWidth="2dp"
+            app:countTextColor="@android:color/transparent"
+            app:countTextSize="20sp"
+            app:defTextColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:marginBtwText="15dp"
+            app:percentage="0"
+            app:progressColor="#3c3c3c" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -104,7 +95,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/play_btn_on_header"
+                android:id="@+id/btn_play_on_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -114,7 +105,7 @@
                 app:srcCompat="@drawable/ic_notification_play" />
 
             <ImageView
-                android:id="@+id/pause_btn_on_header"
+                android:id="@+id/btn_pause_on_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"

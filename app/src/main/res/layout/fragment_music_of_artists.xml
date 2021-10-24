@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.SongFragment">
+    xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +12,8 @@
 
         <TextView
             android:layout_weight="3"
-            android:text="Songs"
+            android:text="Alan Walker"
+            android:id="@+id/txt_artist_music_of_artist"
             android:gravity="center_vertical"
             android:textStyle="bold"
             android:textSize="34sp"
@@ -37,7 +36,7 @@
 
             <Button
                 android:layout_weight="3"
-                android:id="@+id/btn_play_songs"
+                android:id="@+id/btn_play_music_of_artist"
                 android:text="Play"
                 android:textColor="@color/white"
                 android:layout_width="0dp"
@@ -50,7 +49,7 @@
 
             <Button
                 android:layout_weight="3"
-                android:id="@+id/btn_shuffle_songs"
+                android:id="@+id/btn_shuffle_music_of_artist"
                 android:layout_width="0dp"
                 android:text="Shuffle"
                 android:textColor="@color/white"
@@ -67,13 +66,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_weight="21"
-            android:id="@+id/recyclerview_songs"
+            android:id="@+id/recyclerview_music_of_artist"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"/>
 
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
