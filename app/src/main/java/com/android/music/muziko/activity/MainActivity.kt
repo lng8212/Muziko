@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.android.music.R
 import com.android.music.databinding.ActivityMainBinding
-import com.android.music.ui.PermissionProvider
+import com.android.music.muziko.PermissionProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 

@@ -11,9 +11,8 @@ import com.example.kookplayer.utlis.ImageUtils
 
 // class to get media from device
 class SongsRepository(val context: Context) {
+
     @SuppressLint("Range")
-
-
     fun createSongFromCursor(cursor: Cursor): Song {
         val title = cursor.getString(MediaStore.Audio.AudioColumns.TITLE)
         val duration = cursor.getLong(MediaStore.Audio.AudioColumns.DURATION)
