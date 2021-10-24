@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_library.xml" value="0.20925925925925926" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_notification_pause.xml" value="0.20925925925925926" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_notification_play.xml" value="0.20925925925925926" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_song.xml" value="0.21296296296296297" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/activity_main.xml" value="0.22135416666666666" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/activity_splash.xml" value="0.11979166666666667" />
@@ -12,6 +15,7 @@
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.25625" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/item_song.xml" value="0.25625" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/panel_header_on_collapsed.xml" value="0.25625" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/screen_muziko.xml" value="0.11458333333333333" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.25" />

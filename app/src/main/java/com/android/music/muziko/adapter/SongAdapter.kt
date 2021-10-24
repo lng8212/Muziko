@@ -14,7 +14,7 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
         var title = binding.txtTitle
         var artist = binding.txtArtist
         var imageSong = binding.imgSong
-        var menuBtn = binding.musicMenuBtn
+        //var menuBtn = binding.musicMenuBtn
         fun bind(song:Song){
             title.text = song.title
             artist.text = song.artist
