@@ -15,13 +15,16 @@ import com.android.music.ui.SongAdapter
 import com.android.music.ui.SongViewModel
 
 class SongFragment : Fragment() {
-    private lateinit var binding: FragmentSongBinding
-    private lateinit var songAdapter: SongAdapter
-    private lateinit var viewModel: SongViewModel
+    companion object{
+        lateinit var binding: FragmentSongBinding
+        lateinit var songAdapter: SongAdapter
+        lateinit var viewModel: SongViewModel
 
-    private fun notifyDataSetChange(){
-        viewModel.updateData()
+        fun notifyDataSetChange(){
+            viewModel.updateData()
+        }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemSongBinding
+import com.android.music.muziko.Coordinator
 import com.example.kookplayer.utlis.ImageUtils
 
 class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
-    var position = 0
+    var position = 0 // position of current item if click
     inner class SongViewHolder(private var binding: ItemSongBinding): RecyclerView.ViewHolder(binding.root){
         var title = binding.txtTitle
         var artist = binding.txtArtist
@@ -26,6 +27,14 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
                 )
             }
         }
+        fun onClickItem(){
+            binding.songContainer.setOnClickListener{
+                upDatePosition(adapterPosition)
+                Coordinator.sourceOfSelectedSong = "songs"
+                Coordinator.currentDataSource = listSong
+                Coordinator.playSelectedSong(listSong[adapterPosition])
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongAdapter.SongViewHolder {
@@ -38,10 +47,19 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
         this.position = position
         holder.apply {
             bind(song)
+            onClickItem()
         }
     }
 
     override fun getItemCount(): Int {
         return listSong.size
+    }
+
+    fun upDatePosition(newPosition: Int){
+        position = newPosition
+    }
+
+    fun getCurrentPosition():Int{
+        return position
     }
 }
