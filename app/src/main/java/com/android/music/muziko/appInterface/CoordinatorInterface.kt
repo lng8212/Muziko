@@ -1,8 +1,9 @@
 package com.android.music.muziko.appInterface
 
 import android.content.Context
-import com.android.music.muziko.MediaPlayerAgent
+import com.android.music.muziko.helper.MediaPlayerAgent
 import com.android.music.ui.Song
+import java.util.*
 
 interface CoordinatorInterface {
 
