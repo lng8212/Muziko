@@ -1,6 +1,8 @@
 package com.android.music.muziko.appInterface
 
 import com.android.music.muziko.model.Playlist
+import com.android.music.ui.Favorites
+import com.android.music.ui.Song
 
 interface RoomRepositoryInterface {
 
@@ -26,4 +28,13 @@ interface RoomRepositoryInterface {
     fun findPlaylistPositionInCachedArray(playlist: Playlist): Int
     fun getIdByName(name: String): Long
     fun getPlaylistById(id: Long): Playlist?
+
+
+    // ----------------------- favorite ------------------------
+
+    fun addSongToFavorites(songsId: Long)
+    fun removeSongFromFavorites(song: Song)
+    fun getFavoritesFromDatabase(): ArrayList<Favorites>
+    fun convertFavSongsToRealSongs(): ArrayList<Song>
+    fun songsIdToSongModelConverter(favSong: Favorites): Song?
 }
