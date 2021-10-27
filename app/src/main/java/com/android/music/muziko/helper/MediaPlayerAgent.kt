@@ -1,4 +1,4 @@
-package com.android.music.muziko
+package com.android.music.muziko.helper
 
 import android.content.Context
 import android.media.MediaPlayer

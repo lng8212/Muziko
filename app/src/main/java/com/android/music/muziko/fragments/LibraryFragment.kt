@@ -8,10 +8,15 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.android.music.R
 import com.android.music.databinding.FragmentLibraryBinding
+import com.android.music.ui.SongViewModel
 
 class LibraryFragment : Fragment() {
-
     private lateinit var binding: FragmentLibraryBinding
+
+    companion object{
+        const val DELETE_REQUEST_CODE = 2
+        lateinit var viewModel: SongViewModel
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +31,7 @@ class LibraryFragment : Fragment() {
         binding.layoutArtistsLibrary.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_library_to_artistsFragment)
         }
+
         return binding.root
     }
 }

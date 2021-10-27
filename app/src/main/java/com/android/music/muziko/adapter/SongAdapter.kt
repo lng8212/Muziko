@@ -1,12 +1,11 @@
 package com.android.music.ui
 
 import android.app.Activity
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemSongBinding
-import com.android.music.muziko.Coordinator
+import com.android.music.muziko.helper.Coordinator
 import com.example.kookplayer.utlis.ImageUtils
 
 class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
