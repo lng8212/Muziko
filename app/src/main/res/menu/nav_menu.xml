@@ -7,14 +7,14 @@
         android:title="Library" />
 
     <item
-        android:id="@+id/navigation_search"
-        android:icon="@drawable/ic_search"
-        android:title="Search" />
-
-    <item
         android:id="@+id/navigation_song"
         android:icon="@drawable/ic_song"
         android:title="Song" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search"
+        android:title="Search" />
 
     <item
         android:id="@+id/navigation_favourite"

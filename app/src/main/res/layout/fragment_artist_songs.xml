@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".muziko.fragments.PlaylistsFragment">
+    tools:context=".muziko.fragments.ArtistSongsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,11 +15,11 @@
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingTop="10dp"
             android:layout_weight="2"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:id="@+id/constraint_playlist_back_library">
+            android:id="@+id/constraint_back_artists"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="0dp"
@@ -32,7 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Library"
+                android:text="Artists"
                 android:textColor="@color/color_app"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -40,20 +40,10 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:layout_weight="3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:text="Playlists"
-            android:gravity="center_vertical"
-            android:textColor="@color/color_app"
-            android:textStyle="bold"
-            android:textSize="36sp"/>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_weight="4"
             android:layout_width="wrap_content"
-            android:id="@+id/constraint_add_playlist"
+            android:paddingTop="10dp"
             android:layout_height="0dp">
 
             <ImageView
@@ -61,14 +51,14 @@
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView2"
-                app:srcCompat="@drawable/ic_add_playlists_library" />
+                app:srcCompat="@drawable/ic_img_song" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:paddingLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New Playlist"
+                android:text="Selena Gomez"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:textColor="@color/color_app"
@@ -76,10 +66,58 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <LinearLayout
+            android:weightSum="10"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:layout_weight="3"
+                android:id="@+id/btn_play_artists_songs"
+                android:text="Play"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <Button
+                android:layout_weight="3"
+                android:id="@+id/btn_shuffle_artists_song"
+                android:layout_width="0dp"
+                android:text="Shuffle"
+                android:textColor="@color/white"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingTop="10dp"
-            android:layout_weight="23"
-            android:id="@+id/recyclerview_playlists_library"
+            android:layout_weight="22"
+            android:id="@+id/recyclerview_artists_songs"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:paddingLeft="5dp"
