@@ -1,4 +1,4 @@
-package com.android.music.muziko.`interface`
+package com.android.music.muziko.appInterface
 
 import android.content.Context
 import com.android.music.muziko.MediaPlayerAgent
