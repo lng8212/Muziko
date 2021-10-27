@@ -1,9 +1,8 @@
 package com.android.music.muziko
 
 import android.content.Context
-import com.android.music.muziko.`interface`.CoordinatorInterface
+import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.ui.Song
-import com.android.music.ui.fragments.LibraryFragment
 import com.android.music.ui.fragments.SongFragment
 
 
