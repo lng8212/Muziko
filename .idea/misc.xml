@@ -20,27 +20,13 @@
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/panel_header_on_collapsed.xml" value="0.25625" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/screen_muziko.xml" value="0.11458333333333333" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/activity_main.xml" value="0.1" />
-<<<<<<< HEAD
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_add_playlists.xml" value="0.264" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_artist_songs.xml" value="0.25" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_artists.xml" value="0.25" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.264" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_music_of_artists.xml" value="0.264" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_playlist_songs.xml" value="0.4" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_playlists.xml" value="0.264" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.25" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.264" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/item_favourite.xml" value="0.25" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/search.xml" value="0.25" />
-=======
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.1" />
->>>>>>> main
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.25" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/drawable/ic_favorite.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/drawable/ic_library.xml" value="0.19114583333333332" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.1" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.17864583333333334" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/item_favourite.xml" value="0.15462962962962962" />
