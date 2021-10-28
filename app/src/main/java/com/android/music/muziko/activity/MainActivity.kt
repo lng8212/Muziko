@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.android.music.R
 import com.android.music.databinding.ActivityMainBinding
 import com.android.music.muziko.PermissionProvider
+import com.android.music.muziko.repository.RoomRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -37,6 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         bining = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bining.root)
+
+        activity = this
+
+        RoomRepository.createDatabase()
 
         supportActionBar?.hide()
 
