@@ -11,13 +11,16 @@ import androidx.navigation.ui.setupWithNavController
 import com.android.music.R
 import com.android.music.databinding.ActivityMainBinding
 import com.android.music.muziko.PermissionProvider
+import com.android.music.muziko.fragments.PlayerPanelFragment
+import com.android.music.muziko.utils.ScreenSizeUtils.getScreenHeight
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var bining: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     companion object {
+        lateinit var playerPanelFragment: PlayerPanelFragment
         var permissionsGranted: Boolean = false
         //lateinit var playerPanelFragment: PlayerPanelFragment
         lateinit var activity: MainActivity
@@ -28,6 +31,9 @@ class MainActivity : AppCompatActivity() {
 
     var prefs: SharedPreferences? = null
 
+    fun updateVisibility() {
+        binding.slidingLayout.panelHeight = getScreenHeight() * 1 / 10
+    }
 
     private val permissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE
@@ -35,12 +41,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bining = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(bining.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.hide()
 
-        val navView: BottomNavigationView = bining.navView
+        val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 

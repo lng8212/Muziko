@@ -2,11 +2,13 @@ package com.android.music.ui
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemSongBinding
 import com.android.music.muziko.Coordinator
+import com.android.music.ui.activity.MainActivity
 import com.example.kookplayer.utlis.ImageUtils
 
 class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
@@ -15,6 +17,7 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
         var title = binding.txtTitle
         var artist = binding.txtArtist
         var imageSong = binding.imgSong
+        var itemRcv = binding.songContainer
         //var menuBtn = binding.musicMenuBtn
         fun bind(song:Song){
             title.text = song.title
@@ -28,11 +31,14 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
             }
         }
         fun onClickItem(){
-            binding.songContainer.setOnClickListener{
+            binding.imgSong.setOnClickListener{
+                Log.e("adapter songs", "onClick")
                 upDatePosition(adapterPosition)
+                Coordinator.setup(context)
                 Coordinator.sourceOfSelectedSong = "songs"
                 Coordinator.currentDataSource = listSong
                 Coordinator.playSelectedSong(listSong[adapterPosition])
+                MainActivity.activity.updateVisibility()
             }
         }
     }
@@ -47,8 +53,18 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
         this.position = position
         holder.apply {
             bind(song)
+            Log.e("adapter", "bind")
             onClickItem()
         }
+//        holder.itemRcv.setOnClickListener {
+//            Log.e("adapter songs", "onClick")
+//            upDatePosition(getCurrentPosition())
+//            Coordinator.setup(context)
+//            Coordinator.sourceOfSelectedSong = "songs"
+//            Coordinator.currentDataSource = listSong
+//            Coordinator.playSelectedSong(listSong[getCurrentPosition()])
+//            MainActivity.activity.updateVisibility()
+//        }
     }
 
     override fun getItemCount(): Int {

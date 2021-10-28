@@ -3,22 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable-v24/circle_bg.xml" value="0.2109375" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable-v24/ic_music_background.xml" value="0.23645833333333333" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable-v24/ic_remote_next.xml" value="0.2109375" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_favored.xml" value="0.27239583333333334" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_library.xml" value="0.20925925925925926" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_notification_pause.xml" value="0.20925925925925926" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_notification_play.xml" value="0.20925925925925926" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_song.xml" value="0.21296296296296297" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_unfavored.xml" value="0.27239583333333334" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/activity_main.xml" value="0.22135416666666666" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/activity_splash.xml" value="0.11979166666666667" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.25" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_music_of_artists.xml" value="0.2734375" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_player_panel.xml" value="0.2" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.22135416666666666" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.25625" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/item_favourite.xml" value="0.2734375" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/item_music_of_artists.xml" value="0.2734375" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/item_song.xml" value="0.25625" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/panel_header_on_collapsed.xml" value="0.25625" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/panel_header_on_expanded.xml" value="0.19479166666666667" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/player_remote.xml" value="0.2" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/screen_muziko.xml" value="0.11458333333333333" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/search.xml" value="0.2203125" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.25" />

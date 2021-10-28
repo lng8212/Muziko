@@ -1,9 +1,10 @@
 package com.android.music.muziko
 
 import android.content.Context
-import com.android.music.muziko.`interface`.CoordinatorInterface
+import android.util.Log
+import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.ui.Song
-import com.android.music.ui.fragments.LibraryFragment
+import com.android.music.ui.activity.MainActivity
 import com.android.music.ui.fragments.SongFragment
 
 
@@ -11,11 +12,17 @@ import com.android.music.ui.fragments.SongFragment
 object Coordinator : CoordinatorInterface {
     override lateinit var nowPlayingQueue: ArrayList<Song>
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
-    override var position: Int = SongFragment.songAdapter.getCurrentPosition()
+    override var position: Int = SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
     var sourceOfSelectedSong = "songs" // source of current song, can be "playlist_name" or favourite
     var currentDataSource = arrayListOf<Song>() // list of songs to play
 
-    override fun setup(context: Context) {
+    var currentPlayingSong: Song? = null // song is playing
+        set(value) {
+            field = value
+            MainActivity.playerPanelFragment.updatePanel()
+        }
+
+    override fun setup(context: Context) { // set up mediaPlayer
         mediaPlayerAgent = MediaPlayerAgent(context)
     }
 
@@ -32,7 +39,8 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun play(song: String) {
-        TODO("Not yet implemented")
+        Log.e("media", "play")
+        mediaPlayerAgent.playMusic(song)
     }
 
     override fun resume() {
@@ -60,7 +68,17 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun playSelectedSong(song: Song) {
-        TODO("Not yet implemented")
+        Log.e("Coordinator", "play")
+        updatePlayerVar(song)
+
+        updateNowPlayingQueue()
+        song.data?.let { play(it) }
+
+    }
+
+    fun updatePlayerVar(song: Song) {
+        currentPlayingSong = song
+        MainActivity.playerPanelFragment.updatePanel()
     }
 
     override fun getPositionInPlayer(): Int {
