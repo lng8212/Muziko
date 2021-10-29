@@ -4,11 +4,10 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.music.R
 import com.android.music.databinding.ItemPlaylistsLibraryBinding
 import com.android.music.muziko.model.Playlist
 
-class PlaylistAdapter (var context: Activity, arrayList: ArrayList<Playlist>) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>(){
+class PlaylistAdapter (var arrayList: ArrayList<Playlist>, val context: Activity) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>(){
 
     var dataset: ArrayList<Playlist>
 

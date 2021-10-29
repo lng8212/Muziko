@@ -11,6 +11,12 @@ class PlaylistRepository (val context: Context?) :
         RoomRepository.createPlaylist(playlist)
     }
 
+    override fun createPlaylist(name: String, countOfSongs: Int, songs: String) {
+
+        val playlist = Playlist(name, countOfSongs, songs)
+        RoomRepository.createPlaylist(playlist)
+    }
+
     override fun getPlaylists(): ArrayList<Playlist> {
         return RoomRepository.cachedPlaylistArray
     }
