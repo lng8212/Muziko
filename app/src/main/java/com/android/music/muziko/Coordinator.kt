@@ -12,14 +12,16 @@ import com.android.music.ui.fragments.SongFragment
 object Coordinator : CoordinatorInterface {
     override lateinit var nowPlayingQueue: ArrayList<Song>
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
-    override var position: Int = SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
-    var sourceOfSelectedSong = "songs" // source of current song, can be "playlist_name" or favourite
+    override var position: Int =
+        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
+    var sourceOfSelectedSong =
+        "songs" // source of current song, can be "playlist_name" or favourite
     var currentDataSource = arrayListOf<Song>() // list of songs to play
 
     var currentPlayingSong: Song? = null // song is playing
         set(value) {
             field = value
-            MainActivity.playerPanelFragment.updatePanel()
+            //MainActivity.playerPanelFragment.updatePanel()
         }
 
     override fun setup(context: Context) { // set up mediaPlayer
@@ -78,7 +80,7 @@ object Coordinator : CoordinatorInterface {
 
     fun updatePlayerVar(song: Song) {
         currentPlayingSong = song
-        MainActivity.playerPanelFragment.updatePanel()
+//        MainActivity.playerPanelFragment.updatePanel()
     }
 
     override fun getPositionInPlayer(): Int {
