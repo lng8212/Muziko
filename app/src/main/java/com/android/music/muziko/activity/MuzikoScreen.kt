@@ -15,7 +15,6 @@ class MuzikoScreen : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
         setContentView(R.layout.screen_muziko)
