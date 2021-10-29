@@ -4,6 +4,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.music.muziko.appInterface.RoomRepositoryInterface
 import com.android.music.muziko.model.MyDatabase
 import com.android.music.muziko.model.Playlist
+import com.android.music.muziko.utils.DatabaseConverterUtils
 import com.android.music.muziko.utils.SongUtils
 import com.android.music.ui.Favorites
 import com.android.music.ui.Song
@@ -18,6 +19,9 @@ object RoomRepository : RoomRepositoryInterface{
     var cachedPlaylistArray = ArrayList<Playlist>()
     var cachedFavArray_Favorites = ArrayList<Favorites>()
     var cachedFavArray = ArrayList<Song>()
+
+
+    //    ----------------------------------------------- Database ----------------------------------------------------
     override fun createDatabase() {
         localDatabase = MyDatabase.getDatabase(
             MainActivity.activity.baseContext!!,
@@ -26,6 +30,13 @@ object RoomRepository : RoomRepositoryInterface{
         applicationScope.launch {
             cachedPlaylistArray = getPlaylistFromDatabase()
             cachedFavArray_Favorites = getFavoritesFromDatabase()
+        }
+    }
+
+    //    ----------------------------------------------- Playlist ----------------------------------------------------
+    override fun updateCachedPlaylist() {
+        GlobalScope.launch {
+            cachedPlaylistArray = getPlaylistFromDatabase()
         }
     }
 
@@ -48,11 +59,30 @@ object RoomRepository : RoomRepositoryInterface{
     }
 
     override fun getPlaylists(): ArrayList<Playlist> {
-        TODO("Not yet implemented")
+        return cachedPlaylistArray
     }
 
     override fun addSongsToPlaylist(playlist_name: String, songsId: String): Boolean {
-        TODO("Not yet implemented")
+
+        val playlist = getPlaylistById(getIdByName(playlist_name))
+
+//        add song to playlist object
+        if (playlist != null) {
+
+            val position = findPlaylistPositionInCachedArray(playlist)
+
+            if (position >= 0) {
+                addSongsToPlaylistInObject(
+                    cachedPlaylistArray[position],
+                    songsId
+                )
+            }
+
+            addSongsToPlaylistInDatabase(playlist, songsId)
+
+        }
+
+        return true
     }
 
     override fun removeSongFromPlaylist(playlistId: Long, songsId: String) {
@@ -83,41 +113,89 @@ object RoomRepository : RoomRepositoryInterface{
         }
     }
 
-    override fun listOfPlaylistsContainSpecificSong(songId: Long): ArrayList<Long> {
-        TODO("Not yet implemented")
+    override fun listOfPlaylistsContainSpecificSong(songId: Long): ArrayList<Long>
+    {
+        var pls = arrayListOf<Long>()
+
+        for(playlist in cachedPlaylistArray)
+        {
+            val ids = DatabaseConverterUtils.stringToArraylist(playlist.songs)
+            for(id in ids)
+            {
+                if (id.toLong() == songId)
+                {
+                    pls.add(playlist.id)
+                }
+            }
+        }
+
+        return pls
     }
 
     override fun removeSongFromPlaylistObject(playlist: Playlist, songsId: String) {
-        TODO("Not yet implemented")
+        val songsInAray = DatabaseConverterUtils.stringToArraylist(playlist.songs)
+        songsInAray.remove(songsId)
+        val songsInString = DatabaseConverterUtils.arraylistToString(songsInAray)
+        playlist.songs = songsInString
     }
 
     override fun decreaseCountInDatabase(playlistId: Long, countOfSongs: Int) {
-        TODO("Not yet implemented")
+
+        GlobalScope.launch {
+            localDatabase.playlistDAO()
+                .setCountOfSongs(playlistId, countOfSongs)
+
+        }
     }
 
     override fun increaseCountInPlaylistObject(playlist: Playlist) {
-        TODO("Not yet implemented")
+        playlist.countOfSongs = playlist.countOfSongs + 1
     }
 
     override fun increaseCountInDatabase(playlist: Playlist) {
-        TODO("Not yet implemented")
+        GlobalScope.launch {
+            localDatabase.playlistDAO()
+                .setCountOfSongs(playlist.id, playlist.countOfSongs)
+        }
     }
 
     override fun addSongsToPlaylistInObject(playlist: Playlist, songsId: String) {
-        TODO("Not yet implemented")
+
+        val position = findPlaylistPositionInCachedArray(playlist)
+
+        cachedPlaylistArray[position].songs =
+            cachedPlaylistArray[position].songs + songsId + ","
+
+        increaseCountInPlaylistObject(cachedPlaylistArray[position])
     }
 
     override fun addSongsToPlaylistInDatabase(playlist: Playlist, songsId: String) {
-        TODO("Not yet implemented")
+
+        runBlocking {
+
+            if (playlist != null) {
+                for (song_id in songsId) {
+                    localDatabase.playlistDAO().addSongToPlaylist(
+                        playlist.id,
+                        playlist.songs
+                    )
+                }
+                increaseCountInDatabase(playlist)
+            }
+//            TODO(Toast : operation failed! please try later)
+        }
     }
 
-    override fun getPlaylistFromDatabase(): ArrayList<Playlist> {
-        TODO("Not yet implemented")
-    }
+    override fun getPlaylistFromDatabase(): ArrayList<Playlist> =
+        runBlocking {
+            val playlistsList = localDatabase.playlistDAO().getPlaylists()
+            val arrayList = arrayListOf<Playlist>()
+            for (playlist in playlistsList) {
+                arrayList.add(playlist)
+            }
+            return@runBlocking arrayList
+        }
 
-    override fun updateCachedPlaylist() {
-        TODO("Not yet implemented")
-    }
 
     override fun findPlaylistPositionInCachedArray(playlist: Playlist): Int {
         TODO("Not yet implemented")
