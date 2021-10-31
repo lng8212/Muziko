@@ -3,9 +3,10 @@ package com.android.music.muziko.repository
 import com.android.music.muziko.appInterface.PlaylistPageRepositoryInterface
 import com.android.music.muziko.utils.DatabaseConverterUtils
 import com.android.music.ui.Song
+import com.android.music.ui.fragments.SongFragment
 import kotlinx.coroutines.runBlocking
 
-class PlaylistPageRepository(private val playlistId: Long):
+class PlaylistSongRepository(private val playlistId: String, val array: ArrayList<Song>):
     PlaylistPageRepositoryInterface{
     override fun getSongsIdFromDatabase(): String {
         var songsOfPlaylist: String = ""
@@ -16,7 +17,13 @@ class PlaylistPageRepository(private val playlistId: Long):
     }
 
     override fun songsIdToSongModelConverter(songId: String): Song? {
-        TODO("Not yet implemented")
+
+        for (song in array) {
+            if (song.id == songId.toLong()) {
+                return song
+            }
+        }
+        return null
     }
 
     override fun getSongs(): ArrayList<Song> {

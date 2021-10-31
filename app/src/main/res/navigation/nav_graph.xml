@@ -83,6 +83,9 @@
             app:destination="@id/playlistsFragment"
             app:popUpTo="@id/playlistsFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="myArg"
+            app:argType="com.android.music.muziko.model.Playlist" />
     </fragment>
     <fragment
         android:id="@+id/artistSongsFragment"

@@ -13,7 +13,7 @@ interface PlaylistDAO {
 
 
     @Query("DELETE FROM playlist_table WHERE id = :playlistId")
-    suspend fun deletePlaylist(playlistId: Long)
+    suspend fun deletePlaylist(playlistId: String)
 
 
     @Query("DELETE FROM playlist_table")
@@ -25,18 +25,18 @@ interface PlaylistDAO {
 
 
     @Query("UPDATE playlist_table SET songs=:songs WHERE id = :id")
-    suspend fun addSongToPlaylist(id: Long, songs: String)
+    suspend fun addSongToPlaylist(id: String, songs: String)
 
     @Query("SELECT songs FROM playlist_table WHERE id = :id")
-    suspend fun getSongsOfPlaylist(id: Long): String
+    suspend fun getSongsOfPlaylist(id: String): String
 
     @Query("SELECT countOfSongs FROM playlist_table WHERE id = :id")
-    fun getCountOfSongsInPlaylist(id: Long): Int
+    fun getCountOfSongsInPlaylist(id: String): Int
 
     @Query("UPDATE playlist_table SET countOfSongs = :count WHERE id = :id")
-    fun setCountOfSongs(id: Long, count: Int)
+    fun setCountOfSongs(id: String, count: Int)
 
     @Query("UPDATE playlist_table SET songs = :songs WHERE id = :id")
-    fun updateSongs(id: Long, songs: String)
+    fun updateSongs(id: String, songs: String)
 
 }
