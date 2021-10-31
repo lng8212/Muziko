@@ -18,8 +18,6 @@ import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.KeyboardUtils.hideKeyboard
 import com.android.music.ui.Song
 import com.android.music.ui.SongsRepository
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
 
@@ -60,6 +58,7 @@ class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
 
                 PlaylistsFragment.viewModel?.playlistRepository?.createPlaylist(binding.editTxtNamePlaylistsAddFragment.text.toString().uppercase(), selectedSongs.size, res)
                 PlaylistsFragment.viewModel?.updateDataset()
+
 
                 try {
                     selectedSongs.clear()

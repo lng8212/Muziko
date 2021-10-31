@@ -50,11 +50,11 @@
                 android:id="@+id/imageView"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView2"
+                app:layout_constraintEnd_toStartOf="@+id/txt_name_playlist_song"
                 app:srcCompat="@drawable/ic_img_song" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/txt_name_playlist_song"
                 android:paddingLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
