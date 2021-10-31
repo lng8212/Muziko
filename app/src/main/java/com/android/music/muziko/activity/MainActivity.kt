@@ -17,6 +17,7 @@ import com.android.music.databinding.ActivityMainBinding
 import com.android.music.muziko.PermissionProvider
 import com.android.music.muziko.fragments.MainFragment
 import com.android.music.muziko.fragments.PlayerPanelFragment
+import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.utils.ScreenSizeUtils.getScreenHeight
 import com.android.music.ui.Song
@@ -166,5 +167,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Coordinator.mediaPlayerAgent.stop()
+    }
 
 }
