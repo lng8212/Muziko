@@ -1,6 +1,7 @@
 package com.android.music.muziko.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +16,18 @@ import com.android.music.muziko.adapter.PlaylistAdapter
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.viewmodel.PlaylistViewModel
 
-class PlaylistsFragment : Fragment() {
-
-    var playlistAdapter: PlaylistAdapter? = null
+class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
 
     companion object {
-        var viewModel: PlaylistViewModel? = null
+        lateinit var binding: FragmentPlaylistsBinding
+        lateinit var playlistAdapter: PlaylistAdapter
+        lateinit var viewModel: PlaylistViewModel
+
+        fun notifyDataSetChange(){
+            viewModel.updateDataset()
+        }
     }
 
-    private lateinit var binding: FragmentPlaylistsBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,33 +42,39 @@ class PlaylistsFragment : Fragment() {
             findNavController().navigate(R.id.action_playlistsFragment_to_addPlaylistsFragment)
         }
 
-        setupViewModel()
-
-        playlistAdapter = activity?.let {
-            PlaylistAdapter(
-                it,
-                viewModel?.dataset?.value as ArrayList<Playlist>
-            )
-        }
-
         return binding.root
     }
 
-    private fun setupViewModel()
-    {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(PlaylistViewModel::class.java)
-        context?.let { viewModel?.setFragmentContext(it) }
-        viewModel!!.dataset.observe(viewLifecycleOwner, playlistUpdateObserver)
+
+        context?.let { viewModel.setFragmentContext(it) }
+
+        val playlistUpdateObserver = Observer<ArrayList<Playlist>> {
+            playlistAdapter.dataset = it
+            binding.recyclerviewPlaylistsLibrary.adapter = playlistAdapter
+        }
+        viewModel.dataset.observe(viewLifecycleOwner, playlistUpdateObserver)
+        playlistAdapter = activity?.let { viewModel.dataset.value?.let { it1 -> PlaylistAdapter(it1, it, this) } }!!
         val recyclerview = binding.recyclerviewPlaylistsLibrary
         recyclerview.apply {
             adapter = playlistAdapter
             layoutManager = LinearLayoutManager(context)
         }
+
+        notifyDataSetChange()
     }
 
-    private val playlistUpdateObserver = Observer<ArrayList<Any>> { dataset ->
-        playlistAdapter?.dataset = dataset as ArrayList<Playlist>
-        binding.recyclerviewPlaylistsLibrary.adapter = playlistAdapter
+
+    override fun onItemClick(position: Int) {
+        val playlist = playlistAdapter.arrayList[position]
+        Log.e("id", playlist.id.toString())
+        Log.e("playlist", playlist.toString())
+        val action = PlaylistsFragmentDirections.actionPlaylistsFragmentToPlaylistSongsFragment(playlist)
+        findNavController().navigate(action)
     }
+
 
 }

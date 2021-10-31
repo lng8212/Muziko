@@ -78,7 +78,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:paddingTop="10dp"
-            android:layout_weight="23"
+            android:paddingBottom="10dp"
+            android:layout_weight="21"
             android:id="@+id/recyclerview_playlists_library"
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -2,14 +2,14 @@ package com.android.music.muziko.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.repository.PlaylistRepository
 
-class PlaylistViewModel : BaseViewModel(){
+class PlaylistViewModel : ViewModel(){
 
-    override var dataset: MutableLiveData<ArrayList<Any>> = MutableLiveData()
+    var dataset: MutableLiveData<ArrayList<Playlist>> = MutableLiveData()
     lateinit var playlistRepository: PlaylistRepository
-
 
     init {
         dataset.value = ArrayList()
@@ -17,15 +17,11 @@ class PlaylistViewModel : BaseViewModel(){
 
     fun setFragmentContext(context: Context) {
         playlistRepository = PlaylistRepository(context)
-        fillRecyclerView()
-    }
-
-    override fun fillRecyclerView() {
         updateDataset()
     }
 
-    override fun updateDataset() {
-        dataset.value = playlistRepository.getPlaylists()!! as ArrayList<Any>
+    fun updateDataset() {
+        dataset.value = playlistRepository.getPlaylists()
     }
 
     fun getDataSet(): ArrayList<Playlist> {
