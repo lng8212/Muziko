@@ -1,4 +1,4 @@
-package com.example.kookplayer.utlis
+package com.android.music.muziko.utils
 
 import android.content.ContentUris
 import android.content.Context
@@ -10,7 +10,6 @@ import com.android.music.R
 import com.android.music.ui.FilePathUtlis
 import com.bumptech.glide.Glide
 import java.io.FileDescriptor
-import java.lang.Exception
 
 
 object ImageUtils {
@@ -34,7 +33,7 @@ object ImageUtils {
                 var fileDescriptor: FileDescriptor? = pfd.fileDescriptor
                 bm = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options)
             }
-        } catch (exception: Exception) {
+        } catch (exception: java.lang.Exception) {
 //           TODO(handle the exception)
         }
 

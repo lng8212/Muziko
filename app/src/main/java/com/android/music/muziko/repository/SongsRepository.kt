@@ -7,7 +7,7 @@ import android.database.Cursor
 import android.media.MediaMetadataRetriever
 import android.provider.MediaStore
 import com.example.kookplayer.utlis.FileUtils
-import com.example.kookplayer.utlis.ImageUtils
+import com.android.music.muziko.utils.ImageUtils
 
 // class to get media from device
 class SongsRepository(val context: Context) {
