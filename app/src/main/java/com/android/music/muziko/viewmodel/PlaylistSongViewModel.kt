@@ -9,13 +9,13 @@ class PlaylistSongViewModel : ViewModel(){
 
     var dataset: MutableLiveData<ArrayList<Song>> = MutableLiveData()
     lateinit var playlistSongRepository: PlaylistSongRepository
-    private var playlistId: Long = -1L
+    private var playlistId: String = ""
 
     init {
         dataset.value = ArrayList()
     }
 
-    fun setPlaylistId(pId: Long, array: ArrayList<Song>)
+    fun setPlaylistId(pId: String, array: ArrayList<Song>)
     {
         playlistId = pId
         playlistSongRepository = PlaylistSongRepository(playlistId, array)

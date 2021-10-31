@@ -47,7 +47,7 @@ object RoomRepository : RoomRepositoryInterface{
         cachedPlaylistArray.add(playlist)
     }
 
-    override fun removePlaylist(id: Long): Boolean {
+    override fun removePlaylist(id: String): Boolean {
         applicationScope.launch {
             localDatabase.playlistDAO().deletePlaylist(id)
 
@@ -85,7 +85,7 @@ object RoomRepository : RoomRepositoryInterface{
         return true
     }
 
-    override fun removeSongFromPlaylist(playlistId: Long, songsId: String) {
+    override fun removeSongFromPlaylist(playlistId: String, songsId: String) {
         val playlist = getPlaylistById(playlistId)
 
 
@@ -113,9 +113,9 @@ object RoomRepository : RoomRepositoryInterface{
         }
     }
 
-    override fun listOfPlaylistsContainSpecificSong(songId: Long): ArrayList<Long>
+    override fun listOfPlaylistsContainSpecificSong(songId: Long): ArrayList<String>
     {
-        var pls = arrayListOf<Long>()
+        var pls = arrayListOf<String>()
 
         for(playlist in cachedPlaylistArray)
         {
@@ -139,7 +139,7 @@ object RoomRepository : RoomRepositoryInterface{
         playlist.songs = songsInString
     }
 
-    override fun decreaseCountInDatabase(playlistId: Long, countOfSongs: Int) {
+    override fun decreaseCountInDatabase(playlistId: String, countOfSongs: Int) {
 
         GlobalScope.launch {
             localDatabase.playlistDAO()
@@ -201,11 +201,11 @@ object RoomRepository : RoomRepositoryInterface{
         TODO("Not yet implemented")
     }
 
-    override fun getIdByName(name: String): Long {
+    override fun getIdByName(name: String): String {
         TODO("Not yet implemented")
     }
 
-    override fun getPlaylistById(id: Long): Playlist? {
+    override fun getPlaylistById(id: String): Playlist? {
         TODO("Not yet implemented")
     }
 

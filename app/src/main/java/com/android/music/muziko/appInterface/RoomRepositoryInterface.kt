@@ -11,13 +11,13 @@ interface RoomRepositoryInterface {
 
     // ----------------------- playlist ------------------------
     fun createPlaylist(playlist: Playlist)
-    fun removePlaylist(id: Long): Boolean
+    fun removePlaylist(id: String): Boolean
     fun getPlaylists(): ArrayList<Playlist>
     fun addSongsToPlaylist(playlist_name: String, songsId: String): Boolean
-    fun removeSongFromPlaylist(playlistId: Long, songsId: String)
-    fun listOfPlaylistsContainSpecificSong(songId: Long): ArrayList<Long>
+    fun removeSongFromPlaylist(playlistId: String, songsId: String)
+    fun listOfPlaylistsContainSpecificSong(songId: Long): ArrayList<String>
     fun removeSongFromPlaylistObject(playlist: Playlist, songsId: String) //check
-    fun decreaseCountInDatabase(playlistId: Long, countOfSongs: Int)
+    fun decreaseCountInDatabase(playlistId: String, countOfSongs: Int)
     fun increaseCountInPlaylistObject(playlist: Playlist)
     fun increaseCountInDatabase(playlist: Playlist)
     fun addSongsToPlaylistInObject(playlist: Playlist, songsId: String) //check
@@ -26,8 +26,8 @@ interface RoomRepositoryInterface {
 
     fun updateCachedPlaylist()
     fun findPlaylistPositionInCachedArray(playlist: Playlist): Int
-    fun getIdByName(name: String): Long
-    fun getPlaylistById(id: Long): Playlist?
+    fun getIdByName(name: String): String
+    fun getPlaylistById(id: String): Playlist?
 
 
     // ----------------------- favorite ------------------------
