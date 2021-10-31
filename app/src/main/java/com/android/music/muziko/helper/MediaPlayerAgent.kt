@@ -13,9 +13,7 @@ class MediaPlayerAgent(val context: Context) {
     private var mediaPlayer = MediaPlayer()
     fun playMusic(data: String) {
         val uri: Uri = Uri.parse(data)
-
         mediaPlayer.release()
-
         mediaPlayer = MediaPlayer.create(context, uri)
         mediaPlayer.start()
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O)
@@ -37,6 +35,10 @@ class MediaPlayerAgent(val context: Context) {
 
     fun resumePlaying() {
         mediaPlayer.start()
+    }
+
+    fun stop() {
+        mediaPlayer.stop()
     }
 
 

@@ -50,7 +50,7 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun stop() {
-        TODO("Not yet implemented")
+        mediaPlayerAgent.stop()
     }
 
     override fun release() {
