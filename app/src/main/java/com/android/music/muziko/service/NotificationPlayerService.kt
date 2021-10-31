@@ -151,6 +151,10 @@ class NotificationPlayerService : Service() {
         return null
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        
+    }
 
     private val broadcastNotificationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         @RequiresApi(Build.VERSION_CODES.O)
