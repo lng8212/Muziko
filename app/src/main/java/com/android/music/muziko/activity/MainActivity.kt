@@ -20,6 +20,7 @@ import com.android.music.muziko.fragments.PlayerPanelFragment
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.utils.ScreenSizeUtils.getScreenHeight
 import com.android.music.ui.Song
+import com.android.music.muziko.repository.RoomRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
@@ -62,6 +63,10 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        activity = this
+
+        RoomRepository.createDatabase()
 
         supportActionBar?.hide()
 

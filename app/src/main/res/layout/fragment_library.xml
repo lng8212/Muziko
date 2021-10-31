@@ -6,14 +6,124 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.LibraryFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Library Fragment"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="26"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_weight="3"
+            android:text="Library"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="36sp"
+            android:textColor="@color/color_app"
+            android:layout_marginStart="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/background_library"
+                android:weightSum="20"
+                android:layout_weight="1"
+                android:id="@+id/layout_playlists_library"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_playlists_library"/>
+
+                <TextView
+                    android:layout_weight="16"
+                    android:layout_width="0dp"
+                    android:text="Playlists"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:layout_height="match_parent"/>
+
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_menu_library"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/background_library"
+                android:weightSum="20"
+                android:layout_weight="1"
+                android:id="@+id/layout_artists_library"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_artists_library"/>
+
+                <TextView
+                    android:layout_weight="16"
+                    android:layout_width="0dp"
+                    android:text="Artists"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:textStyle="normal"
+                    android:textColor="@color/black"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_menu_library"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="Recently Played"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_app"
+            android:layout_marginStart="20dp"
+            android:textStyle="bold"
+            android:textSize="24sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginStart="20dp"
+            android:layout_weight="17"
+            android:id="@+id/recyclerview_library"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

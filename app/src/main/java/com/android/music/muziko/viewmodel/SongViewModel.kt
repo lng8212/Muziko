@@ -19,4 +19,7 @@ class SongViewModel : ViewModel() {
     fun updateData() {
         liveListSong.value = songsRepository.getListOfSongs()
     }
+    fun getData(): ArrayList<Song> {
+        return liveListSong.value as ArrayList<Song>
+    }
 }
