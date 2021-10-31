@@ -6,7 +6,7 @@ import com.android.music.ui.Song
 import com.android.music.ui.fragments.SongFragment
 import kotlinx.coroutines.runBlocking
 
-class PlaylistSongRepository(private val playlistId: Long, val array: ArrayList<Song>):
+class PlaylistSongRepository(private val playlistId: String, val array: ArrayList<Song>):
     PlaylistPageRepositoryInterface{
     override fun getSongsIdFromDatabase(): String {
         var songsOfPlaylist: String = ""

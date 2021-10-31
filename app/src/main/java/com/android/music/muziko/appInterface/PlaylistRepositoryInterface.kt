@@ -10,5 +10,5 @@ interface PlaylistRepositoryInterface {
     fun getPlaylists(): ArrayList<Playlist>
 
     //    fun updateDatabase(): Boolean
-    fun removePlaylist(id: Long): Boolean
+    fun removePlaylist(id: String): Boolean
 }
