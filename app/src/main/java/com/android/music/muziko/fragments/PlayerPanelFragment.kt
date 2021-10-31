@@ -1,6 +1,7 @@
 package com.android.music.muziko.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,12 +25,14 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentPlayerPanelBinding.inflate(layoutInflater,container,false)
+        Log.e("Player panel", "init")
+        binding = FragmentPlayerPanelBinding.inflate(inflater,container,false)
 
         return binding.root
     }
 
     fun updatePanel() {
+        Log.e("Player panel", "update panel")
         setSongTitle()
         setSongImage()
 

@@ -4,9 +4,13 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
+import android.util.Log
+import com.android.music.muziko.service.NotificationPlayerService
+import com.android.music.ui.activity.MainActivity
 
 // class for controlling mediaPlayer
 class MediaPlayerAgent(val context: Context) {
+    private var mediaPlayer = MediaPlayer()
     fun playMusic(data: String) {
         val uri: Uri = Uri.parse(data)
 
@@ -19,9 +23,21 @@ class MediaPlayerAgent(val context: Context) {
     }
 
     private fun playAsService() {
-
+        Log.e("media agent", "play as service")
+        NotificationPlayerService.stopNotification(MainActivity.activity.baseContext)
+        NotificationPlayerService.startNotification(
+            MainActivity.activity.baseContext,
+            "start notif"
+        )
     }
 
-    private var mediaPlayer = MediaPlayer()
+    fun pauseMusic() {
+        mediaPlayer.pause()
+    }
+
+    fun resumePlaying() {
+        mediaPlayer.start()
+    }
+
 
 }

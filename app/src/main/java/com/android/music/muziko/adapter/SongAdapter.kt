@@ -37,7 +37,7 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
                 Coordinator.sourceOfSelectedSong = "songs"
                 Coordinator.currentDataSource = listSong
                 Coordinator.playSelectedSong(listSong[adapterPosition])
-                MainActivity.activity.updateVisibility()
+                MainActivity.activity.updateVisibility(listSong[adapterPosition])
             }
         }
     }

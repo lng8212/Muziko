@@ -37,7 +37,7 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun pause() {
-        TODO("Not yet implemented")
+        mediaPlayerAgent.pauseMusic()
     }
 
     override fun play(song: String) {
@@ -46,7 +46,7 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun resume() {
-        TODO("Not yet implemented")
+        mediaPlayerAgent.resumePlaying()
     }
 
     override fun stop() {
@@ -73,13 +73,14 @@ object Coordinator : CoordinatorInterface {
         Log.e("Coordinator", "play")
         updatePlayerVar(song)
 
-        updateNowPlayingQueue()
+        //updateNowPlayingQueue()
         song.data?.let { play(it) }
 
     }
 
     fun updatePlayerVar(song: Song) {
         currentPlayingSong = song
+        Log.e("song ", currentPlayingSong.toString())
 //        MainActivity.playerPanelFragment.updatePanel()
     }
 
