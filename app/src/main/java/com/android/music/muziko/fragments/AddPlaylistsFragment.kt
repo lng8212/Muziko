@@ -32,7 +32,7 @@ class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddPlaylistsBinding.inflate(inflater, container, false)
-
+        selectedSongs = ArrayList()
         binding.txtCancelAddPlaylistsFragment.setOnClickListener {
 
             try {
