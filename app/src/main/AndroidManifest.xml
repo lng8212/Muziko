@@ -36,6 +36,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <service android:name="com.android.music.muziko.service.NotificationPlayerService" />
+        <receiver android:name="com.android.music.muziko.service.NotificationBroadcastReceiver" />
     </application>
+
 
 </manifest>

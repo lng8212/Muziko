@@ -1,5 +1,6 @@
 package com.android.music.muziko.repository
 
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.android.music.muziko.appInterface.RoomRepositoryInterface
 import com.android.music.muziko.model.MyDatabase
@@ -44,6 +45,7 @@ object RoomRepository : RoomRepositoryInterface{
         applicationScope.launch {
             localDatabase.playlistDAO().addPlaylist(playlist)
         }
+        Log.e("room repo", playlist.id.toString())
         cachedPlaylistArray.add(playlist)
     }
 
