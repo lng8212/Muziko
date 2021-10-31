@@ -14,7 +14,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.android.music.R
-import com.android.music.muziko.Coordinator
+import com.android.music.muziko.helper.Coordinator
+
 import com.android.music.ui.activity.MainActivity
 
 
@@ -26,7 +27,7 @@ class NotificationPlayerService : Service() {
     companion object {
 
         fun startNotification(context: Context, message: String) {
-            Log.e("service","start noti" )
+            Log.e("service", "start noti")
             val intent = Intent(context, NotificationPlayerService::class.java)
             intent.putExtra("inputExtra", message)
             ContextCompat.startForegroundService(context, intent)
@@ -166,14 +167,5 @@ class NotificationPlayerService : Service() {
             }
 
         }
-import android.app.Service
-import android.content.Intent
-import android.os.IBinder
-
-class NotificationPlayerService: Service() {
-
-
-    override fun onBind(intent: Intent?): IBinder? {
-        TODO("Not yet implemented")
     }
 }

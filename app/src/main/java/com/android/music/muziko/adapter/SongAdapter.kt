@@ -6,11 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemSongBinding
-import com.android.music.muziko.Coordinator
 import com.android.music.ui.activity.MainActivity
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.helper.Coordinator
-import com.example.kookplayer.utlis.ImageUtils
 
 class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
     var position = 0 // position of current item if click

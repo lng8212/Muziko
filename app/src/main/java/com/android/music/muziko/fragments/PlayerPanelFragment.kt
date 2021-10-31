@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.android.music.databinding.FragmentPlayerPanelBinding
-import com.android.music.muziko.Coordinator
 import com.android.music.muziko.appInterface.PlayerPanelInterface
+import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.TimeUtils
 import com.android.music.muziko.utils.ImageUtils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout

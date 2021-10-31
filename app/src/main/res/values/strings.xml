@@ -66,7 +66,9 @@
     <string name="play_prev">prev</string>
     <string name="play_next">next</string>
 
-
+    <string name="song_and_artist">Song and Artists</string>
+    <string name="online">Online</string>
+    <string name="library">Library</string>
     <!-- Toast messages-->
     <string name="createPlaylist_error">Please create a playlist first!</string>
     <string name="duplicate_name_error">Duplicate name</string>
