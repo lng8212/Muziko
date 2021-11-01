@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         activity = this
-
+        Coordinator.setup(baseContext) // set up
         RoomRepository.createDatabase()
 
         supportActionBar?.hide()
@@ -86,13 +86,14 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         checkForPermissions()
+        playerPanelFragment = PlayerPanelFragment()
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
         binding.layoutOnCollapsed.setOnClickListener {
             Log.e("Main", "on click layout collapsed")
-            playerPanelFragment = PlayerPanelFragment()
-            val fragmentManager: FragmentManager = supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
+
             transaction.addToBackStack("playerPanel")
-            transaction.add(
+            transaction.replace(
                 R.id.container,
                 playerPanelFragment,
                 "bottom sheet container"
