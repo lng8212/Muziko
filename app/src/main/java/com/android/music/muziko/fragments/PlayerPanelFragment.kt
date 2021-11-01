@@ -31,17 +31,20 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        updatePanel()
+    }
     fun updatePanel() {
-//        Log.e("Player panel", "update panel")
-//        setSongTitle()
-//        setSongImage()
-//
-//        binding.playerRemote.musicMax.text =
-//            Coordinator.currentPlayingSong?.duration?.let {
-//                TimeUtils.getReadableDuration(
-//                    it
-//                )
-//            }
+        Log.e("Player panel", "update panel")
+        setSongTitle()
+        setSongImage()
+
+        binding.playerRemote.musicMax.text =
+            Coordinator.currentPlayingSong?.duration?.let {
+                TimeUtils.getReadableDuration(
+                    it
+                )
+            }
     }
 
     override fun setDefaultVisibilities() {

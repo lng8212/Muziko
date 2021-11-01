@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
             )
                 .commit()
 
-            playerPanelFragment.updatePanel()
+
         }
 //        initMainFragment()
 //        initBottomSheet()
