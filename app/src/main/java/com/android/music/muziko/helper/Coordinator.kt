@@ -12,8 +12,8 @@ import com.android.music.ui.fragments.SongFragment
 object Coordinator : CoordinatorInterface {
     override lateinit var nowPlayingQueue: ArrayList<Song>
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
-    override var position: Int =
-        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
+    override var position: Int = -1
+//        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
     var sourceOfSelectedSong =
         "songs" // source of current song, can be "playlist_name" or favourite
     var currentDataSource = arrayListOf<Song>() // list of songs to play

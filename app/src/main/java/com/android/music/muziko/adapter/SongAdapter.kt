@@ -33,7 +33,7 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
             itemRcv.setOnClickListener{
                 Log.e("adapter songs", "onClick")
                 upDatePosition(adapterPosition)
-                Coordinator.setup(context)
+
                 Coordinator.sourceOfSelectedSong = "songs"
                 Coordinator.currentDataSource = listSong
                 Coordinator.playSelectedSong(listSong[adapterPosition])
