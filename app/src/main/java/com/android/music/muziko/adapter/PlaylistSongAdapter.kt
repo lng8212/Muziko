@@ -12,6 +12,13 @@ import com.android.music.ui.Song
 import com.android.music.ui.activity.MainActivity
 
 class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity): RecyclerView.Adapter<PlaylistSongAdapter.PlaylistSongViewHolder>(){
+
+    var dataset: ArrayList<Song>
+
+    init {
+        dataset = listSong
+    }
+
     var position = 0
     inner class PlaylistSongViewHolder(var binding: ItemPlaylistSongBinding): RecyclerView.ViewHolder(binding.root){
         var name = binding.txtNameItemPlaylistSong
@@ -35,11 +42,12 @@ class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity)
                 upDatePosition(adapterPosition)
                 Coordinator.setup(context)
                 Coordinator.sourceOfSelectedSong = "playlist"
-                Coordinator.currentDataSource = listSong
-                Coordinator.playSelectedSong(listSong[adapterPosition])
-                MainActivity.activity.updateVisibility(listSong[adapterPosition])
+                Coordinator.currentDataSource = dataset
+                Coordinator.playSelectedSong(dataset[adapterPosition])
+                MainActivity.activity.updateVisibility(dataset[adapterPosition])
             }
         }
+
     }
 
     private fun upDatePosition(adapterPosition: Int) {
@@ -52,16 +60,12 @@ class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity)
     }
 
     override fun onBindViewHolder(holder: PlaylistSongViewHolder, position: Int) {
-        holder.bind(listSong[position])
+        holder.bind(dataset[position])
         holder.onClickItem()
     }
 
     override fun getItemCount(): Int {
-        return listSong.size
-    }
-
-    fun getCurrentPosition():Int{
-        return position
+        return dataset.size
     }
 
 }
