@@ -3,17 +3,15 @@ package com.android.music.muziko.helper
 import android.content.Context
 import android.util.Log
 import com.android.music.muziko.appInterface.CoordinatorInterface
-import com.android.music.ui.Song
-import com.android.music.ui.activity.MainActivity
-import com.android.music.ui.fragments.SongFragment
+import com.android.music.muziko.model.Song
 
 
 // object for controlling play music
 object Coordinator : CoordinatorInterface {
     override lateinit var nowPlayingQueue: ArrayList<Song>
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
-    override var position: Int =
-        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
+    override var position: Int = -1
+//        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
     var sourceOfSelectedSong =
         "songs" // source of current song, can be "playlist_name" or favourite
     var currentDataSource = arrayListOf<Song>() // list of songs to play
@@ -72,12 +70,12 @@ object Coordinator : CoordinatorInterface {
     override fun playSelectedSong(song: Song) {
         Log.e("Coordinator", "play")
         updatePlayerVar(song)
-
         //updateNowPlayingQueue()
         song.data?.let { play(it) }
-
     }
-
+    fun getSelectedSong(song: Song): Song {
+        return song
+    }
     fun updatePlayerVar(song: Song) {
         currentPlayingSong = song
         Log.e("song ", currentPlayingSong.toString())

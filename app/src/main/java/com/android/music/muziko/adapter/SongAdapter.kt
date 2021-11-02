@@ -9,8 +9,9 @@ import com.android.music.databinding.ItemSongBinding
 import com.android.music.ui.activity.MainActivity
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.helper.Coordinator
+import com.android.music.muziko.model.Song
 
-class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
+class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
     var position = 0 // position of current item if click
     inner class SongViewHolder(private var binding: ItemSongBinding): RecyclerView.ViewHolder(binding.root){
         var title = binding.txtTitle
@@ -18,7 +19,7 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
         var imageSong = binding.imgSong
         var itemRcv = binding.songContainer
         //var menuBtn = binding.musicMenuBtn
-        fun bind(song:Song){
+        fun bind(song: Song){
             title.text = song.title
             artist.text = song.artist
             song.image?.let {
@@ -33,10 +34,11 @@ class SongAdapter(var listSong : ArrayList<Song>,val context: Activity) : Recycl
             itemRcv.setOnClickListener{
                 Log.e("adapter songs", "onClick")
                 upDatePosition(adapterPosition)
-                Coordinator.setup(context)
+
                 Coordinator.sourceOfSelectedSong = "songs"
                 Coordinator.currentDataSource = listSong
                 Coordinator.playSelectedSong(listSong[adapterPosition])
+                Coordinator.getSelectedSong(listSong[adapterPosition])
                 MainActivity.activity.updateVisibility(listSong[adapterPosition])
             }
         }

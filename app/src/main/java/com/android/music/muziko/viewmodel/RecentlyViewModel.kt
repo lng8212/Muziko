@@ -6,23 +6,23 @@ import androidx.lifecycle.ViewModel
 import com.android.music.muziko.model.Song
 import com.android.music.ui.SongsRepository
 
-class FavViewModel: ViewModel() {
+class RecentlyViewModel : ViewModel(){
     var dataset: MutableLiveData<ArrayList<Any>> = MutableLiveData()
-//    var favRepository: FavRepository
+//    lateinit var recRepository: RecentlyRepository
     lateinit var songsRepository: SongsRepository
-
     init{
         dataset.value = ArrayList()
-
     }
-    fun setDataToFragment(context: Context){
-//      favRepository = FavRepository()
+
+    fun sendDataToFragment(context: Context){
+//        recRepository = RecentlyRepository()
         songsRepository = SongsRepository(context)
         updateData()
+
     }
 
-    fun updateData(){
-//        dataset.value =  favRepository.getFavSongs() as ArrayList<Any>
+    fun updateData() {
+//        dataset.value = recRepository.getRecSongs() as ArrayList<Any>
         dataset.value =  songsRepository.getListOfSongs() as ArrayList<Any>
     }
 

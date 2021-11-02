@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.music.R
 import com.android.music.databinding.FragmentSongBinding
-import com.android.music.ui.Song
+import com.android.music.muziko.model.Song
 import com.android.music.ui.SongAdapter
 import com.android.music.ui.SongViewModel
 
