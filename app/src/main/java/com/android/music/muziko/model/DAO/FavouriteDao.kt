@@ -1,4 +1,4 @@
-package com.android.music.muziko.model
+package com.android.music.muziko.model.DAO
 
 import androidx.room.*
 import com.android.music.ui.Favorites

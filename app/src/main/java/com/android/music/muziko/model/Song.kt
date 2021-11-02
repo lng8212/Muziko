@@ -1,4 +1,4 @@
-package com.android.music.ui
+package com.android.music.muziko.model
 
 import android.graphics.Bitmap
 import android.net.Uri

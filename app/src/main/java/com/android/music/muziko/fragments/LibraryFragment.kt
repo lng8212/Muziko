@@ -5,17 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.android.music.R
 import com.android.music.databinding.FragmentLibraryBinding
+import com.android.music.muziko.adapter.RecentlyAdapter
+import com.android.music.muziko.viewmodel.RecentlyViewModel
+import com.android.music.muziko.model.Song
 import com.android.music.ui.SongViewModel
 
 class LibraryFragment : Fragment() {
     private lateinit var binding: FragmentLibraryBinding
-
     companion object{
         const val DELETE_REQUEST_CODE = 2
         lateinit var viewModel: SongViewModel
+        lateinit var recViewModel: RecentlyViewModel
+        lateinit var recAdapter : RecentlyAdapter
     }
 
     override fun onCreateView(
@@ -34,4 +41,31 @@ class LibraryFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recViewModel = ViewModelProvider(this).get(RecentlyViewModel::class.java)
+        context?.let { recViewModel.sendDataToFragment(it) }
+        recViewModel!!.dataset.observe(viewLifecycleOwner, recSongsObserver)
+        recAdapter = activity?.let {
+            recViewModel.dataset.value?.let {
+                it1-> RecentlyAdapter(
+                it1 as ArrayList<Song>,
+                it
+                )
+            }
+        }!!
+
+        val recyclerView = binding.recyclerviewLibrary
+        recyclerView.apply {
+            adapter = recAdapter
+            layoutManager = GridLayoutManager(context,2)
+        }
+        recViewModel.updateData()
+    }
+    private val recSongsObserver = Observer<ArrayList<Any>> {
+        recAdapter?.listSong = it as ArrayList<Song>
+        binding.recyclerviewLibrary.adapter = recAdapter
+    }
+
 }

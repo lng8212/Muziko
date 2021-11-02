@@ -5,22 +5,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class FavRepository {
+class RecentlyRepository {
     val applicationScope = CoroutineScope(SupervisorJob())
-    companion object {
-        var cashedFavArray = RoomRepository.cachedFavArray
+    companion object{
+        var cashedRecArray = RoomRepository.cachedRecArray
     }
 
-    init {
+    init{
         applicationScope.launch {
-            cashedFavArray =
-                RoomRepository.cachedFavArray
+            cashedRecArray = RoomRepository.cachedRecArray
         }
     }
-
-    fun getFavSongs(): ArrayList<Song> {
-
-        return RoomRepository.cachedFavArray
-
+    fun getRecSongs(): ArrayList<Song>{
+        return RoomRepository.cachedRecArray
     }
 }

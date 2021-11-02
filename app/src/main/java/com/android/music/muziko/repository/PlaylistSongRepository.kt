@@ -2,8 +2,7 @@ package com.android.music.muziko.repository
 
 import com.android.music.muziko.appInterface.PlaylistPageRepositoryInterface
 import com.android.music.muziko.utils.DatabaseConverterUtils
-import com.android.music.ui.Song
-import com.android.music.ui.fragments.SongFragment
+import com.android.music.muziko.model.Song
 import kotlinx.coroutines.runBlocking
 
 class PlaylistSongRepository(private val playlistId: String, val array: ArrayList<Song>):

@@ -1,9 +1,6 @@
 package com.android.music.ui.fragments
 
-import android.app.Activity
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.music.databinding.FragmentFavouriteBinding
 import com.android.music.muziko.adapter.FavAdapter
 import com.android.music.muziko.viewmodel.FavViewModel
-import com.android.music.ui.Song
-import com.android.music.ui.SongAdapter
-import com.android.music.ui.fragments.SongFragment.Companion.notifyDataSetChange
+import com.android.music.muziko.model.Song
 
 class FavouriteFragment : Fragment() {
     lateinit var binding: FragmentFavouriteBinding
