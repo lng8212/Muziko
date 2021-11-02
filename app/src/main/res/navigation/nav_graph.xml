@@ -98,6 +98,15 @@
             app:popUpTo="@id/artistsFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/playerPanelFragment"
+        android:name="com.android.music.muziko.fragments.PlayerPanelFragment"
+        tools:layout="@layout/fragment_player_panel"
+        android:label="PlayerPanelFragment" >
+        <action
+            android:id="@+id/action_playerPanelFragment_to_navigation_library"
+            app:destination="@id/navigation_library" />
+    </fragment>
 
 
 </navigation>
