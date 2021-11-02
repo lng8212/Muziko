@@ -62,7 +62,7 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun isPlaying(): Boolean {
-        TODO("Not yet implemented")
+        return mediaPlayerAgent.isPlaying()
     }
 
     override fun getCurrentSongPosition(): Int {
@@ -85,7 +85,7 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun getPositionInPlayer(): Int {
-        TODO("Not yet implemented")
+        return mediaPlayerAgent.getCurrentPosition()
     }
 
     override fun hasNext(): Boolean {
@@ -117,7 +117,7 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun seekTo(newPosition: Int) {
-        TODO("Not yet implemented")
+        mediaPlayerAgent.seekTo(newPosition)
     }
 
 }

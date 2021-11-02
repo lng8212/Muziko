@@ -17,8 +17,7 @@ object TimeUtils {
 
     }
 
-    fun getDurationOfCurrentMusic(): String {
-        return SongFragment.songAdapter.listSong[SongFragment.songAdapter.getCurrentPosition()].duration.toString()
-            ?: "00:00"
+    fun getDurationOfCurrentMusic(): Long? {
+        return SongFragment.songAdapter.listSong[SongFragment.songAdapter.getCurrentPosition()].duration
     }
 }

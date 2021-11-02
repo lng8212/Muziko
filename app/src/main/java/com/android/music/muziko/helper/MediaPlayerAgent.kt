@@ -41,5 +41,17 @@ class MediaPlayerAgent(val context: Context) {
         mediaPlayer.stop()
     }
 
+    fun isPlaying(): Boolean {
+        return mediaPlayer.isPlaying
+    }
+
+    fun getCurrentPosition(): Int {
+        return mediaPlayer.currentPosition
+    }
+
+    fun seekTo(newPosition: Int) {
+        mediaPlayer.seekTo(newPosition)
+    }
+
 
 }

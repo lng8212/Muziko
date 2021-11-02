@@ -66,13 +66,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         activity = this
-        Coordinator.setup(baseContext) // set up
+        Coordinator.setup(baseContext) // set up media player
         RoomRepository.createDatabase()
 
         supportActionBar?.hide()
 
         activity = this
 
+        // set up navigation
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(com.android.music.R.id.nav_host_fragment_activity_main)
@@ -86,12 +87,12 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         checkForPermissions()
-        playerPanelFragment = PlayerPanelFragment()
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
+
         binding.layoutOnCollapsed.setOnClickListener {
             Log.e("Main", "on click layout collapsed")
-
+            playerPanelFragment = PlayerPanelFragment()
+            val fragmentManager: FragmentManager = supportFragmentManager
+            val transaction = fragmentManager.beginTransaction()
             transaction.addToBackStack("playerPanel")
             transaction.replace(
                 R.id.container,
