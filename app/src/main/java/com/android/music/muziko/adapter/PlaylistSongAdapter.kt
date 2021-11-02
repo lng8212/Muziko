@@ -12,6 +12,13 @@ import com.android.music.muziko.model.Song
 import com.android.music.ui.activity.MainActivity
 
 class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity): RecyclerView.Adapter<PlaylistSongAdapter.PlaylistSongViewHolder>(){
+
+    var dataset: ArrayList<Song>
+
+    init {
+        dataset = listSong
+    }
+
     var position = 0
     inner class PlaylistSongViewHolder(var binding: ItemPlaylistSongBinding): RecyclerView.ViewHolder(binding.root){
         var name = binding.txtNameItemPlaylistSong

@@ -204,15 +204,33 @@ object RoomRepository : RoomRepositoryInterface{
 
 
     override fun findPlaylistPositionInCachedArray(playlist: Playlist): Int {
-        TODO("Not yet implemented")
+        var position: Int = -1
+        while (++position < cachedPlaylistArray.size) {
+            if (cachedPlaylistArray[position].id == playlist.id) {
+                return position
+            }
+        }
+        return position
     }
 
     override fun getIdByName(name: String): String {
-        TODO("Not yet implemented")
+
+        for (playlist in cachedPlaylistArray) {
+            if (playlist.name == name) {
+                return playlist.id
+            }
+        }
+        return ""
+
     }
 
     override fun getPlaylistById(id: String): Playlist? {
-        TODO("Not yet implemented")
+        for (playlist in cachedPlaylistArray) {
+            if (playlist.id == id) {
+                return playlist
+            }
+        }
+        return null
     }
 
 //----------------------favourite-------------------------------------
