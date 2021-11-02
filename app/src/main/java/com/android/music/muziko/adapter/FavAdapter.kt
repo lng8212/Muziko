@@ -8,6 +8,7 @@ import com.android.music.R
 import com.android.music.databinding.ItemFavouriteBinding
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.ImageUtils
+import com.android.music.ui.activity.MainActivity
 import com.android.music.muziko.model.Song
 
 class FavAdapter(var listSong: ArrayList<Song>, val context: Activity): RecyclerView.Adapter<FavAdapter.FavViewHolder>(){
@@ -34,6 +35,7 @@ class FavAdapter(var listSong: ArrayList<Song>, val context: Activity): Recycler
                 Coordinator.sourceOfSelectedSong = "fav"
                 Coordinator.currentDataSource = listSong
                 Coordinator.playSelectedSong(listSong[adapterPosition])
+                MainActivity.activity.updateVisibility(listSong[adapterPosition])
                 Coordinator.getSelectedSong(listSong[adapterPosition])
             }
         }
