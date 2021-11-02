@@ -1,20 +1,26 @@
 package com.android.music.muziko.helper
 
 import android.content.Context
+import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
+import com.android.music.R
 import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.muziko.model.Song
+import com.android.music.ui.activity.MainActivity
 
 
 // object for controlling play music
 object Coordinator : CoordinatorInterface {
-    override lateinit var nowPlayingQueue: ArrayList<Song>
+    override lateinit var nowPlayingQueue: ArrayList<Song> // queue songs is playing
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
     override var position: Int = -1
 //        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
     var sourceOfSelectedSong =
         "songs" // source of current song, can be "playlist_name" or favourite
     var currentDataSource = arrayListOf<Song>() // list of songs to play
+
+    var shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_NONE
+    var repeatMode = PlaybackStateCompat.REPEAT_MODE_NONE
 
     var currentPlayingSong: Song? = null // song is playing
         set(value) {
@@ -27,11 +33,17 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun playNextSong() {
-        TODO("Not yet implemented")
+        takeActionBasedOnRepeatMode(
+            MainActivity.activity.getString(R.string.onBtnClicked),
+            MainActivity.activity.getString(R.string.play_next)
+        )
     }
 
     override fun playPrevSong() {
-        TODO("Not yet implemented")
+        takeActionBasedOnRepeatMode(
+            MainActivity.activity.getString(R.string.onBtnClicked),
+            MainActivity.activity.getString(R.string.play_prev)
+        )
     }
 
     override fun pause() {
@@ -55,8 +67,85 @@ object Coordinator : CoordinatorInterface {
         TODO("Not yet implemented")
     }
 
+    // handle next and prev
+    fun takeActionBasedOnRepeatMode(actionSource: String, requestedAction: String) {
+
+        when (repeatMode) {
+//            PlaybackStateCompat.REPEAT_MODE_ONE -> {
+//
+//                currentPlayingSong?.data?.let { play(it) }
+//
+//            }
+//            PlaybackStateCompat.REPEAT_MODE_ALL -> {
+//
+//                when (requestedAction) {
+//                    MainActivity.activity.getString(R.string.play_next) -> {
+//                        if (!hasNext()) {
+//                            position = -1
+//                        }
+//                        getNextSong().data?.let { play(it) }
+//                        updatePlayerVar(nowPlayingQueue[position])
+//                    }
+//                    MainActivity.activity.getString(R.string.play_prev) -> {
+//                        if (!hasPrev()) {
+//                            position = nowPlayingQueue.size
+//                        }
+//                        getPrevSong().data?.let { play(it) }
+//                        updatePlayerVar(nowPlayingQueue[position])
+//                    }
+//                }
+//
+//            }
+            PlaybackStateCompat.REPEAT_MODE_NONE -> {
+
+                when (actionSource) {
+                    MainActivity.activity.getString(R.string.onSongCompletion) -> {
+                        when (requestedAction) {
+                            MainActivity.activity.getString(R.string.play_next) -> {
+                                if (!hasNext()) {
+                                    mediaPlayerAgent.pauseMusic()
+                                    MainActivity.playerPanelFragment.switchPlayPauseButton()
+                                } else {
+                                    getNextSong().data?.let { play(it) }
+                                    updatePlayerVar(nowPlayingQueue[position])
+                                }
+                            }
+                        }
+                    }
+                    MainActivity.activity.getString(R.string.onBtnClicked) -> {
+                        when (requestedAction) {
+                            MainActivity.activity.getString(R.string.play_next) -> {
+                                if (!hasNext()) {
+//                                    resetPosition
+                                    position = -1
+                                }
+                                getNextSong().data?.let { play(it) }
+                                updatePlayerVar(nowPlayingQueue[position])
+
+                            }
+                            MainActivity.activity.getString(R.string.play_prev) -> {
+                                if (!hasPrev()) {
+//                                    resetPosition
+                                    position = nowPlayingQueue.size
+                                }
+                                getPrevSong().data?.let { play(it) }
+                                updatePlayerVar(nowPlayingQueue[position])
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
     override fun updateNowPlayingQueue() {
-        TODO("Not yet implemented")
+        nowPlayingQueue = currentDataSource
+        updateCurrentPlayingSongPosition()
+    }
+
+    private fun updateCurrentPlayingSongPosition() {
+        position = nowPlayingQueue.indexOf(currentPlayingSong) // position of playing song in the queue
     }
 
     override fun isPlaying(): Boolean {
@@ -64,13 +153,13 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun getCurrentSongPosition(): Int {
-        TODO("Not yet implemented")
+        return position
     }
 
     override fun playSelectedSong(song: Song) {
         Log.e("Coordinator", "play")
         updatePlayerVar(song)
-        //updateNowPlayingQueue()
+        updateNowPlayingQueue()
         song.data?.let { play(it) }
     }
     fun getSelectedSong(song: Song): Song {
@@ -87,11 +176,11 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun hasNext(): Boolean {
-        TODO("Not yet implemented")
+        return position + 1 < nowPlayingQueue.size
     }
 
     override fun hasPrev(): Boolean {
-        TODO("Not yet implemented")
+        return position > 0
     }
 
     override fun getPrevSongData(): String? {
@@ -103,11 +192,19 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun getNextSong(): Song {
-        TODO("Not yet implemented")
+        position += 1
+        val p = getPositionInNowPlayingQueue()
+        return nowPlayingQueue[position]
+    }
+
+    private fun getPositionInNowPlayingQueue(): Int {
+        return nowPlayingQueue.indexOf(currentPlayingSong)
     }
 
     override fun getPrevSong(): Song {
-        TODO("Not yet implemented")
+        position -= 1
+        val p = getPositionInNowPlayingQueue()
+        return nowPlayingQueue[position]
     }
 
     override fun getSongAtPosition(position: Int): String? {

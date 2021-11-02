@@ -10,12 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.android.music.R
 import com.android.music.databinding.FragmentPlayerPanelBinding
 import com.android.music.muziko.appInterface.PlayerPanelInterface
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.TimeUtils
 import com.android.music.muziko.utils.ImageUtils
+import com.android.music.ui.activity.MainActivity
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
@@ -32,7 +37,13 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
         // Inflate the layout for this fragment
         Log.e("Player panel", "init")
         binding = FragmentPlayerPanelBinding.inflate(inflater,container,false)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_playerPanelFragment_to_navigation_library)
+            }
+        }
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return binding.root
     }
 
@@ -72,6 +83,7 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
 
     override fun setSongTitle() {
         binding.musicTitleTv.text = Coordinator.currentPlayingSong?.title
+        binding.txtArtist.text = Coordinator.currentPlayingSong?.artist
     }
     fun setOnEventListeners() {
         binding.playerRemote.btnNext.setOnClickListener(this)
@@ -132,9 +144,15 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
 //                }
 //            }
 
-            binding.playerRemote.btnNext -> Coordinator.playNextSong()
+            binding.playerRemote.btnNext -> {
+                Coordinator.playNextSong()
+                updatePanel()
+            }
 
-            binding.playerRemote.btnPrev -> Coordinator.playPrevSong()
+            binding.playerRemote.btnPrev -> {
+                Coordinator.playPrevSong()
+                updatePanel()
+            }
 
             binding.playerRemote.playOrPauseLayout -> {
 
@@ -238,12 +256,12 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
                     seekTo(mCurrentPosition)
                     setRemainingTime(mCurrentPosition)
 
-//                    if (mCurrentPosition == duration?.toInt()?.minus(3) ?: 0) {
-//                        Coordinator.takeActionBasedOnRepeatMode(
-//                            MainActivity.activity.getString(R.string.onSongCompletion),
-//                            MainActivity.activity.getString(R.string.play_next)
-//                        )
-//                    }
+                    if (mCurrentPosition == duration?.toInt()?.minus(3) ?: 0) {
+                        Coordinator.takeActionBasedOnRepeatMode(
+                            MainActivity.activity.getString(R.string.onSongCompletion),
+                            MainActivity.activity.getString(R.string.play_next)
+                        )
+                    }
                 }
                 mHandler.postDelayed(this, 1000)
             }

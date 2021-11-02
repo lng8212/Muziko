@@ -160,14 +160,20 @@ class NotificationPlayerService : Service() {
         @RequiresApi(Build.VERSION_CODES.O)
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.extras!!.getString(context.getString(R.string.extra_key))) {
-                getString(R.string.notification_action_next) -> Coordinator.playNextSong()
+                getString(R.string.notification_action_next) -> {
+                    Coordinator.playNextSong()
+                    Coordinator.currentPlayingSong?.let { MainActivity.activity.updateVisibility(it) }
+                }
                 getString(R.string.notification_action_play) -> {
                     Coordinator.resume()
                 }
                 getString(R.string.notification_action_pause) -> {
                     Coordinator.pause()
                 }
-                getString(R.string.notification_action_previous) -> Coordinator.playPrevSong()
+                getString(R.string.notification_action_previous) -> {
+                    Coordinator.playPrevSong()
+                    Coordinator.currentPlayingSong?.let { MainActivity.activity.updateVisibility(it) }
+                }
             }
 
         }
