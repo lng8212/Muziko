@@ -3,7 +3,7 @@ package com.android.music.muziko.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.music.muziko.repository.PlaylistSongRepository
-import com.android.music.ui.Song
+import com.android.music.muziko.model.Song
 
 class PlaylistSongViewModel : ViewModel(){
 

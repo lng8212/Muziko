@@ -3,9 +3,7 @@ package com.android.music.muziko.helper
 import android.content.Context
 import android.util.Log
 import com.android.music.muziko.appInterface.CoordinatorInterface
-import com.android.music.ui.Song
-import com.android.music.ui.activity.MainActivity
-import com.android.music.ui.fragments.SongFragment
+import com.android.music.muziko.model.Song
 
 
 // object for controlling play music
@@ -72,12 +70,12 @@ object Coordinator : CoordinatorInterface {
     override fun playSelectedSong(song: Song) {
         Log.e("Coordinator", "play")
         updatePlayerVar(song)
-
         //updateNowPlayingQueue()
         song.data?.let { play(it) }
-
     }
-
+    fun getSelectedSong(song: Song): Song {
+        return song
+    }
     fun updatePlayerVar(song: Song) {
         currentPlayingSong = song
         Log.e("song ", currentPlayingSong.toString())

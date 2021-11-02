@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemAddSongsToPlaylistsDialogBinding
 import com.android.music.muziko.utils.ImageUtils
-import com.android.music.ui.Song
+import com.android.music.muziko.model.Song
 
 class AddSongToPlaylistAdapter(var context: Activity, var listSong: ArrayList<Song>) : RecyclerView.Adapter<AddSongToPlaylistAdapter.AddSongToPlaylistViewHolder>(){
 

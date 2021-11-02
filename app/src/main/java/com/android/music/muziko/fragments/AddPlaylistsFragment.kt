@@ -16,10 +16,10 @@ import com.android.music.databinding.FragmentAddPlaylistsBinding
 import com.android.music.muziko.adapter.AddPlaylistAdapter
 import com.android.music.muziko.appInterface.PassDataForSelectPlaylists
 import com.android.music.muziko.dialogs.AddSongToPlaylistDialog
+import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.KeyboardUtils.hideKeyboard
 import com.android.music.muziko.utils.SwipeToDelete
-import com.android.music.ui.Song
 import com.android.music.ui.SongsRepository
 
 class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
@@ -81,31 +81,18 @@ class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
         binding.layoutAddPlaylist.setOnClickListener {
             hideKeyboard(requireActivity())
         }
-
         return binding.root
     }
 
     fun createDialogToSelectPlaylist() {
 
         songsRepository = context?.let { SongsRepository(it) }!!
-        var listSongs: ArrayList<Song> = ArrayList()
-        for(i in songsRepository.getListOfSongs()){
-            var ok = true
-            for(j in selectedSongs){
-                if(i.id == j.id) {
-                    ok = false
-                    break
-                }
-            }
-            if(ok) listSongs.add(i)
-        }
-        Log.e("songRepo", songsRepository.getListOfSongs().toString())
-        Log.e("selectedSong", selectedSongs.toString())
-        Log.e("listSong", listSongs.toString())
-        val addSongToPlaylistDialog = AddSongToPlaylistDialog(listSongs)
+
+        val addSongToPlaylistDialog = AddSongToPlaylistDialog(songsRepository.getListOfSongs())
 
         addSongToPlaylistDialog?.setTargetFragment(this, 0)
         this.fragmentManager?.let { it1 -> addSongToPlaylistDialog?.show(it1, "pl") }
+
     }
 
     private fun isUnique(name: String): Boolean {
@@ -118,7 +105,7 @@ class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
 
     override fun passDataToInvokingFragment(songs: ArrayList<Song>) {
         selectedSongs = songs
-
+        Log.e("Song", selectedSongs.toString())
 
         addPlaylistAdapter = activity?.let {
             AddPlaylistAdapter(
@@ -131,19 +118,8 @@ class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
         binding.recyclerviewAddPlaylistsFragment.adapter = addPlaylistAdapter
 
 
-
     }
 
-    private fun swipeToDelete(recyclerView: RecyclerView){
-        val swipeToDeleteCallback = object : SwipeToDelete(){
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val deletedItem = addPlaylistAdapter!!.dataset[viewHolder.adapterPosition]
-                selectedSongs.remove(deletedItem)
-                Toast.makeText(context, "Delete", Toast.LENGTH_LONG).show()
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
-    }
+
 
 }

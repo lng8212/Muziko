@@ -11,7 +11,7 @@ import com.android.music.databinding.AddSongsToPlaylistsBinding
 import com.android.music.muziko.adapter.AddSongToPlaylistAdapter
 import com.android.music.muziko.appInterface.PassDataForSelectPlaylists
 import com.android.music.muziko.utils.ScreenSizeUtils
-import com.android.music.ui.Song
+import com.android.music.muziko.model.Song
 import kotlinx.android.synthetic.main.add_songs_to_playlists.view.*
 
 class AddSongToPlaylistDialog(val array: ArrayList<Song>) : DialogFragment(){
