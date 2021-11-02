@@ -8,7 +8,6 @@ import com.android.music.R
 import com.android.music.databinding.ItemFavouriteBinding
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.ImageUtils
-import com.android.music.ui.Song
 import com.android.music.ui.activity.MainActivity
 import com.android.music.muziko.model.Song
 
