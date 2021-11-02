@@ -52,8 +52,7 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
         return binding.root
     }
 
-    private fun setupViewModel()
-    {
+    private fun setupViewModel() {
         viewModel = ViewModelProvider(this).get(PlaylistViewModel::class.java)
         context?.let { viewModel?.setFragmentContext(it) }
         viewModel!!.dataset.observe(viewLifecycleOwner, playlistUpdateObserver)
@@ -89,8 +88,8 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
         val swipeToDeleteCallback = object : SwipeToDelete(){
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val deletedItem = playlistAdapter.dataset[viewHolder.adapterPosition]
-                viewModel?.playlistRepository?.removePlaylist(deletedItem.id)
-                playlistAdapter.notifyItemRemoved(viewHolder.adapterPosition)
+                viewModel?.removePlaylist(deletedItem.id)
+                playlistAdapter.dataset.remove(deletedItem)
                 Toast.makeText(context, "Delete", Toast.LENGTH_LONG).show()
             }
         }
