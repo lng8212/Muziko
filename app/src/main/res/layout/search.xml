@@ -8,10 +8,11 @@
     <SearchView
         android:id="@+id/search_song_artist"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:background="@drawable/search_view_rounder"
         android:backgroundTint="@color/search"
-        android:padding="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:queryHint="Songs and Artists"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

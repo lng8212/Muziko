@@ -1,9 +1,10 @@
-package com.android.music.muziko.model
+package com.android.music.muziko.model.DAO
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.android.music.muziko.model.Playlist
 
 @Dao
 interface PlaylistDAO {

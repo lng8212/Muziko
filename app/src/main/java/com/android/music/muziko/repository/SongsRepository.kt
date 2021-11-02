@@ -6,6 +6,7 @@ import android.content.Context
 import android.database.Cursor
 import android.media.MediaMetadataRetriever
 import android.provider.MediaStore
+import com.android.music.muziko.model.Song
 import com.example.kookplayer.utlis.FileUtils
 import com.android.music.muziko.utils.ImageUtils
 

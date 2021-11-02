@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,18 +14,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.android.music.R
 import com.android.music.databinding.ActivityMainBinding
 import com.android.music.muziko.PermissionProvider
-import com.android.music.muziko.fragments.MainFragment
 import com.android.music.muziko.fragments.PlayerPanelFragment
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.ImageUtils
-import com.android.music.muziko.utils.ScreenSizeUtils.getScreenHeight
-import com.android.music.ui.Song
+import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
-
-
-
 
 
 class MainActivity : AppCompatActivity() {

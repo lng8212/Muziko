@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemPlaylistSongBinding
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.ImageUtils
-import com.android.music.ui.Song
+import com.android.music.muziko.model.Song
 import com.android.music.ui.activity.MainActivity
 
 class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity): RecyclerView.Adapter<PlaylistSongAdapter.PlaylistSongViewHolder>(){
@@ -37,6 +37,7 @@ class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity)
                 Coordinator.sourceOfSelectedSong = "playlist"
                 Coordinator.currentDataSource = listSong
                 Coordinator.playSelectedSong(listSong[adapterPosition])
+                Coordinator.getSelectedSong(listSong[adapterPosition])
                 MainActivity.activity.updateVisibility(listSong[adapterPosition])
             }
         }

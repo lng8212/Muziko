@@ -1,8 +1,9 @@
 package com.android.music.muziko.appInterface
 
 import com.android.music.muziko.model.Playlist
+import com.android.music.muziko.model.Recently
 import com.android.music.ui.Favorites
-import com.android.music.ui.Song
+import com.android.music.muziko.model.Song
 
 interface RoomRepositoryInterface {
 
@@ -37,4 +38,12 @@ interface RoomRepositoryInterface {
     fun getFavoritesFromDatabase(): ArrayList<Favorites>
     fun convertFavSongsToRealSongs(): ArrayList<Song>
     fun songsIdToSongModelConverter(favSong: Favorites): Song?
+
+    // ----------------------- recently ------------------------
+
+    fun addSongToRecently(songsId: Long)
+    fun removeSongFromRecently(song: Song)
+    fun getRecentlyFromDatabase(): ArrayList<Recently>
+    fun convertRecentlySongsToRealSongs(): ArrayList<Song>
+    fun songsIdToSongModelConverterRecently(recently: Recently): Song?
 }

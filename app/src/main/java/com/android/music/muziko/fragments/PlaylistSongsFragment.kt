@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.music.R
 import com.android.music.databinding.FragmentPlaylistSongsBinding
 import com.android.music.muziko.adapter.PlaylistSongAdapter
-import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.viewmodel.PlaylistSongViewModel
-import com.android.music.ui.Song
+import com.android.music.muziko.model.Song
 import com.android.music.ui.SongsRepository
 
 class PlaylistSongsFragment : Fragment() {
