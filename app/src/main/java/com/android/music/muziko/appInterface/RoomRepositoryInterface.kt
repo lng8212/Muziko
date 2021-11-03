@@ -33,6 +33,7 @@ interface RoomRepositoryInterface {
 
     // ----------------------- favorite ------------------------
 
+    fun updateCachedFav()
     fun addSongToFavorites(songsId: Long)
     fun removeSongFromFavorites(song: Song)
     fun getFavoritesFromDatabase(): ArrayList<Favorites>

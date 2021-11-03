@@ -20,6 +20,7 @@ import com.android.music.R
 import com.android.music.databinding.FragmentPlayerPanelBinding
 import com.android.music.muziko.appInterface.PlayerPanelInterface
 import com.android.music.muziko.helper.Coordinator
+import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.TimeUtils
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.ui.activity.MainActivity
@@ -94,6 +95,7 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
         binding.playerRemote.playOrPauseLayout.setOnClickListener(this)
         binding.playerRemote.shuffleContainer.setOnClickListener(this)
         binding.playerRemote.repeatContainer.setOnClickListener(this)
+        binding.playerRemote.favorContainer.setOnClickListener(this)
        // binding.playerRemote.seekBar.setOnSeekBarChangeListener(this)
         binding.playerRemote.seekBar.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener{
@@ -161,8 +163,15 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
 //            }
 
             binding.playerRemote.btnNext -> {
+                Log.e("next", "next")
                 Coordinator.playNextSong()
                 updatePanel()
+            }
+
+            binding.playerRemote.favorContainer -> {
+                Log.e("into favIcon", "here")
+                RoomRepository.addSongToFavorites(Coordinator.currentPlayingSong!!.id!!.toLong())
+                Log.e("CurrentFav", Coordinator.currentPlayingSong!!.id!!.toString())
             }
 
             binding.playerRemote.btnPrev -> {
