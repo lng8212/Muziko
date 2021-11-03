@@ -1,57 +1,32 @@
-package com.android.music.muziko.fragments
+package com.android.music.muziko.activity
 
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.SeekBar
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import com.android.music.R
-import com.android.music.databinding.FragmentPlayerPanelBinding
+import com.android.music.databinding.ActivityPlayerPanelBinding
 import com.android.music.muziko.appInterface.PlayerPanelInterface
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.TimeUtils
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.ui.activity.MainActivity
-import com.android.music.ui.fragments.LibraryFragment
+import com.android.music.ui.activity.MainActivity.Companion.activity
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
-class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListener {
-    private lateinit var binding : FragmentPlayerPanelBinding
+class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnClickListener {
+    private lateinit var binding : ActivityPlayerPanelBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        Log.e("Player panel", "init")
-        binding = FragmentPlayerPanelBinding.inflate(inflater,container,false)
-//        val callback = object : OnBackPressedCallback(true) {
-//            override fun handleOnBackPressed() {
-//                findNavController().navigate(R.id.action_playerPanelFragment_to_navigation_library)
-//            }
-//        }
-//
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = ActivityPlayerPanelBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        supportActionBar?.hide()
         updatePanel()
         setOnEventListeners()
         seekbarHandler()
@@ -76,7 +51,7 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
     }
 
     override fun setSongImage() {
-        context?.let {
+        baseContext?.let {
             ImageUtils.loadImageToImageView(
                 it,
                 binding.musicAlbumImage,
@@ -130,7 +105,6 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
         }
         )
         binding.imgBack.setOnClickListener{
-              findNavController(it).navigate(R.id.action_playerPanelFragment_to_navigation_library)
 //            val libraryFragment = LibraryFragment()
 //            val fragmentManager: FragmentManager =
 //            val transaction = fragmentManager.beginTransaction()
@@ -270,7 +244,7 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
 
     override fun seekbarHandler() {
         val mHandler = Handler()
-        activity?.runOnUiThread(object : Runnable {
+        activity.runOnUiThread(object : Runnable {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun run() {
                 if (Coordinator.isPlaying()) {

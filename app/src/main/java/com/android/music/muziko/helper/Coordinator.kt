@@ -6,7 +6,6 @@ import android.util.Log
 import com.android.music.R
 import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.muziko.model.Song
-import com.android.music.muziko.repository.RoomRepository
 import com.android.music.ui.activity.MainActivity
 
 
@@ -106,7 +105,7 @@ object Coordinator : CoordinatorInterface {
                             MainActivity.activity.getString(R.string.play_next) -> {
                                 if (!hasNext()) {
                                     mediaPlayerAgent.pauseMusic()
-                                    MainActivity.playerPanelFragment.switchPlayPauseButton()
+                                    MainActivity.playerPanelActivity.switchPlayPauseButton()
                                 } else {
                                     getNextSong().data?.let { play(it) }
                                     updatePlayerVar(nowPlayingQueue[position])
