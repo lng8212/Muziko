@@ -47,7 +47,7 @@ class FavAdapter(var listSong: ArrayList<Song>, val context: Activity): Recycler
         fun onCLickLike(){
             likeButton.setOnClickListener(){
                 likeButton.setImageResource(R.drawable.ic_unfavorite)
-//                RoomRepository.removeSongFromFavorites(listSong[adapterPosition])
+                RoomRepository.removeSongFromFavorites(listSong[adapterPosition])
             }
 
         }

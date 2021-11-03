@@ -1,6 +1,7 @@
 package com.android.music.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,8 +35,8 @@ class FavouriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(FavViewModel::class.java)
 
-        context?.let { viewModel.setDataToFragment(it) }
-
+        context?.let { viewModel.setDataToFragment() }
+        viewModel.updateData()
         viewModel!!.dataset.observe(viewLifecycleOwner, favSongsObserver)
         favSongsAdapter = activity?.let {
             viewModel.dataset.value?.let { it1 ->
@@ -46,12 +47,20 @@ class FavouriteFragment : Fragment() {
             }
         }!!
 
+        val mHandler = Handler()
+        activity?.runOnUiThread(object : Runnable{
+            override fun run() {
+                viewModel?.updateData()
+                mHandler.postDelayed(this,1000)
+            }
+        })
+
         val recyclerView = binding.recyclerviewFavourite
         recyclerView.apply {
             adapter = favSongsAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        viewModel.updateData()
+
 
     }
     private val favSongsObserver = Observer<ArrayList<Any>> {

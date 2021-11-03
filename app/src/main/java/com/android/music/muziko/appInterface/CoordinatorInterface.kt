@@ -1,6 +1,7 @@
 package com.android.music.muziko.appInterface
 
 import android.content.Context
+import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.helper.MediaPlayerAgent
 import com.android.music.muziko.model.Song
 import java.util.*
@@ -49,5 +50,8 @@ interface CoordinatorInterface {
 //    seek bar
     fun seekTo(newPosition: Int)
 
+    // favourite
+
+    fun addFavourite()
 
 }
