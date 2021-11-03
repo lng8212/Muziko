@@ -129,7 +129,6 @@
                 android:background="@drawable/circle_bg"
                 android:elevation="3dp"
                 android:padding="20dp"
-                android:layout_margin="20dp"
                 android:scaleType="center"
                 android:src="@drawable/ic_remote_pause"
                 app:layout_constraintBottom_toBottomOf="parent"
