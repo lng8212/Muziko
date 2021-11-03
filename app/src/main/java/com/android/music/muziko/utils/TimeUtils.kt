@@ -1,5 +1,6 @@
 package com.android.music.muziko.utils
 
+import com.android.music.muziko.helper.Coordinator
 import com.android.music.ui.fragments.LibraryFragment
 import com.android.music.ui.fragments.SongFragment
 import java.util.*
@@ -18,6 +19,7 @@ object TimeUtils {
     }
 
     fun getDurationOfCurrentMusic(): Long? {
-        return SongFragment.songAdapter.listSong[SongFragment.songAdapter.getCurrentPosition()].duration
+//        return SongFragment.songAdapter.listSong[SongFragment.songAdapter.getCurrentPosition()].duration
+        return Coordinator.currentPlayingSong?.duration
     }
 }
