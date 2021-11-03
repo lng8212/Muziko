@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.repository.RoomRepository
 
 
 // object for controlling play music
@@ -72,9 +73,6 @@ object Coordinator : CoordinatorInterface {
         updatePlayerVar(song)
         //updateNowPlayingQueue()
         song.data?.let { play(it) }
-    }
-    fun getSelectedSong(song: Song): Song {
-        return song
     }
     fun updatePlayerVar(song: Song) {
         currentPlayingSong = song

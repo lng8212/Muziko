@@ -17,7 +17,10 @@ import kotlinx.coroutines.*
 object RoomRepository : RoomRepositoryInterface{
 
     private val applicationScope = CoroutineScope(SupervisorJob())
-    lateinit var localDatabase: MyDatabase
+    var localDatabase: MyDatabase = MyDatabase.getDatabase(
+        MainActivity.activity.baseContext!!,
+        MainActivity.activity.lifecycleScope
+    )
     var cachedPlaylistArray = ArrayList<Playlist>()
     var cachedFavArray_Favorites = ArrayList<Favorites>()
     var cachedFavArray = ArrayList<Song>()
@@ -27,10 +30,7 @@ object RoomRepository : RoomRepositoryInterface{
 
     //    ----------------------------------------------- Database ----------------------------------------------------
     override fun createDatabase() {
-        localDatabase = MyDatabase.getDatabase(
-            MainActivity.activity.baseContext!!,
-            MainActivity.activity.lifecycleScope
-        )
+
         applicationScope.launch {
             cachedPlaylistArray = getPlaylistFromDatabase()
             cachedFavArray_Favorites = getFavoritesFromDatabase()
@@ -299,14 +299,23 @@ object RoomRepository : RoomRepositoryInterface{
     }
 
 
+
 //--------------------------Recently----------------------------
+
+    override fun updateCachedRecently() {
+        cachedRecArray_Recently = getRecentlyFromDatabase()
+    }
+
 
 
     override fun addSongToRecently(songsId: Long) {
         val rec = Recently(songsId)
+        updateCachedRecently()
+        Log.e("RoomRepository", songsId.toString())
         applicationScope.launch {
             localDatabase.recentlyDao().addSong(rec)
         }
+        SongUtils.getSongById(songsId)?.let { cachedRecArray.add(it) }
     }
 
     override fun removeSongFromRecently(song: Song) {
@@ -327,7 +336,7 @@ object RoomRepository : RoomRepositoryInterface{
     override fun convertRecentlySongsToRealSongs(): ArrayList<Song> {
         val arrayList = arrayListOf<Song>()
         for (recSong in cachedRecArray_Recently) {
-
+            Log.e("song", recSong.toString())
             val realSong = songsIdToSongModelConverterRecently(recSong)
             if (realSong != null)
                 arrayList.add(realSong)
@@ -339,7 +348,7 @@ object RoomRepository : RoomRepositoryInterface{
 
     override fun songsIdToSongModelConverterRecently(recently: Recently): Song? {
         val allSongsInStorage = LibraryFragment.viewModel.getData()
-
+        Log.e("allSongInStorage", allSongsInStorage.size.toString())
         for (song in allSongsInStorage) {
             if (song.id ==recently.songId) {
                 return song

@@ -20,11 +20,13 @@ import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     companion object {
         var permissionsGranted: Boolean = false
         lateinit var playerPanelFragment: PlayerPanelFragment
@@ -33,10 +35,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     var prefs: SharedPreferences? = null
 
-    fun updateVisibility(song : Song) {
+    fun updateVisibility(song: Song) {
         binding.layoutOnCollapsed.visibility = View.VISIBLE
         binding.txtArtistOnHeader.text = song.artist
         binding.txtTitleOnHeader.text = song.title
@@ -52,15 +53,18 @@ class MainActivity : AppCompatActivity() {
     private val permissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity = this
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        activity = this
-        Coordinator.setup(baseContext) // set up
         RoomRepository.createDatabase()
+
+        Coordinator.setup(baseContext) // set up
+
 
         supportActionBar?.hide()
 
@@ -68,11 +72,15 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(com.android.music.R.id.nav_host_fragment_activity_main)
+        val navController =
+            findNavController(com.android.music.R.id.nav_host_fragment_activity_main)
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_library, com.android.music.R.id.navigation_search, com.android.music.R.id.navigation_song, com.android.music.R.id.navigation_favourite
+                R.id.navigation_library,
+                com.android.music.R.id.navigation_search,
+                com.android.music.R.id.navigation_song,
+                com.android.music.R.id.navigation_favourite
             )
         )
 

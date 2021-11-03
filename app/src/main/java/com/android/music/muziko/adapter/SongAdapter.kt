@@ -10,6 +10,8 @@ import com.android.music.ui.activity.MainActivity
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.repository.RoomRepository
+import com.android.music.ui.fragments.LibraryFragment
 
 class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
     var position = 0 // position of current item if click
@@ -38,7 +40,7 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
                 Coordinator.sourceOfSelectedSong = "songs"
                 Coordinator.currentDataSource = listSong
                 Coordinator.playSelectedSong(listSong[adapterPosition])
-                Coordinator.getSelectedSong(listSong[adapterPosition])
+                RoomRepository.addSongToRecently(listSong[adapterPosition].id!!.toLong())
                 MainActivity.activity.updateVisibility(listSong[adapterPosition])
             }
         }
