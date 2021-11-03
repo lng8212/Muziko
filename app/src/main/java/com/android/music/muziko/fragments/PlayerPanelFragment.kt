@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,7 @@ import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.TimeUtils
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.ui.activity.MainActivity
+import com.android.music.ui.fragments.LibraryFragment
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
@@ -38,13 +40,13 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
         // Inflate the layout for this fragment
         Log.e("Player panel", "init")
         binding = FragmentPlayerPanelBinding.inflate(inflater,container,false)
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_playerPanelFragment_to_navigation_library)
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+//        val callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                findNavController().navigate(R.id.action_playerPanelFragment_to_navigation_library)
+//            }
+//        }
+//
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         return binding.root
     }
 
@@ -126,7 +128,17 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
         }
         )
         binding.imgBack.setOnClickListener{
-            findNavController(it).navigate(R.id.action_playerPanelFragment_to_navigation_library)
+              findNavController(it).navigate(R.id.action_playerPanelFragment_to_navigation_library)
+//            val libraryFragment = LibraryFragment()
+//            val fragmentManager: FragmentManager =
+//            val transaction = fragmentManager.beginTransaction()
+//            transaction.addToBackStack("playerPanel")
+//            transaction.replace(
+//                R.id.container,
+//                MainActivity.playerPanelFragment,
+//                "bottom sheet container"
+//            )
+//                .commit()
         }
     }
 
