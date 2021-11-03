@@ -12,10 +12,10 @@ import com.android.music.ui.activity.MainActivity
 
 // object for controlling play music
 object Coordinator : CoordinatorInterface {
-    override lateinit var nowPlayingQueue: ArrayList<Song>
+    override lateinit var nowPlayingQueue: ArrayList<Song> // queue songs is playing
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
     override var position: Int = -1
-//        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
+    //        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
     var sourceOfSelectedSong =
         "songs" // source of current song, can be "playlist_name" or favourite
     var currentDataSource = arrayListOf<Song>() // list of songs to play
@@ -68,68 +68,7 @@ object Coordinator : CoordinatorInterface {
         TODO("Not yet implemented")
     }
 
-    override fun updateNowPlayingQueue() {
-        TODO("Not yet implemented")
-    }
-
-    override fun isPlaying(): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun getCurrentSongPosition(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun playSelectedSong(song: Song) {
-        Log.e("Coordinator", "play")
-        updatePlayerVar(song)
-        //updateNowPlayingQueue()
-        song.data?.let { play(it) }
-    }
-    fun getSelectedSong(song: Song): Song {
-        return song
-    }
-    fun updatePlayerVar(song: Song) {
-        currentPlayingSong = song
-        Log.e("song ", currentPlayingSong.toString())
-//        MainActivity.playerPanelFragment.updatePanel()
-    }
-
-    override fun getPositionInPlayer(): Int {
-        TODO("Not yet implemented")
-    }
-
-    override fun hasNext(): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun hasPrev(): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun getPrevSongData(): String? {
-        TODO("Not yet implemented")
-    }
-
-    override fun getNextSongData(): String? {
-        TODO("Not yet implemented")
-    }
-
-    override fun getNextSong(): Song {
-        TODO("Not yet implemented")
-    }
-
-    override fun getPrevSong(): Song {
-        TODO("Not yet implemented")
-    }
-
-    override fun getSongAtPosition(position: Int): String? {
-        TODO("Not yet implemented")
-    }
-
-    override fun seekTo(newPosition: Int) {
-        TODO("Not yet implemented")
-    }
+    // handle next and prev
     fun takeActionBasedOnRepeatMode(actionSource: String, requestedAction: String) {
 
         when (repeatMode) {
@@ -199,5 +138,81 @@ object Coordinator : CoordinatorInterface {
                 }
             }
         }
+    }
+
+    override fun updateNowPlayingQueue() {
+        nowPlayingQueue = currentDataSource
+        updateCurrentPlayingSongPosition()
+    }
+
+    private fun updateCurrentPlayingSongPosition() {
+        position = nowPlayingQueue.indexOf(currentPlayingSong) // position of playing song in the queue
+    }
+
+    override fun isPlaying(): Boolean {
+        return mediaPlayerAgent.isPlaying()
+    }
+
+    override fun getCurrentSongPosition(): Int {
+        return position
+    }
+
+    override fun playSelectedSong(song: Song) {
+        Log.e("Coordinator", "play")
+        updatePlayerVar(song)
+        updateNowPlayingQueue()
+        song.data?.let { play(it) }
+    }
+    fun getSelectedSong(song: Song): Song {
+        return song
+    }
+    fun updatePlayerVar(song: Song) {
+        currentPlayingSong = song
+        Log.e("song ", currentPlayingSong.toString())
+//        MainActivity.playerPanelFragment.updatePanel()
+    }
+
+    override fun getPositionInPlayer(): Int {
+        return mediaPlayerAgent.getCurrentPosition()
+    }
+
+    override fun hasNext(): Boolean {
+        return position + 1 < nowPlayingQueue.size
+    }
+
+    override fun hasPrev(): Boolean {
+        return position > 0
+    }
+
+    override fun getPrevSongData(): String? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getNextSongData(): String? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getNextSong(): Song {
+        position += 1
+        val p = getPositionInNowPlayingQueue()
+        return nowPlayingQueue[position]
+    }
+
+    private fun getPositionInNowPlayingQueue(): Int {
+        return nowPlayingQueue.indexOf(currentPlayingSong)
+    }
+
+    override fun getPrevSong(): Song {
+        position -= 1
+        val p = getPositionInNowPlayingQueue()
+        return nowPlayingQueue[position]
+    }
+
+    override fun getSongAtPosition(position: Int): String? {
+        TODO("Not yet implemented")
+    }
+
+    override fun seekTo(newPosition: Int) {
+        mediaPlayerAgent.seekTo(newPosition)
     }
 }

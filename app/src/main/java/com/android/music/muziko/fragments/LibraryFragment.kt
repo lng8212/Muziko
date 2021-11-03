@@ -9,11 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.music.R
 import com.android.music.databinding.FragmentLibraryBinding
 import com.android.music.muziko.adapter.RecentlyAdapter
 import com.android.music.muziko.viewmodel.RecentlyViewModel
 import com.android.music.muziko.model.Song
+import com.android.music.ui.SongAdapter
 import com.android.music.ui.SongViewModel
 
 class LibraryFragment : Fragment() {
