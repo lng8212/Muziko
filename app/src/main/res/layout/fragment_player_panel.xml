@@ -23,7 +23,13 @@
 <!--            layout="@layout/panel_header_on_collapsed" />-->
 
 <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
+    <ImageView
+        android:id="@+id/img_back"
+        android:layout_margin="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/ic_arrow_left"
+        android:layout_gravity="left"/>
     <ImageView
         android:layout_marginTop="50dp"
         android:id="@+id/music_album_image"
