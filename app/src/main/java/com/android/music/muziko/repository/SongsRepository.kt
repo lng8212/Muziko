@@ -92,4 +92,33 @@ class SongsRepository(val context: Context) {
         cursor?.close()
         return songsAreInStorage
     }
+
+    fun getListOfArtists(): ArrayList<Song> {
+        val listSong = getSongsFromStorage()
+        var list = mutableSetOf<String>()
+        var arr = ArrayList<Song>()
+        for (i in listSong){
+            list.add(i.artist.toString())
+        }
+        for (i in list){
+            for(j in listSong){
+                if (j.artist.toString().equals(i)){
+                    arr.add(j)
+                    break;
+                }
+            }
+        }
+        return arr
+    }
+
+    fun getSongOfArtists(artist: String) : ArrayList<Song> {
+        val listSong = getSongsFromStorage()
+        var arr = ArrayList<Song>()
+        for(i in listSong){
+            if (i.artist.toString().equals(artist)){
+                arr.add(i)
+            }
+        }
+        return arr
+    }
 }

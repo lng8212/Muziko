@@ -97,6 +97,12 @@
             app:destination="@id/artistsFragment"
             app:popUpTo="@id/artistsFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="myArtist"
+            app:argType="string" />
+        <argument
+            android:name="imgArtist"
+            app:argType="android.graphics.Bitmap" />
     </fragment>
     <fragment
         android:id="@+id/playerPanelFragment"
