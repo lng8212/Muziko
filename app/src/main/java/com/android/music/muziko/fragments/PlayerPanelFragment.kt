@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
+import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.android.music.R
@@ -124,6 +125,9 @@ class PlayerPanelFragment : Fragment(), PlayerPanelInterface,View.OnClickListene
 
         }
         )
+        binding.imgBack.setOnClickListener{
+            findNavController(it).navigate(R.id.action_playerPanelFragment_to_navigation_library)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
