@@ -7,6 +7,7 @@ import com.android.music.R
 import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
+import com.android.music.ui.activity.MainActivity
 
 
 // object for controlling play music
@@ -129,5 +130,74 @@ object Coordinator : CoordinatorInterface {
     override fun seekTo(newPosition: Int) {
         TODO("Not yet implemented")
     }
+    fun takeActionBasedOnRepeatMode(actionSource: String, requestedAction: String) {
 
+        when (repeatMode) {
+//            PlaybackStateCompat.REPEAT_MODE_ONE -> {
+//
+//                currentPlayingSong?.data?.let { play(it) }
+//
+//            }
+//            PlaybackStateCompat.REPEAT_MODE_ALL -> {
+//
+//                when (requestedAction) {
+//                    MainActivity.activity.getString(R.string.play_next) -> {
+//                        if (!hasNext()) {
+//                            position = -1
+//                        }
+//                        getNextSong().data?.let { play(it) }
+//                        updatePlayerVar(nowPlayingQueue[position])
+//                    }
+//                    MainActivity.activity.getString(R.string.play_prev) -> {
+//                        if (!hasPrev()) {
+//                            position = nowPlayingQueue.size
+//                        }
+//                        getPrevSong().data?.let { play(it) }
+//                        updatePlayerVar(nowPlayingQueue[position])
+//                    }
+//                }
+//
+//            }
+            PlaybackStateCompat.REPEAT_MODE_NONE -> {
+
+                when (actionSource) {
+                    MainActivity.activity.getString(R.string.onSongCompletion) -> {
+                        when (requestedAction) {
+                            MainActivity.activity.getString(R.string.play_next) -> {
+                                if (!hasNext()) {
+                                    mediaPlayerAgent.pauseMusic()
+                                    MainActivity.playerPanelFragment.switchPlayPauseButton()
+                                } else {
+                                    getNextSong().data?.let { play(it) }
+                                    updatePlayerVar(nowPlayingQueue[position])
+                                }
+                            }
+                        }
+                    }
+                    MainActivity.activity.getString(R.string.onBtnClicked) -> {
+                        when (requestedAction) {
+                            MainActivity.activity.getString(R.string.play_next) -> {
+                                if (!hasNext()) {
+//                                    resetPosition
+                                    position = -1
+                                }
+                                getNextSong().data?.let { play(it) }
+                                updatePlayerVar(nowPlayingQueue[position])
+
+                            }
+                            MainActivity.activity.getString(R.string.play_prev) -> {
+                                if (!hasPrev()) {
+//                                    resetPosition
+                                    position = nowPlayingQueue.size
+                                }
+                                getPrevSong().data?.let { play(it) }
+                                updatePlayerVar(nowPlayingQueue[position])
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
 }
