@@ -5,7 +5,7 @@ import com.android.music.muziko.model.Recently
 
 @Dao
 interface RecentlyDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addSong(song: Recently)
 
     @Delete

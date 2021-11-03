@@ -60,6 +60,7 @@ abstract class MyDatabase : RoomDatabase() {
                     MyDatabase::class.java, "_database"
                 )
                     .addCallback(MyDatabaseCallback(scope))
+                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
 

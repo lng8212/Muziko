@@ -6,6 +6,7 @@ import android.util.Log
 import com.android.music.R
 import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.repository.RoomRepository
 import com.android.music.ui.activity.MainActivity
 
 
@@ -14,7 +15,7 @@ object Coordinator : CoordinatorInterface {
     override lateinit var nowPlayingQueue: ArrayList<Song> // queue songs is playing
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
     override var position: Int = -1
-//        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
+    //        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
     var sourceOfSelectedSong =
         "songs" // source of current song, can be "playlist_name" or favourite
     var currentDataSource = arrayListOf<Song>() // list of songs to play
@@ -214,5 +215,4 @@ object Coordinator : CoordinatorInterface {
     override fun seekTo(newPosition: Int) {
         mediaPlayerAgent.seekTo(newPosition)
     }
-
 }

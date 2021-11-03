@@ -9,11 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.music.R
 import com.android.music.databinding.FragmentLibraryBinding
 import com.android.music.muziko.adapter.RecentlyAdapter
 import com.android.music.muziko.viewmodel.RecentlyViewModel
 import com.android.music.muziko.model.Song
+import com.android.music.ui.SongAdapter
 import com.android.music.ui.SongViewModel
 
 class LibraryFragment : Fragment() {
@@ -44,8 +46,10 @@ class LibraryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(SongViewModel::class.java)
+        context?.let { viewModel.setDataToFragment(it) }
         recViewModel = ViewModelProvider(this).get(RecentlyViewModel::class.java)
-        context?.let { recViewModel.sendDataToFragment(it) }
+        context?.let { recViewModel.sendDataToFragment() }
         recViewModel!!.dataset.observe(viewLifecycleOwner, recSongsObserver)
         recAdapter = activity?.let {
             recViewModel.dataset.value?.let {
@@ -61,11 +65,11 @@ class LibraryFragment : Fragment() {
             adapter = recAdapter
             layoutManager = GridLayoutManager(context,2)
         }
+
         recViewModel.updateData()
     }
     private val recSongsObserver = Observer<ArrayList<Any>> {
         recAdapter?.listSong = it as ArrayList<Song>
         binding.recyclerviewLibrary.adapter = recAdapter
     }
-
 }
