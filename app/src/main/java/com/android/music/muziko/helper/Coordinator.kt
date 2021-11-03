@@ -1,7 +1,9 @@
 package com.android.music.muziko.helper
 
 import android.content.Context
+import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
+import com.android.music.R
 import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
@@ -17,6 +19,9 @@ object Coordinator : CoordinatorInterface {
         "songs" // source of current song, can be "playlist_name" or favourite
     var currentDataSource = arrayListOf<Song>() // list of songs to play
 
+    var shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_NONE
+    var repeatMode = PlaybackStateCompat.REPEAT_MODE_NONE
+
     var currentPlayingSong: Song? = null // song is playing
         set(value) {
             field = value
@@ -28,11 +33,17 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun playNextSong() {
-        TODO("Not yet implemented")
+        takeActionBasedOnRepeatMode(
+            MainActivity.activity.getString(R.string.onBtnClicked),
+            MainActivity.activity.getString(R.string.play_next)
+        )
     }
 
     override fun playPrevSong() {
-        TODO("Not yet implemented")
+        takeActionBasedOnRepeatMode(
+            MainActivity.activity.getString(R.string.onBtnClicked),
+            MainActivity.activity.getString(R.string.play_prev)
+        )
     }
 
     override fun pause() {
@@ -73,6 +84,9 @@ object Coordinator : CoordinatorInterface {
         updatePlayerVar(song)
         //updateNowPlayingQueue()
         song.data?.let { play(it) }
+    }
+    fun getSelectedSong(song: Song): Song {
+        return song
     }
     fun updatePlayerVar(song: Song) {
         currentPlayingSong = song

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.repository.PlaylistRepository
+import com.android.music.muziko.repository.RoomRepository
 
 class PlaylistViewModel : ViewModel(){
 
@@ -22,6 +23,12 @@ class PlaylistViewModel : ViewModel(){
 
     fun updateDataset() {
         dataset.value = playlistRepository.getPlaylists()
+    }
+
+    fun removePlaylist(id: String): Boolean {
+        playlistRepository.removePlaylist(id)
+        updateDataset()
+        return true
     }
 
     fun getDataSet(): ArrayList<Playlist> {

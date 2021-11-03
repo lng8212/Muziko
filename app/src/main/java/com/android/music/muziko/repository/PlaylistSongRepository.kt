@@ -1,6 +1,7 @@
 package com.android.music.muziko.repository
 
 import com.android.music.muziko.appInterface.PlaylistPageRepositoryInterface
+import com.android.music.muziko.fragments.PlaylistsFragment
 import com.android.music.muziko.utils.DatabaseConverterUtils
 import com.android.music.muziko.model.Song
 import kotlinx.coroutines.runBlocking
@@ -8,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 class PlaylistSongRepository(private val playlistId: String, val array: ArrayList<Song>):
     PlaylistPageRepositoryInterface{
     override fun getSongsIdFromDatabase(): String {
-        var songsOfPlaylist: String = ""
+        var songsOfPlaylist = ""
         runBlocking {
             songsOfPlaylist = RoomRepository.localDatabase.playlistDAO().getSongsOfPlaylist(playlistId)
         }
@@ -29,7 +30,7 @@ class PlaylistSongRepository(private val playlistId: String, val array: ArrayLis
         var songs: ArrayList<Song> = arrayListOf()
 
         val songsIdInString = getSongsIdFromDatabase()
-        if (songsIdInString != null) {
+        if (songsIdInString != "") {
             val songsIdInArraylist = convertStringToArraylist(songsIdInString)
 
             for (songId in songsIdInArraylist) {
@@ -46,5 +47,9 @@ class PlaylistSongRepository(private val playlistId: String, val array: ArrayLis
         return DatabaseConverterUtils.stringToArraylist(songs)
     }
 
+    fun removeSongFromPlaylist(songId: String) {
 
+        PlaylistsFragment.viewModel?.playlistRepository?.removeSongFromPlaylist(playlistId, songId)
+
+    }
 }

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -35,9 +36,10 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     var prefs: SharedPreferences? = null
 
-    fun updateVisibility(song: Song) {
+    fun updateVisibility(song : Song) {
         binding.layoutOnCollapsed.visibility = View.VISIBLE
         binding.txtArtistOnHeader.text = song.artist
         binding.txtTitleOnHeader.text = song.title
@@ -56,11 +58,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity = this
+
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        activity = this
+        Coordinator.setup(baseContext) // set up media player
         RoomRepository.createDatabase()
 
         Coordinator.setup(baseContext) // set up
@@ -70,29 +75,18 @@ class MainActivity : AppCompatActivity() {
 
         activity = this
 
+        // set up navigation
         val navView: BottomNavigationView = binding.navView
-
-        val navController =
-            findNavController(com.android.music.R.id.nav_host_fragment_activity_main)
-
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_library,
-                com.android.music.R.id.navigation_search,
-                com.android.music.R.id.navigation_song,
-                com.android.music.R.id.navigation_favourite
-            )
-        )
-
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        val navHostFragment  = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
         navView.setupWithNavController(navController)
         checkForPermissions()
-        playerPanelFragment = PlayerPanelFragment()
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
+
         binding.layoutOnCollapsed.setOnClickListener {
             Log.e("Main", "on click layout collapsed")
-
+            playerPanelFragment = PlayerPanelFragment()
+            val fragmentManager: FragmentManager = supportFragmentManager
+            val transaction = fragmentManager.beginTransaction()
             transaction.addToBackStack("playerPanel")
             transaction.replace(
                 R.id.container,
@@ -101,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             )
                 .commit()
 
-            playerPanelFragment.updatePanel()
+
         }
 //        initMainFragment()
 //        initBottomSheet()
@@ -174,4 +168,7 @@ class MainActivity : AppCompatActivity() {
         Coordinator.mediaPlayerAgent.stop()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

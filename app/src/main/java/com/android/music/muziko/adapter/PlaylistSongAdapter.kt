@@ -42,7 +42,6 @@ class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity)
             binding.songContainer.setOnClickListener{
                 Log.e("adapter songs", "onClick")
                 upDatePosition(adapterPosition)
-                Coordinator.setup(context)
                 Coordinator.sourceOfSelectedSong = "playlist"
                 Coordinator.currentDataSource = listSong
                 Coordinator.playSelectedSong(listSong[adapterPosition])
