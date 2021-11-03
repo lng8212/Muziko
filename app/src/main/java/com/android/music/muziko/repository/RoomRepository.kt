@@ -233,7 +233,13 @@ object RoomRepository : RoomRepositoryInterface{
         return null
     }
 
+
+
 //----------------------favourite-------------------------------------
+
+    override fun updateCachedFav() {
+        cachedFavArray_Favorites = getFavoritesFromDatabase()
+    }
 
     override fun addSongToFavorites(songsId: Long) {
         val fav = Favorites(songsId)

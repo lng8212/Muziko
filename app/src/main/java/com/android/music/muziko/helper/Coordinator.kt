@@ -14,6 +14,7 @@ import com.android.music.ui.activity.MainActivity
 object Coordinator : CoordinatorInterface {
     override lateinit var nowPlayingQueue: ArrayList<Song> // queue songs is playing
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
+
     override var position: Int = -1
     //        SongFragment.songAdapter.getCurrentPosition() ?: -1 // position of song in this queue
     var sourceOfSelectedSong =
@@ -214,5 +215,9 @@ object Coordinator : CoordinatorInterface {
 
     override fun seekTo(newPosition: Int) {
         mediaPlayerAgent.seekTo(newPosition)
+    }
+
+    override fun addFavourite() {
+        TODO("Not yet implemented")
     }
 }

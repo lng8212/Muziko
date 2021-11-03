@@ -20,6 +20,8 @@ class FavRepository {
 
     fun getFavSongs(): ArrayList<Song> {
 
+        RoomRepository.updateCachedFav()
+        RoomRepository.convertFavSongsToRealSongs()
         return RoomRepository.cachedFavArray
 
     }

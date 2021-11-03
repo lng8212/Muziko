@@ -89,7 +89,8 @@
             app:layout_constraintHorizontal_bias="0.132"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_remote_previous" />
+            app:srcCompat="@drawable/ic_remote_previous"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/playOrPause_layout"
@@ -218,6 +219,7 @@
             app:layout_constraintVertical_bias="0.0">
 
             <ImageView
+                android:id="@+id/fav_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
