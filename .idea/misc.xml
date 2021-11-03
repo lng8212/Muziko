@@ -60,6 +60,8 @@
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/item_song.xml" value="0.264" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/search.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/panel_header_on_collapsed.xml" value="0.1963963963963964" />
       </map>
     </option>
   </component>
