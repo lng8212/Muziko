@@ -33,6 +33,10 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
     }
 
     fun updatePanel() {
+        RoomRepository.updateCachedFav()
+        if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray){
+            binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
+        }
         Log.e("Player panel", "update panel")
         setSongTitle()
         setSongImage()
@@ -143,9 +147,17 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
             }
 
             binding.playerRemote.favorContainer -> {
-                Log.e("into favIcon", "here")
-                RoomRepository.addSongToFavorites(Coordinator.currentPlayingSong!!.id!!.toLong())
-                Log.e("CurrentFav", Coordinator.currentPlayingSong!!.id!!.toString())
+                RoomRepository.updateCachedFav()
+                if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray) {
+                    binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
+                    RoomRepository.removeSongFromFavorites(Coordinator.currentPlayingSong!!)
+                }
+                else{
+                    binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
+                    RoomRepository.addSongToFavorites(Coordinator.currentPlayingSong!!.id!!.toLong())
+                }
+
+
             }
 
             binding.playerRemote.btnPrev -> {
