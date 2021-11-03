@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "recently_table")
 data class Recently(
     @PrimaryKey(autoGenerate = true)
-//    @ColumnInfo var fId : Long,
     @ColumnInfo val songId: Long
 ) {
 }

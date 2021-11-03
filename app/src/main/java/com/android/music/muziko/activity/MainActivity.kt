@@ -21,11 +21,13 @@ import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     companion object {
         var permissionsGranted: Boolean = false
         lateinit var playerPanelFragment: PlayerPanelFragment
@@ -53,8 +55,11 @@ class MainActivity : AppCompatActivity() {
     private val permissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -62,6 +67,9 @@ class MainActivity : AppCompatActivity() {
         activity = this
         Coordinator.setup(baseContext) // set up media player
         RoomRepository.createDatabase()
+
+        Coordinator.setup(baseContext) // set up
+
 
         supportActionBar?.hide()
 
@@ -72,16 +80,6 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment  = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
         navView.setupWithNavController(navController)
-//        val navController = findNavController(com.android.music.R.id.nav_host_fragment_activity_main)
-//
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.navigation_library, com.android.music.R.id.navigation_search, com.android.music.R.id.navigation_song, com.android.music.R.id.navigation_favourite,R.id.playerPanelFragment
-//            )
-//        )
-//
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
         checkForPermissions()
 
         binding.layoutOnCollapsed.setOnClickListener {

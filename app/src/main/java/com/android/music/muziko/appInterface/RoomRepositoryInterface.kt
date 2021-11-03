@@ -41,6 +41,7 @@ interface RoomRepositoryInterface {
 
     // ----------------------- recently ------------------------
 
+    fun updateCachedRecently()
     fun addSongToRecently(songsId: Long)
     fun removeSongFromRecently(song: Song)
     fun getRecentlyFromDatabase(): ArrayList<Recently>
