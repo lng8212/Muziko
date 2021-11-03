@@ -1,27 +1,22 @@
 package com.android.music.ui.activity
 
 import android.Manifest
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.android.music.R
 import com.android.music.databinding.ActivityMainBinding
 import com.android.music.muziko.PermissionProvider
-import com.android.music.muziko.fragments.PlayerPanelFragment
+import com.android.music.muziko.activity.PlayerPanelActivity
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var permissionsGranted: Boolean = false
-        lateinit var playerPanelFragment: PlayerPanelFragment
+        lateinit var playerPanelActivity: PlayerPanelActivity
         lateinit var activity: MainActivity
 
     }
@@ -83,18 +78,8 @@ class MainActivity : AppCompatActivity() {
         checkForPermissions()
 
         binding.layoutOnCollapsed.setOnClickListener {
-            Log.e("Main", "on click layout collapsed")
-            playerPanelFragment = PlayerPanelFragment()
-            val fragmentManager: FragmentManager = supportFragmentManager
-            val transaction = fragmentManager.beginTransaction()
-            transaction.addToBackStack("playerPanel")
-            transaction.replace(
-                R.id.container,
-                playerPanelFragment,
-                "bottom sheet container"
-            )
-                .commit()
-
+            val intent = Intent(this, PlayerPanelActivity::class.java)
+            startActivity(intent)
 
         }
 //        initMainFragment()
