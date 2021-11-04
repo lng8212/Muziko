@@ -5,20 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/search_song_artist"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/search_view_rounder"
-        android:backgroundTint="@color/search"
         android:padding="5dp"
-        android:queryHint="@string/song_and_artist"
+        app:iconifiedByDefault="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.052"
+        app:queryBackground="@null"
+        app:queryHint="@string/song_and_artist" />
 
     <Button
         android:id="@+id/btn_search_online"
@@ -27,7 +30,6 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/online_color"
-        android:fontFamily="@font/roboto_medium"
         android:text="@string/online"
         android:textAllCaps="false"
         android:textColor="@color/black"
@@ -46,7 +48,6 @@
         android:layout_marginTop="32dp"
         android:layout_marginRight="50dp"
         android:backgroundTint="@color/library"
-        android:fontFamily="@font/roboto_medium"
         android:text="@string/library"
         android:textAllCaps="false"
         android:textColor="@color/black"
