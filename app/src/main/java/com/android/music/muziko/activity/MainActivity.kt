@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         checkForPermissions()
 
         binding.layoutOnCollapsed.setOnClickListener {
+            RoomRepository.updateCachedFav()
             val intent = Intent(this, PlayerPanelActivity::class.java)
             startActivity(intent)
 
