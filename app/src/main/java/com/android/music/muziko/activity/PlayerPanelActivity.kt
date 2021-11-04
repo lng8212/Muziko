@@ -41,10 +41,13 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
     fun updatePanel() {
         RoomRepository.updateCachedFav()
         switchPlayPauseButton()
-        if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray){
-            Log.e( "player panel","is Favor")
+        RoomRepository.convertFavSongsToRealSongs()
+        Log.e("update", Coordinator.currentPlayingSong!!.toString())
+        for (i in RoomRepository.cachedFavArray) if(Coordinator.currentPlayingSong!!.id == i.id){
+            Log.e("Current",Coordinator.currentPlayingSong!!.toString())
             binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
         }
+        Log.e("Player panel", "update panel")
         setSongTitle()
         setSongImage()
         //binding.playerRemote.seekBar.max = Coordinator.currentPlayingSong!!.duration!!.toInt()
@@ -155,6 +158,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
 
             binding.playerRemote.favorContainer -> {
                 RoomRepository.updateCachedFav()
+                RoomRepository.convertFavSongsToRealSongs()
                 if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray) {
                     binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
                     RoomRepository.removeSongFromFavorites(Coordinator.currentPlayingSong!!)
