@@ -125,11 +125,12 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/play_pause_layout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/btn_play_on_header"
+                        android:id="@+id/btn_play"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -139,7 +140,7 @@
                         app:srcCompat="@drawable/ic_notification_play" />
 
                     <ImageView
-                        android:id="@+id/btn_pause_on_header"
+                        android:id="@+id/btn_pause"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"

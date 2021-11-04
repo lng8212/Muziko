@@ -1,5 +1,9 @@
 package com.android.music.muziko.activity
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -27,17 +31,19 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         binding = ActivityPlayerPanelBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        registerReceiver(broadcastNotificationReceiver, IntentFilter("Songs"))
         updatePanel()
         setOnEventListeners()
         seekbarHandler()
+
     }
 
     fun updatePanel() {
         RoomRepository.updateCachedFav()
+        switchPlayPauseButton()
         if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray){
             binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
         }
-        Log.e("Player panel", "update panel")
         setSongTitle()
         setSongImage()
         //binding.playerRemote.seekBar.max = Coordinator.currentPlayingSong!!.duration!!.toInt()
@@ -80,14 +86,14 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
             SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, percent: Int, fromUser: Boolean) {
                 if (seekBar != null) {
-                    Log.e("seekbar max ", seekBar.max.toString())
+//                    Log.e("seekbar max ", seekBar.max.toString())
                 }
                 if (Coordinator.isPlaying()) {
 //                    if(fromUser){
                         // change the time when pull on seek bar
                         var newPercent = Coordinator.getPositionInPlayer().toFloat() / (Coordinator.currentPlayingSong?.duration?.toFloat()!!)
-                        Log.e("percent", (newPercent).toString())
-                        Log.e("time now", ((newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()).toString())
+//                        Log.e("percent", (newPercent).toString())
+//                        Log.e("time now", ((newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()).toString())
                         binding.playerRemote.musicMin.text = TimeUtils.getReadableDuration(
                             (newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()
                         )
@@ -267,11 +273,12 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                     seekTo(mCurrentPosition)
                     setRemainingTime(mCurrentPosition)
 
-                    if (mCurrentPosition == duration?.toInt()?.minus(3) ?: 0) {
+                    if (mCurrentPosition == duration?.toInt()?.minus(1) ?: 0) {
                         Coordinator.takeActionBasedOnRepeatMode(
                             MainActivity.activity.getString(R.string.onSongCompletion),
                             MainActivity.activity.getString(R.string.play_next)
                         )
+                        updatePanel()
                     }
                 }
                 mHandler.postDelayed(this, 1000)
@@ -298,4 +305,52 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         TODO("Not yet implemented")
     }
 
+    private val broadcastNotificationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun onReceive(context: Context, intent: Intent) {
+            when (intent.extras!!.getString(context.getString(R.string.extra_key))) {
+                getString(R.string.notification_action_next) -> {
+                    Log.e("player panel", "received")
+                    updatePanel()
+                }
+                getString(R.string.notification_action_play) -> {
+                    binding.playerRemote.btnPause.visibility = View.VISIBLE
+                    binding.playerRemote.btnPlay.visibility = View.GONE
+
+                }
+                getString(R.string.notification_action_pause) -> {
+                    binding.playerRemote.btnPause.visibility = View.GONE
+                    binding.playerRemote.btnPlay.visibility = View.VISIBLE
+                }
+                getString(R.string.notification_action_previous) -> {
+                    updatePanel()
+                }
+            }
+
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        registerReceiver(broadcastNotificationReceiver, IntentFilter("Songs"))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updatePanel()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        registerReceiver(broadcastNotificationReceiver, IntentFilter("Songs"))
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(broadcastNotificationReceiver)
+    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        unregisterReceiver(broadcastNotificationReceiver)
+//    }
 }
