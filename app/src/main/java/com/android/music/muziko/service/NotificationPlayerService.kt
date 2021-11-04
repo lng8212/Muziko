@@ -161,6 +161,7 @@ class NotificationPlayerService : Service() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.extras!!.getString(context.getString(R.string.extra_key))) {
                 getString(R.string.notification_action_next) -> {
+                    Log.e("service", "received")
                     Coordinator.playNextSong()
                     Coordinator.currentPlayingSong?.let { MainActivity.activity.updateVisibility(it) }
                 }

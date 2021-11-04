@@ -105,7 +105,6 @@ object Coordinator : CoordinatorInterface {
                             MainActivity.activity.getString(R.string.play_next) -> {
                                 if (!hasNext()) {
                                     mediaPlayerAgent.pauseMusic()
-                                    MainActivity.playerPanelActivity.switchPlayPauseButton()
                                 } else {
                                     getNextSong().data?.let { play(it) }
                                     updatePlayerVar(nowPlayingQueue[position])
