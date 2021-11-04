@@ -104,8 +104,41 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         checkForPermissions()
 
+        binding.layoutOnCollapsed.setOnClickListener {
+            RoomRepository.updateCachedFav()
+            val intent = Intent(this, PlayerPanelActivity::class.java)
+            startActivity(intent)
+
+        }
+//        initMainFragment()
+//        initBottomSheet()
         layoutCollapsedListener()
 
+//        binding.slidingLayout.panel_high = 0
+//
+//        binding.slidingLayout.requestLayout()
+
+//        binding.slidingLayout.addPanelSlideListener(object :
+//            SlidingUpPanelLayout.PanelSlideListener {
+//            override fun onPanelSlide(panel: View?, slideOffset: Float) {
+//            }
+//
+//            override fun onPanelStateChanged(
+//                panel: View?,
+//                previousState: SlidingUpPanelLayout.PanelState?,
+//                newState: SlidingUpPanelLayout.PanelState?
+//            ) {
+//                when (binding.slidingLayout.panelState) {
+//                    SlidingUpPanelLayout.PanelState.EXPANDED -> {
+//                        playerPanelFragment.updatePanelBasedOnState(SlidingUpPanelLayout.PanelState.EXPANDED)
+//                    }
+//                    SlidingUpPanelLayout.PanelState.COLLAPSED -> {
+//                        playerPanelFragment.updatePanelBasedOnState(SlidingUpPanelLayout.PanelState.COLLAPSED)
+//
+//                    }
+//                }
+//            }
+//        })
     }
 
 //    private fun initMainFragment() {
