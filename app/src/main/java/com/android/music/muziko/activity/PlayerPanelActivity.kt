@@ -278,7 +278,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                             MainActivity.activity.getString(R.string.onSongCompletion),
                             MainActivity.activity.getString(R.string.play_next)
                         )
-                        if(Coordinator.currentPlayingSong?.title != binding.musicTitleTv.text) updatePanel()
+                        updatePanel()
                     }
                 }
                 mHandler.postDelayed(this, 1000)
