@@ -35,15 +35,18 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         updatePanel()
         setOnEventListeners()
         seekbarHandler()
-
     }
 
     fun updatePanel() {
         RoomRepository.updateCachedFav()
         switchPlayPauseButton()
-        if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray){
+        RoomRepository.convertFavSongsToRealSongs()
+        Log.e("update", Coordinator.currentPlayingSong!!.toString())
+        for (i in RoomRepository.cachedFavArray) if(Coordinator.currentPlayingSong!!.id == i.id){
+            Log.e("Current",Coordinator.currentPlayingSong!!.toString())
             binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
         }
+        Log.e("Player panel", "update panel")
         setSongTitle()
         setSongImage()
         //binding.playerRemote.seekBar.max = Coordinator.currentPlayingSong!!.duration!!.toInt()
@@ -86,14 +89,14 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
             SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, percent: Int, fromUser: Boolean) {
                 if (seekBar != null) {
-//                    Log.e("seekbar max ", seekBar.max.toString())
+                    Log.e("seekbar max ", seekBar.max.toString())
                 }
                 if (Coordinator.isPlaying()) {
 //                    if(fromUser){
                         // change the time when pull on seek bar
                         var newPercent = Coordinator.getPositionInPlayer().toFloat() / (Coordinator.currentPlayingSong?.duration?.toFloat()!!)
-//                        Log.e("percent", (newPercent).toString())
-//                        Log.e("time now", ((newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()).toString())
+                        Log.e("percent", (newPercent).toString())
+                        Log.e("time now", ((newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()).toString())
                         binding.playerRemote.musicMin.text = TimeUtils.getReadableDuration(
                             (newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()
                         )
@@ -154,6 +157,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
 
             binding.playerRemote.favorContainer -> {
                 RoomRepository.updateCachedFav()
+                RoomRepository.convertFavSongsToRealSongs()
                 if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray) {
                     binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
                     RoomRepository.removeSongFromFavorites(Coordinator.currentPlayingSong!!)
@@ -273,7 +277,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                     seekTo(mCurrentPosition)
                     setRemainingTime(mCurrentPosition)
 
-                    if (mCurrentPosition == duration?.toInt()?.minus(1) ?: 0) {
+                    if (mCurrentPosition == duration?.toInt()?.minus(3) ?: 0) {
                         Coordinator.takeActionBasedOnRepeatMode(
                             MainActivity.activity.getString(R.string.onSongCompletion),
                             MainActivity.activity.getString(R.string.play_next)
