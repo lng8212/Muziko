@@ -42,6 +42,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         RoomRepository.updateCachedFav()
         switchPlayPauseButton()
         if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray){
+            Log.e( "player panel","is Favor")
             binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
         }
         setSongTitle()

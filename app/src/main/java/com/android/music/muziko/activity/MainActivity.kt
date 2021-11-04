@@ -34,9 +34,17 @@ class MainActivity : AppCompatActivity() {
     var prefs: SharedPreferences? = null
 
     fun updateVisibility(song : Song) {
+        if(Coordinator.isPlaying()){
+            binding.btnPlay.visibility = View.GONE
+            binding.btnPause.visibility = View.VISIBLE
+        }
+        else{
+            binding.btnPlay.visibility = View.VISIBLE
+            binding.btnPause.visibility = View.GONE
+        }
         binding.layoutOnCollapsed.visibility = View.VISIBLE
-        binding.btnPlay.visibility = View.GONE
-        binding.btnPause.visibility = View.VISIBLE
+//        binding.btnPlay.visibility = View.GONE
+//        binding.btnPause.visibility = View.VISIBLE
         binding.txtArtistOnHeader.text = song.artist
         binding.txtTitleOnHeader.text = song.title
         song.image?.let {
@@ -175,6 +183,11 @@ class MainActivity : AppCompatActivity() {
         if (permissionProvider.permissionIsGranted) {
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Coordinator.currentPlayingSong?.let { updateVisibility(it) }
     }
 
     override fun onDestroy() {
