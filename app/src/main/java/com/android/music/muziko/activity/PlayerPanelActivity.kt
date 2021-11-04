@@ -35,6 +35,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         updatePanel()
         setOnEventListeners()
         seekbarHandler()
+
     }
 
     fun updatePanel() {
@@ -89,14 +90,14 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
             SeekBar.OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, percent: Int, fromUser: Boolean) {
                 if (seekBar != null) {
-                    Log.e("seekbar max ", seekBar.max.toString())
+//                    Log.e("seekbar max ", seekBar.max.toString())
                 }
                 if (Coordinator.isPlaying()) {
 //                    if(fromUser){
                         // change the time when pull on seek bar
                         var newPercent = Coordinator.getPositionInPlayer().toFloat() / (Coordinator.currentPlayingSong?.duration?.toFloat()!!)
-                        Log.e("percent", (newPercent).toString())
-                        Log.e("time now", ((newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()).toString())
+//                        Log.e("percent", (newPercent).toString())
+//                        Log.e("time now", ((newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()).toString())
                         binding.playerRemote.musicMin.text = TimeUtils.getReadableDuration(
                             (newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()
                         )
@@ -277,7 +278,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                     seekTo(mCurrentPosition)
                     setRemainingTime(mCurrentPosition)
 
-                    if (mCurrentPosition == duration?.toInt()?.minus(3) ?: 0) {
+                    if (mCurrentPosition == duration?.toInt()?.minus(1) ?: 0) {
                         Coordinator.takeActionBasedOnRepeatMode(
                             MainActivity.activity.getString(R.string.onSongCompletion),
                             MainActivity.activity.getString(R.string.play_next)

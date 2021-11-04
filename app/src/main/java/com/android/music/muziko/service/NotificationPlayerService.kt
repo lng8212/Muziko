@@ -167,9 +167,11 @@ class NotificationPlayerService : Service() {
                 }
                 getString(R.string.notification_action_play) -> {
                     Coordinator.resume()
+                    Coordinator.currentPlayingSong?.let { MainActivity.activity.updateVisibility(it) }
                 }
                 getString(R.string.notification_action_pause) -> {
                     Coordinator.pause()
+                    Coordinator.currentPlayingSong?.let { MainActivity.activity.updateVisibility(it) }
                 }
                 getString(R.string.notification_action_previous) -> {
                     Coordinator.playPrevSong()
