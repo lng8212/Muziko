@@ -1,6 +1,8 @@
 package com.android.music.muziko.fragments
 
+import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -72,7 +74,21 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
             layoutManager = LinearLayoutManager(context)
         }
 
-        swipeToDelete(recyclerview)
+        playlistAdapter?.OnDataSend(
+            object : PlaylistAdapter.OnDataSend {
+                override fun onSend(context: Activity, id: String) {
+                    viewModel?.updateDataset()
+                }
+            }
+        )
+
+        val mHandler = Handler()
+        activity?.runOnUiThread(object : Runnable {
+            override fun run() {
+                viewModel?.updateDataset()
+                mHandler.postDelayed(this, 1000)
+            }
+        })
     }
 
 
@@ -84,17 +100,6 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
         findNavController().navigate(action)
     }
 
-    private fun swipeToDelete(recyclerView: RecyclerView){
-        val swipeToDeleteCallback = object : SwipeToDelete(){
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val deletedItem = playlistAdapter.dataset[viewHolder.adapterPosition]
-                viewModel?.removePlaylist(deletedItem.id)
-                playlistAdapter.dataset.remove(deletedItem)
-                Toast.makeText(context, "Delete", Toast.LENGTH_LONG).show()
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
-    }
+
 
 }
