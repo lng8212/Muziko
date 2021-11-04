@@ -40,7 +40,9 @@ object RoomRepository : RoomRepositoryInterface{
 
     //    ----------------------------------------------- Playlist ----------------------------------------------------
     override fun updateCachedPlaylist() {
-        GlobalScope.launch {
+        GlobalScope.launch { //  GlobalScope tồn tại xuyên suốt lúc app hoạt động
+                            // lifecycleScope ràng buộc với vòng đời của Activity or Fragment
+                            // CoroutineScope
             cachedPlaylistArray = getPlaylistFromDatabase()
         }
     }
