@@ -45,6 +45,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_menu_library" />
+        app:srcCompat="@drawable/ic_settings" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

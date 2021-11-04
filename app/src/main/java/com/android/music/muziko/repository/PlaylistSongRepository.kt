@@ -28,7 +28,6 @@ class PlaylistSongRepository(private val playlistId: String, val array: ArrayLis
 
     override fun getSongs(): ArrayList<Song> {
         var songs: ArrayList<Song> = arrayListOf()
-
         val songsIdInString = getSongsIdFromDatabase()
         if (songsIdInString != "") {
             val songsIdInArraylist = convertStringToArraylist(songsIdInString)

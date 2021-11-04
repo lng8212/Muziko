@@ -25,12 +25,6 @@ class PlaylistViewModel : ViewModel(){
         dataset.value = playlistRepository.getPlaylists()
     }
 
-    fun removePlaylist(id: String): Boolean {
-        playlistRepository.removePlaylist(id)
-        updateDataset()
-        return true
-    }
-
     fun getDataSet(): ArrayList<Playlist> {
         updateDataset()
         return dataset.value as ArrayList<Playlist>
