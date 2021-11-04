@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var permissionsGranted: Boolean = false
-        lateinit var playerPanelActivity: PlayerPanelActivity
         lateinit var activity: MainActivity
 
     }
@@ -36,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 
     fun updateVisibility(song : Song) {
         binding.layoutOnCollapsed.visibility = View.VISIBLE
+        binding.btnPlay.visibility = View.GONE
+        binding.btnPause.visibility = View.VISIBLE
         binding.txtArtistOnHeader.text = song.artist
         binding.txtTitleOnHeader.text = song.title
         song.image?.let {
@@ -50,6 +51,32 @@ class MainActivity : AppCompatActivity() {
     private val permissions = arrayOf(
         Manifest.permission.READ_EXTERNAL_STORAGE
     )
+
+    private fun layoutCollapsedListener(){
+        binding.layoutOnCollapsed.setOnClickListener {
+            val intent = Intent(this, PlayerPanelActivity::class.java)
+            startActivity(intent)
+
+        }
+        binding.playPauseLayout.setOnClickListener {
+            if (Coordinator.isPlaying()) {
+                Coordinator.pause()
+            } else {
+                Coordinator.resume()
+            }
+            switchPlayPauseButton()
+        }
+    }
+
+    private fun switchPlayPauseButton() {
+        if (Coordinator.isPlaying()) {
+            binding.btnPlay.visibility = View.GONE
+            binding.btnPause.visibility = View.VISIBLE
+        } else {
+            binding.btnPlay.visibility = View.VISIBLE
+            binding.btnPause.visibility = View.GONE
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +111,7 @@ class MainActivity : AppCompatActivity() {
         }
 //        initMainFragment()
 //        initBottomSheet()
+        layoutCollapsedListener()
 
 //        binding.slidingLayout.panel_high = 0
 //

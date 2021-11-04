@@ -1,5 +1,9 @@
 package com.android.music.muziko.activity
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -27,21 +31,21 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         binding = ActivityPlayerPanelBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        registerReceiver(broadcastNotificationReceiver, IntentFilter("Songs"))
         updatePanel()
         setOnEventListeners()
         seekbarHandler()
     }
 
     fun updatePanel() {
-
         RoomRepository.updateCachedFav()
+        switchPlayPauseButton()
         RoomRepository.convertFavSongsToRealSongs()
         Log.e("update", Coordinator.currentPlayingSong!!.toString())
         for (i in RoomRepository.cachedFavArray) if(Coordinator.currentPlayingSong!!.id == i.id){
             Log.e("Current",Coordinator.currentPlayingSong!!.toString())
             binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
         }
-
         Log.e("Player panel", "update panel")
         setSongTitle()
         setSongImage()
@@ -278,6 +282,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                             MainActivity.activity.getString(R.string.onSongCompletion),
                             MainActivity.activity.getString(R.string.play_next)
                         )
+                        updatePanel()
                     }
                 }
                 mHandler.postDelayed(this, 1000)
@@ -304,4 +309,52 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         TODO("Not yet implemented")
     }
 
+    private val broadcastNotificationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.O)
+        override fun onReceive(context: Context, intent: Intent) {
+            when (intent.extras!!.getString(context.getString(R.string.extra_key))) {
+                getString(R.string.notification_action_next) -> {
+                    Log.e("player panel", "received")
+                    updatePanel()
+                }
+                getString(R.string.notification_action_play) -> {
+                    binding.playerRemote.btnPause.visibility = View.VISIBLE
+                    binding.playerRemote.btnPlay.visibility = View.GONE
+
+                }
+                getString(R.string.notification_action_pause) -> {
+                    binding.playerRemote.btnPause.visibility = View.GONE
+                    binding.playerRemote.btnPlay.visibility = View.VISIBLE
+                }
+                getString(R.string.notification_action_previous) -> {
+                    updatePanel()
+                }
+            }
+
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        registerReceiver(broadcastNotificationReceiver, IntentFilter("Songs"))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updatePanel()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        registerReceiver(broadcastNotificationReceiver, IntentFilter("Songs"))
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(broadcastNotificationReceiver)
+    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        unregisterReceiver(broadcastNotificationReceiver)
+//    }
 }
