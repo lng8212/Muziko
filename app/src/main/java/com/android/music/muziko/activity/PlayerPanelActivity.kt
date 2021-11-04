@@ -43,10 +43,15 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         switchPlayPauseButton()
         RoomRepository.convertFavSongsToRealSongs()
         Log.e("update", Coordinator.currentPlayingSong!!.toString())
-        for (i in RoomRepository.cachedFavArray) if(Coordinator.currentPlayingSong!!.id == i.id){
-            Log.e("Current",Coordinator.currentPlayingSong!!.toString())
-            binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
+        var check = false
+        for (i in RoomRepository.cachedFavArray) {
+            if(Coordinator.currentPlayingSong!!.id == i.id){
+                Log.e("Current",Coordinator.currentPlayingSong!!.toString())
+                binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
+                check = true
+            }
         }
+        if (!check) binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
         Log.e("Player panel", "update panel")
         setSongTitle()
         setSongImage()
