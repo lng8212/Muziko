@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ class SongFragment : Fragment() {
         lateinit var binding: FragmentSongBinding
         lateinit var songAdapter: SongAdapter
         lateinit var viewModel: SongViewModel
+        lateinit var mactivity: FragmentActivity
 
         fun notifyDataSetChange(){
             viewModel.updateData()
@@ -52,5 +54,13 @@ class SongFragment : Fragment() {
         }
 
         notifyDataSetChange()
+    }
+    override fun onResume() {
+        super.onResume()
+
+        viewModel.updateData()
+
+        mactivity = requireActivity()
+
     }
 }

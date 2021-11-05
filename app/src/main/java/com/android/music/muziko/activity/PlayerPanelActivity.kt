@@ -17,6 +17,7 @@ import com.android.music.R
 import com.android.music.databinding.ActivityPlayerPanelBinding
 import com.android.music.muziko.appInterface.PlayerPanelInterface
 import com.android.music.muziko.helper.Coordinator
+import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.TimeUtils
 import com.android.music.muziko.utils.ImageUtils
@@ -64,6 +65,17 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                     it
                 )
             }
+        // set up playback state (shuffle, repeat)
+        when (Coordinator.repeatMode) {
+            PlaybackStateCompat.REPEAT_MODE_ONE -> binding.playerRemote.repeatContainer.displayedChild = 2
+            PlaybackStateCompat.REPEAT_MODE_ALL -> binding.playerRemote.repeatContainer.displayedChild = 1
+            PlaybackStateCompat.REPEAT_MODE_NONE -> binding.playerRemote.repeatContainer.displayedChild = 3
+        }
+
+        when (Coordinator.shuffleMode) {
+            PlaybackStateCompat.SHUFFLE_MODE_NONE -> binding.playerRemote.shuffleContainer.displayedChild = 2
+            PlaybackStateCompat.SHUFFLE_MODE_ALL -> binding.playerRemote.shuffleContainer.displayedChild = 1
+        }
     }
 
     override fun setDefaultVisibilities() {
@@ -141,20 +153,6 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onClick(v: View?) {
         when (v) {
-//            binding.onExpand.likeIv -> {
-//                if (Coordinator.currentPlayingSong!!.isFavorite()) {
-//
-//                    binding.onExpand.likeIv.setImageResource(R.drawable.ic_unfavored)
-//                    RoomRepository.removeSongFromFavorites(Coordinator.currentPlayingSong!!)
-//
-//
-//                } else {
-//                    binding.onExpand.likeIv.setImageResource(R.drawable.ic_favored)
-//
-//                    RoomRepository.addSongToFavorites(Coordinator.currentPlayingSong!!.id ?: -1)
-//
-//                }
-//            }
 
             binding.playerRemote.btnNext -> {
                 Log.e("next", "next")
