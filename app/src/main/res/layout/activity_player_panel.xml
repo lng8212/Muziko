@@ -40,7 +40,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center">
 
 
@@ -53,7 +55,7 @@
             android:gravity="start"
             android:singleLine="true"
             android:textColor="#283333"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -69,7 +71,7 @@
             android:gravity="start"
             android:singleLine="true"
             android:textColor="#283333"
-            android:textSize="20dp"
+            android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/music_title_tv"
