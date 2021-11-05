@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
@@ -191,65 +192,53 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                 switchPlayPauseButton()
             }
 
-//            binding.playerPanel.shuffle_container -> {
-//                if (Coordinator.shuffleMode == PlaybackStateCompat.SHUFFLE_MODE_NONE) {
-//
-//                    Coordinator.shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_ALL
-//
-//                    binding.playerPanel.shuffle_container.displayedChild = 1
-//
-//                    Coordinator.updateNowPlayingQueue()
-//
-//                } else {
-//
-//                    Coordinator.shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_NONE
-//
-//                    binding.playerPanel.shuffle_container.displayedChild = 2
-//
-//                    Coordinator.updateNowPlayingQueue()
-//                }
-//            }
-//
-//            binding.playerRemote.repeatContainer -> {
-//                when (Coordinator.repeatMode) {
-//                    PlaybackStateCompat.REPEAT_MODE_NONE -> {
-//                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_ALL
-//
-//                        binding.playerPanel.repeatContainer.displayedChild = 1
-//
-//                        Coordinator.updateNowPlayingQueue()
-//                    }
-//
-//                    PlaybackStateCompat.REPEAT_MODE_ALL -> {
-//                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_ONE
-//
-//                        binding.playerPanel.repeatContainer.displayedChild = 2
-//
-//                        Coordinator.updateNowPlayingQueue()
-//                    }
-//
-//                    PlaybackStateCompat.REPEAT_MODE_ONE -> {
-//                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_NONE
-//
-//                        binding.playerPanel.repeatContainer.displayedChild = 3
-//
-//                        Coordinator.updateNowPlayingQueue()
-//                    }
-//                }
-//            }
+            binding.playerRemote.shuffleContainer -> {
+                if (Coordinator.shuffleMode == PlaybackStateCompat.SHUFFLE_MODE_NONE) {
 
-//            binding.header.onCollapse.play_btn_on_header -> {
-//
-//                Coordinator.resume()
-//                binding.header.onCollapse.play_btn_on_header.visibility = View.GONE
-//                binding.header.onCollapse.pause_btn_on_header.visibility = View.VISIBLE
-//            }
-//
-//            binding.header.onCollapse.pause_btn_on_header -> {
-//                Coordinator.pause()
-//                binding.header.onCollapse.play_btn_on_header.visibility = View.VISIBLE
-//                binding.header.onCollapse.pause_btn_on_header.visibility = View.GONE
-//            }
+                    Coordinator.shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_ALL
+
+                    binding.playerRemote.shuffleContainer.displayedChild = 1
+
+                    Coordinator.updateNowPlayingQueue()
+
+                } else {
+
+                    Coordinator.shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_NONE
+
+                    binding.playerRemote.shuffleContainer.displayedChild = 2
+
+                    Coordinator.updateNowPlayingQueue()
+                }
+            }
+
+            binding.playerRemote.repeatContainer -> {
+                when (Coordinator.repeatMode) {
+                    PlaybackStateCompat.REPEAT_MODE_NONE -> {
+                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_ALL
+
+                        binding.playerRemote.repeatContainer.displayedChild = 1
+
+                        Coordinator.updateNowPlayingQueue()
+                    }
+
+                    PlaybackStateCompat.REPEAT_MODE_ALL -> {
+                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_ONE
+
+                        binding.playerRemote.repeatContainer.displayedChild = 2
+
+                        Coordinator.updateNowPlayingQueue()
+                    }
+
+                    PlaybackStateCompat.REPEAT_MODE_ONE -> {
+                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_NONE
+
+                        binding.playerRemote.repeatContainer.displayedChild = 3
+
+                        Coordinator.updateNowPlayingQueue()
+                    }
+                }
+            }
+
         }
     }
 

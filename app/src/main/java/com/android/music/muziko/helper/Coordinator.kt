@@ -72,31 +72,31 @@ object Coordinator : CoordinatorInterface {
     fun takeActionBasedOnRepeatMode(actionSource: String, requestedAction: String) {
 
         when (repeatMode) {
-//            PlaybackStateCompat.REPEAT_MODE_ONE -> {
-//
-//                currentPlayingSong?.data?.let { play(it) }
-//
-//            }
-//            PlaybackStateCompat.REPEAT_MODE_ALL -> {
-//
-//                when (requestedAction) {
-//                    MainActivity.activity.getString(R.string.play_next) -> {
-//                        if (!hasNext()) {
-//                            position = -1
-//                        }
-//                        getNextSong().data?.let { play(it) }
-//                        updatePlayerVar(nowPlayingQueue[position])
-//                    }
-//                    MainActivity.activity.getString(R.string.play_prev) -> {
-//                        if (!hasPrev()) {
-//                            position = nowPlayingQueue.size
-//                        }
-//                        getPrevSong().data?.let { play(it) }
-//                        updatePlayerVar(nowPlayingQueue[position])
-//                    }
-//                }
-//
-//            }
+            PlaybackStateCompat.REPEAT_MODE_ONE -> {
+
+                currentPlayingSong?.data?.let { play(it) }
+
+            }
+            PlaybackStateCompat.REPEAT_MODE_ALL -> {
+
+                when (requestedAction) {
+                    MainActivity.activity.getString(R.string.play_next) -> {
+                        if (!hasNext()) {
+                            position = -1
+                        }
+                        getNextSong().data?.let { play(it) }
+                        updatePlayerVar(nowPlayingQueue[position])
+                    }
+                    MainActivity.activity.getString(R.string.play_prev) -> {
+                        if (!hasPrev()) {
+                            position = nowPlayingQueue.size
+                        }
+                        getPrevSong().data?.let { play(it) }
+                        updatePlayerVar(nowPlayingQueue[position])
+                    }
+                }
+
+            }
             PlaybackStateCompat.REPEAT_MODE_NONE -> {
 
                 when (actionSource) {
@@ -140,8 +140,31 @@ object Coordinator : CoordinatorInterface {
     }
 
     override fun updateNowPlayingQueue() {
-        nowPlayingQueue = currentDataSource
-        updateCurrentPlayingSongPosition()
+//        nowPlayingQueue = currentDataSource
+//        updateCurrentPlayingSongPosition()
+        when (repeatMode) {
+            PlaybackStateCompat.REPEAT_MODE_ONE -> nowPlayingQueue =
+                arrayListOf(currentPlayingSong!!)
+            PlaybackStateCompat.REPEAT_MODE_ALL -> nowPlayingQueue = currentDataSource
+            PlaybackStateCompat.REPEAT_MODE_NONE -> nowPlayingQueue = currentDataSource
+
+        }
+
+        when (shuffleMode) {
+            PlaybackStateCompat.SHUFFLE_MODE_NONE -> {
+                nowPlayingQueue = currentDataSource
+                updateCurrentPlayingSongPosition()
+            }
+            PlaybackStateCompat.SHUFFLE_MODE_ALL -> {
+
+                val lst = nowPlayingQueue.toList()
+                val sh_lst = lst.shuffled()
+                val p = sh_lst as ArrayList<Song>
+
+                nowPlayingQueue = p
+                updateCurrentPlayingSongPosition()
+            }
+        }
     }
 
     private fun updateCurrentPlayingSongPosition() {
