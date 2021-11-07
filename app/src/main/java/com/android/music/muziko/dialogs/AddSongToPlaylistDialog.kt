@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.music.R
 import com.android.music.databinding.AddSongsToPlaylistsBinding
 import com.android.music.muziko.adapter.AddSongToPlaylistAdapter
-import com.android.music.muziko.appInterface.PassDataForSelectPlaylists
+import com.android.music.muziko.appInterface.PassDataForSelectSong
 import com.android.music.muziko.utils.ScreenSizeUtils
 import com.android.music.muziko.model.Song
 import kotlinx.android.synthetic.main.add_songs_to_playlists.view.*
@@ -71,7 +71,7 @@ class AddSongToPlaylistDialog(val array: ArrayList<Song>) : DialogFragment(){
         binding.btnOkAddSongsDialog.setOnClickListener {
 
             val targetFragment = targetFragment
-            val passData: PassDataForSelectPlaylists = targetFragment as PassDataForSelectPlaylists
+            val passData: PassDataForSelectSong = targetFragment as PassDataForSelectSong
             passData.passDataToInvokingFragment(AddSongToPlaylistAdapter.choices)
 
             this.dismiss()
