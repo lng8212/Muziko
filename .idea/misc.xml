@@ -9,6 +9,8 @@
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_song.xml" value="0.21296296296296297" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/drawable/ic_unfavored.xml" value="0.27239583333333334" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/activity_main.xml" value="0.67" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/activity_player_panel.xml" value="0.3385416666666667" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/activity_splash.xml" value="0.11979166666666667" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_add_playlists.xml" value="0.15833333333333333" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
@@ -29,6 +31,9 @@
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/player_remote.xml" value="0.2" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/screen_muziko.xml" value="0.11458333333333333" />
         <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/search.xml" value="0.2203125" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/layout/song_details_dialog.xml" value="0.2453125" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Java/Android Projects/Muziko/app/src/main/res/menu/songs_popup_menu.xml" value="0.30833333333333335" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/drawable/background_library.xml" value="0.16666666666666666" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/drawable/ic_add_playlists_library.xml" value="0.26614583333333336" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/drawable/ic_arrow_left.xml" value="0.26614583333333336" />

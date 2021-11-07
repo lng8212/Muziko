@@ -3,9 +3,11 @@ package com.android.music.ui
 import android.app.Activity
 import android.net.Uri
 import android.os.Build
+import android.service.autofill.UserData
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -23,6 +25,8 @@ import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.SongUtils
 import com.android.music.ui.fragments.LibraryFragment
 import com.android.music.ui.fragments.SongFragment
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
     var position = 0 // position of current item if click
@@ -69,6 +73,39 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
                     )
                 }
                 popUpMenu.show()
+            }
+        }
+    }
+
+    fun getFilter(): Filter {
+        return userFilter
+    }
+
+    private val userFilter =object : Filter(){
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList: ArrayList<Song> = ArrayList()
+            if(constraint == null || constraint.isEmpty()){
+                listSong.let{filteredList.addAll(it)}
+            }
+            else{
+                val query = constraint.toString().trim().lowercase(Locale.getDefault())
+                Log.d("Result", listSong.size.toString())
+                listSong.forEach{
+                    if(it.title?.toLowerCase(Locale.ROOT)?.contains(query) == true){
+                        filteredList.add(it)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            if(results?.values is ArrayList<*>){
+                listSong.clear()
+                listSong.addAll(results.values as ArrayList<Song>)
+                notifyDataSetChanged()
             }
         }
     }
