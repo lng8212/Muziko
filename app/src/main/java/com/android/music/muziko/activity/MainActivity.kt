@@ -43,8 +43,6 @@ class MainActivity : AppCompatActivity() {
             binding.btnPause.visibility = View.GONE
         }
         binding.layoutOnCollapsed.visibility = View.VISIBLE
-//        binding.btnPlay.visibility = View.GONE
-//        binding.btnPause.visibility = View.VISIBLE
         binding.txtArtistOnHeader.text = song.artist
         binding.txtTitleOnHeader.text = song.title
         song.image?.let {
@@ -88,17 +86,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        activity = this
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        activity = this
+
         Coordinator.setup(baseContext) // set up media player
         RoomRepository.createDatabase()
 
-        Coordinator.setup(baseContext) // set up
+//        Coordinator.setup(baseContext) // set up
 
 
         supportActionBar?.hide()
@@ -117,63 +115,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
-//        initMainFragment()
-//        initBottomSheet()
-        layoutCollapsedListener()
-
-//        binding.slidingLayout.panel_high = 0
-//
-//        binding.slidingLayout.requestLayout()
-
-//        binding.slidingLayout.addPanelSlideListener(object :
-//            SlidingUpPanelLayout.PanelSlideListener {
-//            override fun onPanelSlide(panel: View?, slideOffset: Float) {
-//            }
-//
-//            override fun onPanelStateChanged(
-//                panel: View?,
-//                previousState: SlidingUpPanelLayout.PanelState?,
-//                newState: SlidingUpPanelLayout.PanelState?
-//            ) {
-//                when (binding.slidingLayout.panelState) {
-//                    SlidingUpPanelLayout.PanelState.EXPANDED -> {
-//                        playerPanelFragment.updatePanelBasedOnState(SlidingUpPanelLayout.PanelState.EXPANDED)
-//                    }
-//                    SlidingUpPanelLayout.PanelState.COLLAPSED -> {
-//                        playerPanelFragment.updatePanelBasedOnState(SlidingUpPanelLayout.PanelState.COLLAPSED)
-//
-//                    }
-//                }
-//            }
-//        })
     }
-
-//    private fun initMainFragment() {
-//        val mainFragment = MainFragment()
-//        val fragmentManager: FragmentManager = supportFragmentManager
-//        val transaction = fragmentManager.beginTransaction()
-////        transaction.addToBackStack(null)
-//        transaction.add(
-//            binding.fragmentBaseContainer.id,
-//            mainFragment,
-//            "main fragment container"
-//        )
-//            .commit()
-//    }
-
-//    private fun initBottomSheet() {
-//
-//        playerPanelFragment = PlayerPanelFragment()
-//        val fragmentManager: FragmentManager = supportFragmentManager
-//        val transaction = fragmentManager.beginTransaction()
-////        transaction.addToBackStack("playerPanel")
-//        transaction.add(
-//            binding.bottomSheetContainer.id,
-//            playerPanelFragment,
-//            "bottom sheet container"
-//        )
-//            .commit()
-//    }
 
     private fun checkForPermissions() {
         val permissionProvider = PermissionProvider()
