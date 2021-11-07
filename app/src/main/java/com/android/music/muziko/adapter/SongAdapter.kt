@@ -26,6 +26,8 @@ import com.android.music.ui.fragments.SongFragment
 
 class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
     var position = 0 // position of current item if click
+    lateinit var dataSend: OnDataSend
+
     inner class SongViewHolder(private var binding: ItemSongBinding): RecyclerView.ViewHolder(binding.root){
         var title = binding.txtTitle
         var artist = binding.txtArtist
@@ -76,14 +78,14 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
         when (itemId) {
             R.id.addToPlayList_menu_item -> {
 
-//                if(position>=0)
-//                {
-//                    dataSend.onSend(context, getSong(position))
-//                }
-//
-//                else{
-//                    Toast.makeText(context, "please try again", Toast.LENGTH_SHORT).show()
-//                }
+                if(position>=0)
+                {
+                    dataSend.onSend(context, getSong(position))
+                }
+
+                else{
+                    Toast.makeText(context, "please try again", Toast.LENGTH_SHORT).show()
+                }
 
             }
             R.id.deleteFromDevice_menu_item -> {
@@ -150,6 +152,7 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
         return SongViewHolder(binding)
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onBindViewHolder(holder: SongAdapter.SongViewHolder, position: Int) {
         val song = listSong[position]
         this.position = position
@@ -182,5 +185,13 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
     }
     fun getSongUri(position: Int): Uri? {
         return listSong[position].uri
+    }
+
+    interface OnDataSend {
+        fun onSend(context: Activity, song: Song)
+    }
+
+    fun OnDataSend(dataSend: OnDataSend) {
+        this.dataSend = dataSend
     }
 }
