@@ -101,20 +101,13 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        activity = this
-
         // set up navigation
         val navView: BottomNavigationView = binding.navView
         val navHostFragment  = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController
         navView.setupWithNavController(navController)
         checkForPermissions()
-
-        binding.layoutOnCollapsed.setOnClickListener {
-            val intent = Intent(this, PlayerPanelActivity::class.java)
-            startActivity(intent)
-
-        }
+        layoutCollapsedListener()
     }
 
     private fun checkForPermissions() {
