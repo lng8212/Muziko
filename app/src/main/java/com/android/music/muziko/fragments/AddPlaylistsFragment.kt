@@ -8,21 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.music.R
 import com.android.music.databinding.FragmentAddPlaylistsBinding
 import com.android.music.muziko.adapter.AddPlaylistAdapter
-import com.android.music.muziko.appInterface.PassDataForSelectPlaylists
+import com.android.music.muziko.appInterface.PassDataForSelectSong
 import com.android.music.muziko.dialogs.AddSongToPlaylistDialog
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.KeyboardUtils.hideKeyboard
-import com.android.music.muziko.utils.SwipeToDelete
 import com.android.music.ui.SongsRepository
 
-class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
+class AddPlaylistsFragment : Fragment(), PassDataForSelectSong {
 
     private lateinit var binding: FragmentAddPlaylistsBinding
 
@@ -132,18 +129,6 @@ class AddPlaylistsFragment : Fragment(), PassDataForSelectPlaylists {
 
 
 
-    }
-
-    private fun swipeToDelete(recyclerView: RecyclerView){
-        val swipeToDeleteCallback = object : SwipeToDelete(){
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val deletedItem = addPlaylistAdapter!!.dataset[viewHolder.adapterPosition]
-                selectedSongs.remove(deletedItem)
-                Toast.makeText(context, "Delete", Toast.LENGTH_LONG).show()
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
 }
