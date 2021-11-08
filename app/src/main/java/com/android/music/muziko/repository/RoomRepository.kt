@@ -317,7 +317,8 @@ object RoomRepository : RoomRepositoryInterface{
 
 
     override fun addSongToRecently(songsId: Long) {
-        val rec = Recently(songsId)
+        Log.e("addRoom", songsId.toString())
+        val rec = Recently(songsId,System.currentTimeMillis())
         updateCachedRecently()
         Log.e("RoomRepository", songsId.toString())
         applicationScope.launch {
@@ -333,7 +334,7 @@ object RoomRepository : RoomRepositoryInterface{
 
     override fun getRecentlyFromDatabase(): ArrayList<Recently> =
         runBlocking {
-            val recentlySongs = localDatabase.recentlyDao().getRecently()
+            val recentlySongs = localDatabase.recentlyDao().getRecentlyTime()
 
             val arr = arrayListOf<Recently>()
             arr.addAll(recentlySongs)
@@ -368,7 +369,7 @@ object RoomRepository : RoomRepositoryInterface{
     fun removeSongFromDBRec(song: Song)
     {
 
-        val rec = Recently(song.id!!)
+        val rec = Recently(song.id!!,System.currentTimeMillis())
         applicationScope.launch {
             localDatabase.recentlyDao().deleteSong(rec)
         }
