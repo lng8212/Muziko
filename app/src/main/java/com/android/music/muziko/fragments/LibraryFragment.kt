@@ -1,6 +1,7 @@
 package com.android.music.ui.fragments
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -66,7 +67,13 @@ class LibraryFragment : Fragment() {
             layoutManager = GridLayoutManager(context,2)
         }
 
-        recViewModel.updateData()
+        val mHandler = Handler()
+        activity?.runOnUiThread(object : Runnable{
+            override fun run() {
+                recViewModel.updateData()
+                mHandler.postDelayed(this,1000)
+            }
+        })
     }
     private val recSongsObserver = Observer<ArrayList<Any>> {
         recAdapter?.listSong = it as ArrayList<Song>
