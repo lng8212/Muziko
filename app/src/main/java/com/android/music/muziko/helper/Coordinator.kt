@@ -6,7 +6,7 @@ import android.util.Log
 import com.android.music.R
 import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.muziko.model.Song
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 
 
 // object for controlling play music

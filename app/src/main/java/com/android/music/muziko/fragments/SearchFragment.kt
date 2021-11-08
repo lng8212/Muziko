@@ -29,31 +29,31 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SongViewModel::class.java)
-        searchAdapter = activity?.let { SongFragment.viewModel.liveListSong.value?.let { it1 -> SongAdapter(it1, it) } }!!
-        var rcv = binding.searchRv
-        rcv.apply {
-            adapter = searchAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
-        val searchView = binding.searchSongArtist
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener, androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchAdapter.getFilter().filter(query)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                searchAdapter.getFilter().filter(newText)
-                return true
-            }
-
-        })
-        notifyDataSetChange()
-    }
-    fun notifyDataSetChange(){
-        viewModel.updateData()
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        viewModel = ViewModelProvider(this).get(SongViewModel::class.java)
+//        searchAdapter = activity?.let { SongFragment.viewModel.liveListSong.value?.let { it1 -> SongAdapter(it1, it) } }!!
+////        var rcv = binding.searchRv
+////        rcv.apply {
+////            adapter = searchAdapter
+////            layoutManager = LinearLayoutManager(context)
+////        }
+//        val searchView = binding.searchSongArtist
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener, androidx.appcompat.widget.SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                searchAdapter.getFilter().filter(query)
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                searchAdapter.getFilter().filter(newText)
+//                return true
+//            }
+//
+//        })
+//        notifyDataSetChange()
+//    }
+//    fun notifyDataSetChange(){
+//        viewModel.updateData()
+//    }
 }

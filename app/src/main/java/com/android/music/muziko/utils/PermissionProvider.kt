@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 
 /*
 * class to check permission if allow or deny to use media from device

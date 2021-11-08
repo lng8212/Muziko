@@ -1,7 +1,7 @@
 package com.android.music.muziko.utils
 
 import android.graphics.Point
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 
 object ScreenSizeUtils {
     fun getScreenHeight(): Int {

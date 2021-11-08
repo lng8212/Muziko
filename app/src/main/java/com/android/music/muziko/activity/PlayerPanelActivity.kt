@@ -17,12 +17,10 @@ import com.android.music.R
 import com.android.music.databinding.ActivityPlayerPanelBinding
 import com.android.music.muziko.appInterface.PlayerPanelInterface
 import com.android.music.muziko.helper.Coordinator
-import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.TimeUtils
 import com.android.music.muziko.utils.ImageUtils
-import com.android.music.ui.activity.MainActivity
-import com.android.music.ui.activity.MainActivity.Companion.activity
+import com.android.music.muziko.activity.MainActivity.Companion.activity
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 
@@ -54,11 +52,14 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
             }
         }
         if (!check) binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
-        Log.e("Player panel", "update panel")
         setSongTitle()
         setSongImage()
-        //binding.playerRemote.seekBar.max = Coordinator.currentPlayingSong!!.duration!!.toInt()
+        // set up seek bar
+        binding.playerRemote.seekBar.max = (Coordinator.currentPlayingSong!!.duration!!.toInt())/1000
+        Log.e("current position", Coordinator.getPositionInPlayer().toString())
+        binding.playerRemote.seekBar.progress = Coordinator.getPositionInPlayer()/1000
         Log.e("max",binding.playerRemote.seekBar.max.toString() )
+        binding.playerRemote.musicMin.text = TimeUtils.getReadableDuration(Coordinator.getPositionInPlayer().toLong())
         binding.playerRemote.musicMax.text =
             Coordinator.currentPlayingSong?.duration?.let {
                 TimeUtils.getReadableDuration(
@@ -96,7 +97,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         binding.musicTitleTv.text = Coordinator.currentPlayingSong?.title
         binding.txtArtist.text = Coordinator.currentPlayingSong?.artist
     }
-    fun setOnEventListeners() {
+    private fun setOnEventListeners() {
         binding.playerRemote.btnNext.setOnClickListener(this)
         binding.playerRemote.btnPrev.setOnClickListener(this)
         binding.playerRemote.playOrPauseLayout.setOnClickListener(this)
@@ -113,9 +114,10 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                 if (Coordinator.isPlaying()) {
 //                    if(fromUser){
                         // change the time when pull on seek bar
-                        var newPercent = Coordinator.getPositionInPlayer().toFloat() / (Coordinator.currentPlayingSong?.duration?.toFloat()!!)
+                        var newPercent : Float = Coordinator.getPositionInPlayer().toFloat() / (Coordinator.currentPlayingSong?.duration?.toFloat()!!)
 //                        Log.e("percent", (newPercent).toString())
 //                        Log.e("time now", ((newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()).toString())
+                        Log.e("percent", newPercent.toString())
                         binding.playerRemote.musicMin.text = TimeUtils.getReadableDuration(
                             (newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()
                         )
@@ -129,14 +131,16 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
 
             override fun onStopTrackingTouch(p0: SeekBar?) { // set the music to the point in seek bar after pulling
                 if (p0 != null) {
-                    Log.e("time seek", (((p0.progress).toFloat()/100.0 * Coordinator.currentPlayingSong?.duration!!).toInt()).toString())
-                    Coordinator.seekTo(((p0.progress).toFloat()/100.0 * Coordinator.currentPlayingSong?.duration!!).toInt())
+//                    Log.e("progress pulling", p0.progress.toString())
+//                    Log.e("time seek", (((p0.progress/2).toFloat()/100.0 * Coordinator.currentPlayingSong?.duration!!).toInt()).toString())
+                    Coordinator.seekTo((p0.progress*1000))
                 }
             }
 
         }
         )
         binding.imgBack.setOnClickListener{
+            onBackPressed()
 //            val libraryFragment = LibraryFragment()
 //            val fragmentManager: FragmentManager =
 //            val transaction = fragmentManager.beginTransaction()
@@ -253,7 +257,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
     }
 
     override fun seekTo(mCurrentPosition: Int) {
-        binding.playerRemote.seekBar.progress = mCurrentPosition/2
+        binding.playerRemote.seekBar.progress = mCurrentPosition
 
     }
 
@@ -345,6 +349,10 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
     override fun onStop() {
         super.onStop()
         unregisterReceiver(broadcastNotificationReceiver)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 //    override fun onDestroy() {
 //        super.onDestroy()

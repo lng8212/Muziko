@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.android.music.R
+import com.android.music.muziko.activity.MainActivity
 
 
 @Suppress("DEPRECATION")

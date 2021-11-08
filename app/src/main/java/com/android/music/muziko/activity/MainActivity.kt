@@ -1,4 +1,4 @@
-package com.android.music.ui.activity
+package com.android.music.muziko.activity
 
 import android.Manifest
 import android.content.Intent
@@ -11,7 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.android.music.R
 import com.android.music.databinding.ActivityMainBinding
 import com.android.music.muziko.PermissionProvider
-import com.android.music.muziko.activity.PlayerPanelActivity
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song

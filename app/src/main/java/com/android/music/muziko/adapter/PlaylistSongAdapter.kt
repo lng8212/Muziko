@@ -13,7 +13,7 @@ import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 
 class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity): RecyclerView.Adapter<PlaylistSongAdapter.PlaylistSongViewHolder>(){
 

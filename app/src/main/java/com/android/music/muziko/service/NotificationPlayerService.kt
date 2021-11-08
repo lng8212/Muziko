@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 import com.android.music.R
 import com.android.music.muziko.helper.Coordinator
 
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 
 
 class NotificationPlayerService : Service() {

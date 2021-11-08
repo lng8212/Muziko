@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import com.android.music.muziko.service.NotificationPlayerService
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 
 // class for controlling mediaPlayer
 class MediaPlayerAgent(val context: Context) {
