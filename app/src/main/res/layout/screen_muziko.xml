@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#2F6B78">
 
-    <pl.droidsonroids.gif.GifImageView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/splash"
