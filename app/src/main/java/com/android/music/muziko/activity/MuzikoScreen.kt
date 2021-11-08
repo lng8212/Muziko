@@ -32,6 +32,6 @@ class MuzikoScreen : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 4000) // in milliseconds.
+        }, 3000) // in milliseconds.
     }
 }
