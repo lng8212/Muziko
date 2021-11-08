@@ -77,6 +77,13 @@ object RoomRepository : RoomRepositoryInterface{
 //        add song to playlist object
         if (playlist != null) {
 
+            val ids = DatabaseConverterUtils.stringToArraylist(playlist.songs)
+            for (i in ids){
+                if (i.equals(songsId)){
+                    return true
+                }
+            }
+
             val position = findPlaylistPositionInCachedArray(playlist)
 
             if (position >= 0) {
