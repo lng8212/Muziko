@@ -10,7 +10,7 @@ import com.android.music.muziko.utils.DatabaseConverterUtils
 import com.android.music.muziko.utils.SongUtils
 import com.android.music.ui.Favorites
 import com.android.music.muziko.model.Song
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 import com.android.music.ui.fragments.LibraryFragment
 import kotlinx.coroutines.*
 

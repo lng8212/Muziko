@@ -3,7 +3,6 @@ package com.android.music.ui
 import android.app.Activity
 import android.net.Uri
 import android.os.Build
-import android.service.autofill.UserData
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,13 +16,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.music.R
 import com.android.music.databinding.ItemSongBinding
 import com.android.music.muziko.dialogs.SongDetailsDialog
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.SongUtils
-import com.android.music.ui.fragments.LibraryFragment
 import com.android.music.ui.fragments.SongFragment
 import java.util.*
 import kotlin.collections.ArrayList

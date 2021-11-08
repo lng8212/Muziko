@@ -10,7 +10,7 @@ import androidx.core.content.FileProvider
 import com.android.music.BuildConfig
 import com.android.music.ui.FilePathUtlis
 import com.android.music.muziko.model.Song
-import com.android.music.ui.activity.MainActivity
+import com.android.music.muziko.activity.MainActivity
 import com.android.music.ui.fragments.LibraryFragment
 import com.example.kookplayer.utlis.FileUtils
 
