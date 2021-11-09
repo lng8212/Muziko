@@ -352,7 +352,7 @@ object RoomRepository : RoomRepositoryInterface{
     override fun convertRecentlySongsToRealSongs(): ArrayList<Song> {
         val arrayList = arrayListOf<Song>()
         for (recSong in cachedRecArray_Recently) {
-            Log.e("song", recSong.toString())
+//            Log.e("song", recSong.toString())
             val realSong = songsIdToSongModelConverterRecently(recSong)
             if (realSong != null)
                 arrayList.add(realSong)
@@ -364,7 +364,7 @@ object RoomRepository : RoomRepositoryInterface{
 
     override fun songsIdToSongModelConverterRecently(recently: Recently): Song? {
         val allSongsInStorage = LibraryFragment.viewModel.getData()
-        Log.e("allSongInStorage", allSongsInStorage.size.toString())
+//        Log.e("allSongInStorage", allSongsInStorage.size.toString())
         for (song in allSongsInStorage) {
             if (song.id ==recently.songId) {
                 return song
