@@ -1,6 +1,7 @@
 package com.android.music.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,11 +43,13 @@ class SearchFragment : Fragment() {
         val searchView = binding.searchSongArtist
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener, androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                Log.e("text submit", ".")
                 searchAdapter.getFilter().filter(query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                Log.e("text change",newText.toString())
                 searchAdapter.getFilter().filter(newText)
                 return true
             }
