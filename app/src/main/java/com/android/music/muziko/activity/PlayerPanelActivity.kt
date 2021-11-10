@@ -167,13 +167,18 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
             binding.playerRemote.favorContainer -> {
                 RoomRepository.updateCachedFav()
                 RoomRepository.convertFavSongsToRealSongs()
-                if(Coordinator.currentPlayingSong!! in RoomRepository.cachedFavArray) {
-                    binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
-                    RoomRepository.removeSongFromFavorites(Coordinator.currentPlayingSong!!)
+                var check = false
+                for (i in RoomRepository.cachedFavArray) {
+                    if(Coordinator.currentPlayingSong!!.id == i.id){
+                        Log.e("Current",Coordinator.currentPlayingSong!!.toString())
+                        binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
+                        RoomRepository.removeSongFromFavorites(Coordinator.currentPlayingSong!!)
+                        check = true
+                    }
                 }
-                else{
+                if (!check) {
                     binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
-                    RoomRepository.addSongToFavorites(Coordinator.currentPlayingSong!!.id!!.toLong())
+                    RoomRepository.addSongToFavorites(Coordinator.currentPlayingSong!!.id!!)
                 }
 
 
