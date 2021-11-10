@@ -29,6 +29,11 @@ import kotlin.collections.ArrayList
 class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
     var position = 0 // position of current item if click
     lateinit var dataSend: OnDataSend
+    var listSearchSong : ArrayList<Song> = ArrayList()
+
+    init {
+        listSearchSong.addAll(listSong)
+    }
 
     inner class SongViewHolder(private var binding: ItemSongBinding): RecyclerView.ViewHolder(binding.root){
         var title = binding.txtTitle
@@ -81,18 +86,22 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
 
     private val userFilter =object : Filter(){
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filteredList: ArrayList<Song> = ArrayList()
+            var filteredList: ArrayList<Song> = ArrayList()
             if(constraint == null || constraint.isEmpty()){
-                listSong.let{filteredList.addAll(it)}
+                Log.e("search","null text")
+                listSearchSong.let{filteredList.addAll(it)}
+                Log.e("list songs if null text", listSearchSong.size.toString())
+                Log.e("filter list if null text", filteredList.size.toString())
             }
             else{
                 val query = constraint.toString().trim().lowercase(Locale.getDefault())
-                Log.d("Result", listSong.size.toString())
-                listSong.forEach{
+                Log.d("Result", listSearchSong.size.toString())
+                listSearchSong.forEach{
                     if(it.title?.toLowerCase(Locale.ROOT)?.contains(query) == true){
                         filteredList.add(it)
                     }
                 }
+                Log.e("list songs searched", filteredList.size.toString())
             }
             val results = FilterResults()
             results.values = filteredList
@@ -157,7 +166,7 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
                 val manager: FragmentManager =
                     (context as AppCompatActivity).supportFragmentManager
 
-                manager?.beginTransaction()
+                manager ?.beginTransaction()
                     ?.let { it -> songDetailsDialog.show(it, "songDetails") }
 
 
