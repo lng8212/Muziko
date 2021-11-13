@@ -57,7 +57,7 @@
                 android:layout_width="0dp"
                 android:id="@+id/img_playlists_add_fragment"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_img_song"/>
+                app:srcCompat="@drawable/ic_playlist_card"/>
             <TextView
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -105,7 +105,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginEnd="20dp"
             android:padding="10dp"
-            android:layout_weight="24"
+            android:layout_weight="22"
             android:id="@+id/recyclerview_add_playlists_fragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"

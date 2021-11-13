@@ -44,12 +44,12 @@
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/add_songs_to_playlists.xml" value="0.2" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_add_playlists.xml" value="0.264" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_artist_songs.xml" value="0.25" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_artist_songs.xml" value="0.2" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_artists.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.264" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_music_of_artists.xml" value="0.264" />
-        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_playlist_songs.xml" value="0.4" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_playlist_songs.xml" value="0.264" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_playlists.xml" value="0.264" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.264" />
@@ -62,6 +62,9 @@
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/item_playlists_library.xml" value="0.264" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/item_recently.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/item_song.xml" value="0.264" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/panel_header_on_collapsed.xml" value="0.12129629629629629" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/panel_header_on_expanded.xml" value="0.24615384615384617" />
+        <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/player_remote.xml" value="0.24615384615384617" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/search.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.25" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/drawable/search_view_rounder.xml" value="0.24322916666666666" />

@@ -61,7 +61,7 @@
                 android:text="Selena Gomez"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:textColor="@color/color_app"
+                android:textColor="@color/black"
                 android:gravity="center_vertical"
                 app:layout_constraintEnd_toEndOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -71,52 +71,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-        <LinearLayout
-            android:weightSum="10"
-            android:layout_weight="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <Button
-                android:layout_weight="3"
-                android:id="@+id/btn_play_artists_songs"
-                android:text="Play"
-                android:textColor="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <Button
-                android:layout_weight="3"
-                android:id="@+id/btn_shuffle_artists_song"
-                android:layout_width="0dp"
-                android:text="Shuffle"
-                android:textColor="@color/white"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-        <TextView
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_weight="22"
+            android:layout_weight="23"
             android:id="@+id/recyclerview_artists_songs"
             android:layout_width="match_parent"
             android:layout_height="0dp"

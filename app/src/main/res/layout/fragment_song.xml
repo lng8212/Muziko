@@ -23,50 +23,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-        <LinearLayout
-            android:weightSum="10"
-            android:layout_weight="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <Button
-                android:layout_weight="3"
-                android:id="@+id/btn_play_songs"
-                android:text="Play"
-                android:textColor="@color/white"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-            <Button
-                android:layout_weight="3"
-                android:id="@+id/btn_shuffle_songs"
-                android:layout_width="0dp"
-                android:text="Shuffle"
-                android:textColor="@color/white"
-                android:layout_height="match_parent"/>
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-
-        </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="21"
+            android:layout_marginTop="10dp"
+            android:layout_weight="22"
             android:id="@+id/songsRv"
             android:layout_width="match_parent"
             android:layout_height="0dp"
