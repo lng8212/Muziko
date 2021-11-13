@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_img_song" />
+        app:srcCompat="@drawable/ic_playlist_card" />
 
     <TextView
         android:layout_width="0dp"
@@ -25,7 +25,7 @@
         android:text="Playlists"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/color_app"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/img_next_song_playlist"
         app:layout_constraintHorizontal_bias="0.5"
