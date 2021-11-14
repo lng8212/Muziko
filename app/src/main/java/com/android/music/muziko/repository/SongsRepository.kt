@@ -4,8 +4,12 @@ import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.provider.MediaStore
+import android.util.Log
+import com.android.music.R
 import com.android.music.muziko.model.Song
 import com.example.kookplayer.utlis.FileUtils
 import com.android.music.muziko.utils.ImageUtils
@@ -37,7 +41,9 @@ class SongsRepository(val context: Context) {
         val size = cursor.getString(MediaStore.Audio.AudioColumns.SIZE)
 
         val image = ImageUtils.albumArtUriToBitmap(context, albumId)
-            ?: ImageUtils.getDefaultAlbumArt(context)
+            ?:  BitmapFactory.decodeResource(
+                context.resources, R.mipmap.icon);
+
 
         var bitrate = ""
         if (data != "") {

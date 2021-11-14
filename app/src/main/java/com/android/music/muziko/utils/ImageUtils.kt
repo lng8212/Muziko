@@ -6,10 +6,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.ImageView
-import com.android.music.R
 import com.android.music.ui.FilePathUtlis
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.io.FileDescriptor
@@ -18,6 +16,9 @@ import java.io.FileDescriptor
 object ImageUtils {
 
     fun loadImageToImageView(context: Context, imageView: ImageView, image: Bitmap){
+        Glide.with(context).load(image).circleCrop().into(imageView)
+    }
+    fun loadImageToImageView(context: Context, imageView: ImageView, image: Int){
         Glide.with(context).load(image).circleCrop().into(imageView)
     }
     fun loadImgToImgViewNotRound(context: Context, imageView: ImageView, image: Bitmap){
@@ -45,10 +46,4 @@ object ImageUtils {
         return bm
     }
 
-    fun getDefaultAlbumArt(context: Context): Bitmap {
-        return BitmapFactory.decodeResource(
-            context.resources,
-            R.drawable.ic_song
-        )
-    }
 }

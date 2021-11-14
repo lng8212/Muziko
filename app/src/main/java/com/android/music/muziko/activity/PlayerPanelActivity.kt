@@ -79,17 +79,23 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         }
     }
 
-    override fun setDefaultVisibilities() {
-        TODO("Not yet implemented")
-    }
-
     override fun setSongImage() {
-        baseContext?.let {
-            ImageUtils.loadImageToImageView(
-                it,
-                binding.musicAlbumImage,
-                Coordinator.currentPlayingSong?.image!!
-            )
+        if (Coordinator.currentPlayingSong?.image != null) {
+            baseContext?.let {
+                ImageUtils.loadImageToImageView(
+                    it,
+                    binding.musicAlbumImage,
+                    Coordinator.currentPlayingSong?.image!!
+                )
+            }
+        } else {
+            baseContext?.let {
+                ImageUtils.loadImageToImageView(
+                    it,
+                    binding.musicAlbumImage,
+                    R.drawable.ic_img_song
+                )
+            }
         }
     }
 
@@ -141,16 +147,6 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         )
         binding.imgBack.setOnClickListener{
             onBackPressed()
-//            val libraryFragment = LibraryFragment()
-//            val fragmentManager: FragmentManager =
-//            val transaction = fragmentManager.beginTransaction()
-//            transaction.addToBackStack("playerPanel")
-//            transaction.replace(
-//                R.id.container,
-//                MainActivity.playerPanelFragment,
-//                "bottom sheet container"
-//            )
-//                .commit()
         }
     }
 
@@ -249,18 +245,6 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         }
     }
 
-    override fun getPanelState() {
-        TODO("Not yet implemented")
-    }
-
-    override fun setPanelState() {
-        TODO("Not yet implemented")
-    }
-
-    override fun updateHeader() {
-        TODO("Not yet implemented")
-    }
-
     override fun seekTo(mCurrentPosition: Int) {
         binding.playerRemote.seekBar.progress = mCurrentPosition
 
@@ -307,10 +291,6 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         }
     }
 
-    override fun updatePanelBasedOnState(newState: SlidingUpPanelLayout.PanelState) {
-        TODO("Not yet implemented")
-    }
-
     private val broadcastNotificationReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         @RequiresApi(Build.VERSION_CODES.O)
         override fun onReceive(context: Context, intent: Intent) {
@@ -355,12 +335,4 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         super.onStop()
         unregisterReceiver(broadcastNotificationReceiver)
     }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        unregisterReceiver(broadcastNotificationReceiver)
-//    }
 }
