@@ -7,7 +7,7 @@ import androidx.core.database.getStringOrNull
 
 fun Cursor.getLong(columnName: String): Long?{
     try {
-       return this.getLongOrNull(this.getColumnIndexOrThrow(columnName))
+       return this.getLong(this.getColumnIndexOrThrow(columnName))
     }
     catch (exception : Exception)
     {
@@ -18,7 +18,7 @@ fun Cursor.getLong(columnName: String): Long?{
 
 fun Cursor.getString(columnName: String): String?{
     try {
-        return this.getStringOrNull(this.getColumnIndexOrThrow(columnName))
+        return this.getString(this.getColumnIndexOrThrow(columnName))
     }
     catch (exception : Exception)
     {
@@ -29,7 +29,7 @@ fun Cursor.getString(columnName: String): String?{
 
 fun Cursor.getInt(columnName: String): Int?{
     try {
-        return this.getIntOrNull(this.getColumnIndexOrThrow(columnName))
+        return this.getInt(this.getColumnIndexOrThrow(columnName))
     }
     catch (exception : Exception)
     {
