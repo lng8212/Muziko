@@ -5,24 +5,9 @@
     android:id="@+id/playerPanel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/white"
     android:orientation="vertical">
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/header"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-
-<!--        <include-->
-<!--            android:id="@+id/onExpand"-->
-<!--            layout="@layout/panel_header_on_expanded" />-->
-
-<!--        <include-->
-<!--            android:id="@+id/onCollapse"-->
-<!--            layout="@layout/panel_header_on_collapsed" />-->
-
-<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
     <ImageView
         android:id="@+id/img_back"
         android:layout_margin="10dp"
@@ -35,13 +20,14 @@
         android:id="@+id/music_album_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
+        android:layout_gravity="center"
         android:src="@drawable/ic_music_background" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginBottom="30dp"
         android:gravity="center">
 

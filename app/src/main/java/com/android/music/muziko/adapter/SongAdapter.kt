@@ -91,7 +91,7 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
                 Log.e("search","null text")
                 listSearchSong.let{filteredList.addAll(it)}
                 Log.e("list songs if null text", listSearchSong.size.toString())
-                Log.e("filter list if null text", filteredList.size.toString())
+                Log.e("filterlist if null text", filteredList.size.toString())
             }
             else{
                 val query = constraint.toString().trim().lowercase(Locale.getDefault())

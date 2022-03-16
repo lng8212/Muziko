@@ -70,21 +70,26 @@
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/layout/search.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.25" />
         <entry key="..\:/Kotlin/Muziko/app/src/main/res/mipmap-anydpi-v26/icon.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/drawable/ic_voice.xml" value="0.321" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/drawable/search_view_rounder.xml" value="0.24322916666666666" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/drawable/splash.xml" value="0.11197916666666667" />
-        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/activity_main.xml" value="0.9" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/activity_player_panel.xml" value="0.33958333333333335" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_favourite.xml" value="0.2" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_library.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_player_panel.xml" value="0.2936936936936937" />
-        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.4" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_search.xml" value="0.33" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/fragment_song.xml" value="0.33" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/item_recently.xml" value="2.0" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/panel_header_on_collapsed.xml" value="0.1963963963963964" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/player_remote.xml" value="0.2936936936936937" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/screen_muziko.xml" value="0.33958333333333335" />
         <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/layout/search.xml" value="0.1963963963963964" />
+        <entry key="..\:/Users/Long/AndroidStudioProjects/Muziko/app/src/main/res/menu/nav_menu.xml" value="0.33958333333333335" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
