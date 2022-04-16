@@ -48,8 +48,8 @@ class ArtistsFragment : Fragment(), ArtistAdapter.OnItemClickListener {
         viewModel!!.dataset.observe(viewLifecycleOwner, artistsUpdateObserver)
     }
 
-    private val artistsUpdateObserver = Observer<ArrayList<Song>>{
-        artistsAdapter.dataset = it
+    private val artistsUpdateObserver = Observer<ArrayList<*>>{
+        artistsAdapter.dataset = it as ArrayList<Song>
         binding.recyclerviewArtistsLibrary.adapter = artistsAdapter
     }
 

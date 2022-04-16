@@ -7,26 +7,29 @@ import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.repository.PlaylistRepository
 import com.android.music.muziko.repository.RoomRepository
 
-class PlaylistViewModel : ViewModel(){
+class PlaylistViewModel : BaseViewModel(){
 
-    var dataset: MutableLiveData<ArrayList<Playlist>> = MutableLiveData()
     lateinit var playlistRepository: PlaylistRepository
 
     init {
-        dataset.value = ArrayList()
+        dataset = MutableLiveData()
     }
 
     fun setFragmentContext(context: Context) {
         playlistRepository = PlaylistRepository(context)
-        updateDataset()
+        updateData()
     }
 
-    fun updateDataset() {
+    override fun sendDataToFragment(context: Context?, artist: String?) {
+
+    }
+
+    override fun updateData(data: String?) {
         dataset.value = playlistRepository.getPlaylists()
     }
 
-    fun getDataSet(): ArrayList<Playlist> {
-        updateDataset()
+    override fun getDataset(): ArrayList<*> {
+        updateData()
         return dataset.value as ArrayList<Playlist>
     }
 }

@@ -63,8 +63,8 @@ class ArtistSongsFragment : Fragment() {
         viewModel!!.dataset.observe(viewLifecycleOwner, artistsSongUpdateObserver)
     }
 
-    private val artistsSongUpdateObserver = Observer<ArrayList<Song>>{
-        artistSongAdapter.dataset = it
+    private val artistsSongUpdateObserver = Observer<ArrayList<*>>{
+        artistSongAdapter.dataset = it as ArrayList<Song>
         binding.recyclerviewArtistsSongs.adapter = artistSongAdapter
     }
 

@@ -51,13 +51,13 @@ class SongFragment : Fragment(), PassDataForSelectPlaylist {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SongViewModel::class.java)
 
-        context?.let { viewModel.setDataToFragment(it) }
-        val updateListSong = Observer<ArrayList<Song>>{
-            songAdapter.listSong = it
+        context?.let { viewModel.sendDataToFragment(it) }
+        val updateListSong = Observer<ArrayList<*>>{
+            songAdapter.listSong = it as ArrayList<Song>
             binding.songsRv.adapter = songAdapter
         }
-        viewModel.liveListSong.observe(viewLifecycleOwner, updateListSong)
-        songAdapter = activity?.let { viewModel.liveListSong.value?.let { it1 -> SongAdapter(it1, it) } }!!
+        viewModel.dataset.observe(viewLifecycleOwner, updateListSong)
+        songAdapter = activity?.let { viewModel.dataset.value?.let { it1 -> SongAdapter(it1 as ArrayList<Song>, it) } }!!
         val rcv = binding.songsRv
         rcv.apply {
             adapter = songAdapter

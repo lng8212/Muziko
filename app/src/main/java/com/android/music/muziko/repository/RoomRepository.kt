@@ -303,7 +303,7 @@ object RoomRepository : RoomRepositoryInterface{
     }
 
     override fun songsIdToSongModelConverter(favSong: Favorites): Song? {
-        val allSongsInStorage = LibraryFragment.viewModel.getData()
+        val allSongsInStorage = LibraryFragment.viewModel.getDataset() as ArrayList<Song>
 
         for (song in allSongsInStorage) {
             if (song.id == favSong.songId) {
@@ -363,7 +363,7 @@ object RoomRepository : RoomRepositoryInterface{
     }
 
     override fun songsIdToSongModelConverterRecently(recently: Recently): Song? {
-        val allSongsInStorage = LibraryFragment.viewModel.getData()
+        val allSongsInStorage = LibraryFragment.viewModel.getDataset() as ArrayList<Song>
 //        Log.e("allSongInStorage", allSongsInStorage.size.toString())
         for (song in allSongsInStorage) {
             if (song.id ==recently.songId) {

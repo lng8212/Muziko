@@ -75,7 +75,7 @@ object SongUtils {
 
 
     fun getSongById(id: Long): Song? {
-        for (song in LibraryFragment.viewModel.getData()) {
+        for (song in LibraryFragment.viewModel.getDataset() as ArrayList<Song>) {
             if (song.id == id)
                 return song
         }

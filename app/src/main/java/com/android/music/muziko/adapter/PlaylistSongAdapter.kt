@@ -87,7 +87,7 @@ class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity)
         when (itemId) {
             R.id.delete_song_from_playlist_menu_item -> {
                 PlaylistSongsFragment.viewModel?.removeSongFromPlaylist(songId)
-                PlaylistSongsFragment.viewModel?.updateDataset()
+                PlaylistSongsFragment.viewModel?.updateData()
             }
             else -> return false
         }

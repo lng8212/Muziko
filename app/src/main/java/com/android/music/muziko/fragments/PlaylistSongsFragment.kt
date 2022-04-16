@@ -48,10 +48,10 @@ class PlaylistSongsFragment : Fragment() {
     private fun setupViewModel() {
         viewModel = ViewModelProvider(this).get(PlaylistSongViewModel::class.java)
         viewModel!!.setPlaylistId(args.myArg.id, songsRepository.getListOfSongs())
-        viewModel!!.updateDataset()
+        viewModel!!.updateData()
         viewModel!!.dataset.observe(viewLifecycleOwner, songUpdateObserver)
     }
-    private val songUpdateObserver = Observer<ArrayList<Any>> {
+    private val songUpdateObserver = Observer<ArrayList<*>> {
         playlistSongsAdapter.listSong = it as ArrayList<Song>
         binding.recyclerviewPlaylistsSongs.adapter = playlistSongsAdapter
     }

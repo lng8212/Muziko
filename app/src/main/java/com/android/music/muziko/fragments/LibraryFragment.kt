@@ -48,7 +48,7 @@ class LibraryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SongViewModel::class.java)
-        context?.let { viewModel.setDataToFragment(it) }
+        context?.let { viewModel.sendDataToFragment(it) }
         recViewModel = ViewModelProvider(this).get(RecentlyViewModel::class.java)
         context?.let { recViewModel.sendDataToFragment() }
         recViewModel!!.dataset.observe(viewLifecycleOwner, recSongsObserver)
@@ -75,7 +75,7 @@ class LibraryFragment : Fragment() {
             }
         })
     }
-    private val recSongsObserver = Observer<ArrayList<Any>> {
+    private val recSongsObserver = Observer<ArrayList<*>> {
         recAdapter?.listSong = it as ArrayList<Song>
         binding.recyclerviewLibrary.adapter = recAdapter
     }

@@ -49,7 +49,7 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
         setupViewModel()
 
         playlistAdapter =
-            activity?.let { viewModel?.let { it1 -> PlaylistAdapter( it1.getDataSet(), it, this) } }!!
+            activity?.let { viewModel?.let { it1 -> PlaylistAdapter(it1.getDataset() as ArrayList<Playlist>, it, this) } }!!
 
         return binding.root
     }
@@ -60,8 +60,8 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
         viewModel!!.dataset.observe(viewLifecycleOwner, playlistUpdateObserver)
     }
 
-    private val playlistUpdateObserver = Observer<ArrayList<Playlist>> {
-        playlistAdapter.dataset = it
+    private val playlistUpdateObserver = Observer<ArrayList<*>> {
+        playlistAdapter.dataset = it as ArrayList<Playlist>
         binding.recyclerviewPlaylistsLibrary.adapter = playlistAdapter
     }
 
@@ -74,10 +74,10 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
             layoutManager = LinearLayoutManager(context)
         }
 
-        playlistAdapter?.OnDataSend(
+        playlistAdapter.OnDataSend(
             object : PlaylistAdapter.OnDataSend {
                 override fun onSend(context: Activity, id: String) {
-                    viewModel?.updateDataset()
+                    viewModel?.updateData()
                 }
             }
         )
@@ -85,7 +85,7 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
         val mHandler = Handler()
         activity?.runOnUiThread(object : Runnable {
             override fun run() {
-                viewModel?.updateDataset()
+                viewModel?.updateData()
                 mHandler.postDelayed(this, 1000)
             }
         })

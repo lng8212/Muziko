@@ -35,7 +35,7 @@ class FavouriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(FavViewModel::class.java)
 
-        context?.let { viewModel.setDataToFragment() }
+        context?.let { viewModel.sendDataToFragment() }
         viewModel.updateData()
         viewModel!!.dataset.observe(viewLifecycleOwner, favSongsObserver)
         favSongsAdapter = activity?.let {
@@ -63,7 +63,7 @@ class FavouriteFragment : Fragment() {
 
 
     }
-    private val favSongsObserver = Observer<ArrayList<Any>> {
+    private val favSongsObserver = Observer<ArrayList<*>> {
         favSongsAdapter?.listSong = it as ArrayList<Song>
         binding.recyclerviewFavourite.adapter = favSongsAdapter
     }

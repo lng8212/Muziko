@@ -7,25 +7,25 @@ import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.FavRepository
 import com.android.music.ui.SongsRepository
 
-class FavViewModel: ViewModel() {
-    var dataset: MutableLiveData<ArrayList<Any>> = MutableLiveData()
+class FavViewModel: BaseViewModel() {
     var favRepository: FavRepository
 
 
     init{
-        dataset.value = ArrayList()
+        dataset = MutableLiveData()
         favRepository = FavRepository()
 
     }
-    fun setDataToFragment(){
+
+    override fun sendDataToFragment(context: Context?, artist: String?) {
         updateData()
     }
 
-    fun updateData(){
+    override fun updateData(data: String?) {
         dataset.value =  favRepository.getFavSongs() as ArrayList<Any>
     }
 
-    fun getDataset(): ArrayList<Song>{
+    override fun getDataset(): ArrayList<Song>{
         return dataset.value as ArrayList<Song>
     }
 }

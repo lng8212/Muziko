@@ -62,7 +62,7 @@ class AddPlaylistsFragment : Fragment(), PassDataForSelectSong {
                 }
 
                 PlaylistsFragment.viewModel?.playlistRepository?.createPlaylist(name, selectedSongs.size, res)
-                PlaylistsFragment.viewModel?.updateDataset()
+                PlaylistsFragment.viewModel?.updateData()
 
                 try {
                     selectedSongs.clear()

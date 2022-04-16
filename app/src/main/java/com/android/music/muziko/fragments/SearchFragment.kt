@@ -45,8 +45,8 @@ class SearchFragment : Fragment(), PassDataForSelectPlaylist {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(SongViewModel::class.java)
-        context?.let { viewModel.setDataToFragment(it) }
-        searchAdapter = activity?.let { viewModel.liveListSong.value?.let { it1 -> SongAdapter(it1, it) } }!!
+        context?.let { viewModel.sendDataToFragment(it) }
+        searchAdapter = activity?.let { viewModel.dataset.value?.let { it1 -> SongAdapter(it1 as ArrayList<Song>, it) } }!!
         var rcv = binding.searchRv
         rcv.apply {
             adapter = searchAdapter

@@ -4,23 +4,25 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.viewmodel.BaseViewModel
 
-class SongViewModel : ViewModel() {
-    var liveListSong: MutableLiveData<ArrayList<Song>> = MutableLiveData()
+class SongViewModel : BaseViewModel() {
     lateinit var songsRepository: SongsRepository
 
     init {
-        liveListSong.value = ArrayList()
+        dataset = MutableLiveData()
     }
-    fun setDataToFragment(context: Context){
-        songsRepository = SongsRepository(context)
+
+    override fun sendDataToFragment(context: Context?, artist: String?) {
+        songsRepository = SongsRepository(context!!)
         updateData()
     }
 
-    fun updateData() {
-        liveListSong.value = songsRepository.getListOfSongs()
+    override fun updateData(data: String?) {
+        dataset.value = songsRepository.getListOfSongs()
     }
-    fun getData(): ArrayList<Song> {
-        return liveListSong.value as ArrayList<Song>
+
+    override fun getDataset(): ArrayList<*> {
+        return dataset.value as ArrayList<Song>
     }
 }
