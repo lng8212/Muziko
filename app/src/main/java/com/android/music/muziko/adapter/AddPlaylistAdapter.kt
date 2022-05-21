@@ -5,17 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemAddPlaylistBinding
-import com.android.music.muziko.model.Playlist
-import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.utils.ImageUtils
 
 class AddPlaylistAdapter(var context: Activity, var listSong: ArrayList<Song>) : RecyclerView.Adapter<AddPlaylistAdapter.AddPlaylistViewHolder> () {
 
-    var dataset: ArrayList<Song>
-
-    init {
-        dataset = listSong
-    }
+    var dataset: ArrayList<Song> = listSong
 
     inner class AddPlaylistViewHolder(var binding: ItemAddPlaylistBinding): RecyclerView.ViewHolder(binding.root){
         var name = binding.txtNameAddPlaylist
@@ -35,7 +30,7 @@ class AddPlaylistAdapter(var context: Activity, var listSong: ArrayList<Song>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddPlaylistViewHolder {
-        var binding = ItemAddPlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemAddPlaylistBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AddPlaylistViewHolder(binding)
     }
 

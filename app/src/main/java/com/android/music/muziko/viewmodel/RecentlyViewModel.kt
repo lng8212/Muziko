@@ -2,10 +2,9 @@ package com.android.music.muziko.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RecentlyRepository
-import com.android.music.ui.SongsRepository
+
 
 class RecentlyViewModel : BaseViewModel(){
     var recRepository: RecentlyRepository

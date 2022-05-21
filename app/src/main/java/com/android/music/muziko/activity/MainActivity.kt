@@ -2,20 +2,21 @@ package com.android.music.muziko.activity
 
 import android.Manifest
 import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.android.music.R
 import com.android.music.databinding.ActivityMainBinding
 import com.android.music.muziko.PermissionProvider
+import com.android.music.muziko.appInterface.VoidCallback
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.helper.Coordinator
-import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
+import com.android.music.muziko.utils.ImageUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -29,9 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
-    var prefs: SharedPreferences? = null
 
     fun updateVisibility(song : Song) {
         if(Coordinator.isPlaying()){
@@ -60,17 +58,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun layoutCollapsedListener(){
         binding.layoutOnCollapsed.setOnClickListener {
-            val intent = Intent(this, PlayerPanelActivity::class.java)
-            startActivity(intent)
+            AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                override fun execute() {
+                    val intent = Intent(this@MainActivity, PlayerPanelActivity::class.java)
+                    startActivity(intent)
+                }
+            }, 0.95f)
 
         }
         binding.playPauseLayout.setOnClickListener {
-            if (Coordinator.isPlaying()) {
-                Coordinator.pause()
-            } else {
-                Coordinator.resume()
-            }
-            switchPlayPauseButton()
+            AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                override fun execute() {
+                    if (Coordinator.isPlaying()) {
+                        Coordinator.pause()
+                    } else {
+                        Coordinator.resume()
+                    }
+                    switchPlayPauseButton()
+                }
+            }, 0.95f)
         }
     }
 
@@ -88,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activity = this
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -113,10 +119,6 @@ class MainActivity : AppCompatActivity() {
     private fun checkForPermissions() {
         val permissionProvider = PermissionProvider()
         permissionProvider.askForPermission(this, permissions)
-
-        if (permissionProvider.permissionIsGranted) {
-
-        }
     }
 
     override fun onResume() {
@@ -129,7 +131,4 @@ class MainActivity : AppCompatActivity() {
         Coordinator.mediaPlayerAgent.stop()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }

@@ -4,22 +4,20 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.android.music.R
 import com.android.music.databinding.FragmentPlaylistsBinding
 import com.android.music.muziko.adapter.PlaylistAdapter
+import com.android.music.muziko.appInterface.VoidCallback
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.model.Playlist
-import com.android.music.muziko.utils.SwipeToDelete
 import com.android.music.muziko.viewmodel.PlaylistViewModel
 
 class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
@@ -35,21 +33,37 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPlaylistsBinding.inflate(inflater, container, false)
 
         binding.constraintPlaylistBackLibrary.setOnClickListener {
-            findNavController().navigate(R.id.action_playlistsFragment_to_navigation_library)
+            AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                override fun execute() {
+                    findNavController().navigate(R.id.action_playlistsFragment_to_navigation_library)
+                }
+            }, 0.95f)
         }
 
         binding.constraintAddPlaylist.setOnClickListener {
-            findNavController().navigate(R.id.action_playlistsFragment_to_addPlaylistsFragment)
+            AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                override fun execute() {
+                    findNavController().navigate(R.id.action_playlistsFragment_to_addPlaylistsFragment)
+                }
+            }, 0.95f)
         }
 
         setupViewModel()
 
         playlistAdapter =
-            activity?.let { viewModel?.let { it1 -> PlaylistAdapter(it1.getDataset() as ArrayList<Playlist>, it, this) } }!!
+            activity?.let {
+                viewModel?.let { it1 ->
+                    PlaylistAdapter(
+                        it1.getDataset() as ArrayList<Playlist>,
+                        it,
+                        this
+                    )
+                }
+            }!!
 
         return binding.root
     }
@@ -74,7 +88,7 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
             layoutManager = LinearLayoutManager(context)
         }
 
-        playlistAdapter.OnDataSend(
+        playlistAdapter.onDataSend(
             object : PlaylistAdapter.OnDataSend {
                 override fun onSend(context: Activity, id: String) {
                     viewModel?.updateData()
@@ -96,10 +110,10 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
         val playlist = playlistAdapter.arrayList[position]
         Log.e("id", playlist.id)
         Log.e("playlist", playlist.toString())
-        val action = PlaylistsFragmentDirections.actionPlaylistsFragmentToPlaylistSongsFragment(playlist)
+        val action =
+            PlaylistsFragmentDirections.actionPlaylistsFragmentToPlaylistSongsFragment(playlist)
         findNavController().navigate(action)
     }
-
 
 
 }

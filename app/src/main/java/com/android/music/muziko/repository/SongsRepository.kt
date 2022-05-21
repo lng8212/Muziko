@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.provider.MediaStore
-import android.util.Log
 import com.android.music.R
 import com.android.music.muziko.model.Song
-import com.example.kookplayer.utlis.FileUtils
 import com.android.music.muziko.utils.ImageUtils
+import com.example.kookplayer.utlis.FileUtils
 
 // class to get media from device
 class SongsRepository(val context: Context) {
@@ -41,15 +39,17 @@ class SongsRepository(val context: Context) {
         val size = cursor.getString(MediaStore.Audio.AudioColumns.SIZE)
 
         val image = ImageUtils.albumArtUriToBitmap(context, albumId)
-            ?:  BitmapFactory.decodeResource(
-                context.resources, R.mipmap.icon);
+            ?: BitmapFactory.decodeResource(
+                context.resources, R.mipmap.icon
+            )
 
 
         var bitrate = ""
         if (data != "") {
             val metadata = MediaMetadataRetriever()
             metadata.setDataSource(data)
-            bitrate = metadata?.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE).toString()
+            bitrate =
+                metadata.extractMetadata(MediaMetadataRetriever.METADATA_KEY_BITRATE).toString()
 
         }
 
@@ -88,7 +88,7 @@ class SongsRepository(val context: Context) {
         if (cursor != null && cursor.count != 0) {
             do {
                 cursor.moveToNext()
-                val i = cursor.getLong(MediaStore.Audio.AudioColumns.DURATION)
+                cursor.getLong(MediaStore.Audio.AudioColumns.DURATION)
                 if (cursor.getLong(MediaStore.Audio.AudioColumns.DURATION)!! > 60000)
                     songsAreInStorage.add(createSongFromCursor(cursor))
             } while (!cursor.isLast)
@@ -101,27 +101,27 @@ class SongsRepository(val context: Context) {
 
     fun getListOfArtists(): ArrayList<Song> {
         val listSong = getSongsFromStorage()
-        var list = mutableSetOf<String>()
-        var arr = ArrayList<Song>()
-        for (i in listSong){
+        val list = mutableSetOf<String>()
+        val arr = ArrayList<Song>()
+        for (i in listSong) {
             list.add(i.artist.toString())
         }
-        for (i in list){
-            for(j in listSong){
-                if (j.artist.toString().equals(i)){
+        for (i in list) {
+            for (j in listSong) {
+                if (j.artist.toString().equals(i)) {
                     arr.add(j)
-                    break;
+                    break
                 }
             }
         }
         return arr
     }
 
-    fun getSongOfArtists(artist: String) : ArrayList<Song> {
+    fun getSongOfArtists(artist: String): ArrayList<Song> {
         val listSong = getSongsFromStorage()
-        var arr = ArrayList<Song>()
-        for(i in listSong){
-            if (i.artist.toString().equals(artist)){
+        val arr = ArrayList<Song>()
+        for (i in listSong) {
+            if (i.artist.toString().equals(artist)) {
                 arr.add(i)
             }
         }

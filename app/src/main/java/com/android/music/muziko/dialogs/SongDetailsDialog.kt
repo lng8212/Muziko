@@ -21,7 +21,7 @@ class SongDetailsDialog(val song: Song) : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner_bg);
+        dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner_bg)
 
         val view = inflater.inflate(R.layout.song_details_dialog, container, false)
         initBinding(view)

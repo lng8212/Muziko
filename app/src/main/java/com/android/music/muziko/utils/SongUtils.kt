@@ -8,9 +8,9 @@ import android.provider.MediaStore
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.android.music.BuildConfig
-import com.android.music.ui.FilePathUtlis
-import com.android.music.muziko.model.Song
 import com.android.music.muziko.activity.MainActivity
+import com.android.music.muziko.model.Song
+import com.android.music.ui.FilePathUtils
 import com.android.music.ui.fragments.LibraryFragment
 import com.example.kookplayer.utlis.FileUtils
 
@@ -58,19 +58,15 @@ object SongUtils {
         }
     }
 
-    fun del(songId: String, uris: Uri) {
+    fun del(songId: String) {
         try {
             val where = "${MediaStore.Audio.AudioColumns._ID} = ?"
             val args = arrayOf(songId)
-            val uri = FilePathUtlis.getMusicsUri()
+            val uri = FilePathUtils.getMusicsUri()
             MainActivity.activity.baseContext.contentResolver.delete(uri, where, args)
             LibraryFragment.viewModel.updateData()
         } catch (ignored: Exception) {
         }
-    }
-
-    fun shareMultipleMusics(vararg positions: ArrayList<Int>) {
-//        TODO(share multiple musics)
     }
 
 

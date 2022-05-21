@@ -2,12 +2,10 @@ package com.android.music.muziko.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.repository.PlaylistRepository
-import com.android.music.muziko.repository.RoomRepository
 
-class PlaylistViewModel : BaseViewModel(){
+class PlaylistViewModel : BaseViewModel() {
 
     lateinit var playlistRepository: PlaylistRepository
 

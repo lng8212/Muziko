@@ -14,9 +14,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.android.music.R
-import com.android.music.muziko.helper.Coordinator
-
 import com.android.music.muziko.activity.MainActivity
+import com.android.music.muziko.helper.Coordinator
 
 
 class NotificationPlayerService : Service() {
@@ -40,7 +39,7 @@ class NotificationPlayerService : Service() {
         }
     }
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "UnspecifiedImmutableFlag")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
@@ -54,7 +53,7 @@ class NotificationPlayerService : Service() {
 
 
         val notificationIntent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
+        PendingIntent.getActivity(
             this,
             0, notificationIntent, 0
         )
@@ -149,11 +148,6 @@ class NotificationPlayerService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        
     }
 
     private val broadcastNotificationReceiver: BroadcastReceiver = object : BroadcastReceiver() {

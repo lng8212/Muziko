@@ -2,7 +2,6 @@ package com.android.music.ui
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.viewmodel.BaseViewModel
 

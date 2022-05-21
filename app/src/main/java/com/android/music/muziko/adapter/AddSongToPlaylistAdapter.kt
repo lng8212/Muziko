@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemAddSongsToPlaylistsDialogBinding
-import com.android.music.muziko.utils.ImageUtils
+import com.android.music.muziko.appInterface.VoidCallback
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.utils.ImageUtils
 
 class AddSongToPlaylistAdapter(var context: Activity, var listSong: ArrayList<Song>) : RecyclerView.Adapter<AddSongToPlaylistAdapter.AddSongToPlaylistViewHolder>(){
 
@@ -34,18 +36,23 @@ class AddSongToPlaylistAdapter(var context: Activity, var listSong: ArrayList<So
 
         fun onClickItem(){
             binding.materialCheckBox.setOnClickListener {
-                upDatePosition(adapterPosition)
-                if (binding.materialCheckBox.isChecked) {
-                    choices?.add(listSong[adapterPosition])
-                } else {
-                    choices?.remove(listSong[adapterPosition])
-                }
+                AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                    override fun execute() {
+                        upDatePosition(adapterPosition)
+                        if (binding.materialCheckBox.isChecked) {
+                            choices.add(listSong[adapterPosition])
+                        } else {
+                            choices.remove(listSong[adapterPosition])
+                        }
+                    }
+                }, 0.95f)
+
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddSongToPlaylistViewHolder {
-        var binding = ItemAddSongsToPlaylistsDialogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemAddSongsToPlaylistsDialogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AddSongToPlaylistViewHolder(binding)
     }
 

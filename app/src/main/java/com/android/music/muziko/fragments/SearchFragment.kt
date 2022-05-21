@@ -1,24 +1,26 @@
 package com.android.music.ui.fragments
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.music.DataBinderMapperImpl
 import com.android.music.R
 import com.android.music.databinding.FragmentSearchBinding
 import com.android.music.muziko.appInterface.PassDataForSelectPlaylist
+import com.android.music.muziko.appInterface.VoidCallback
 import com.android.music.muziko.dialogs.AddSongFromSongToPlaylistDialog
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
@@ -31,43 +33,60 @@ import kotlinx.coroutines.launch
 class SearchFragment : Fragment(), PassDataForSelectPlaylist {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var searchAdapter: SongAdapter
+    private lateinit var listSong : ArrayList<*>
     lateinit var viewModel: SongViewModel
-    private val RECOGNIZER_CODE = 1
+
+    companion object {
+        private const val RECOGNIZER_CODE = 1
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSearchBinding.inflate(inflater,container,false)
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(SongViewModel::class.java)
-        context?.let { viewModel.sendDataToFragment(it) }
-        searchAdapter = activity?.let { viewModel.dataset.value?.let { it1 -> SongAdapter(it1 as ArrayList<Song>, it) } }!!
-        var rcv = binding.searchRv
+        activity?.runOnUiThread{
+            context?.let { viewModel.sendDataToFragment(it) }
+            listSong = viewModel.getDataset()
+        }
+
+        viewModel.dataset.observe(viewLifecycleOwner, updateListSong)
+
+        searchAdapter = SongAdapter(listSong as ArrayList<Song>, requireContext())
+        val rcv = binding.searchRv
         rcv.apply {
             adapter = searchAdapter
             layoutManager = LinearLayoutManager(context)
         }
-        binding.search.setOnClickListener{
-            Log.e("searchVoice", "onViewCreated: clicked", )
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Speak Up")
-            startActivityForResult(intent,RECOGNIZER_CODE)
+        binding.search.setOnClickListener {
+            AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                override fun execute() {
+                    val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                    intent.putExtra(
+                        RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                    )
+                    intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Up")
+                    startActivityForResult(intent, RECOGNIZER_CODE)
+                }
+            }, 0.95f)
         }
         searchAdapter.OnDataSend(
-            object : SongAdapter.OnDataSend{
-                override fun onSend(context: Activity, song: Song) {
+            object : SongAdapter.OnDataSend {
+                override fun onSend(context: Context, song: Song) {
                     SongFragment.selectedSong = song
 
                     if (RoomRepository.cachedPlaylistArray.size > 0) {
                         createDialogToSelectPlaylist()
                     } else {
-                        val i = RoomRepository.cachedPlaylistArray
                         Toast.makeText(
                             requireActivity().baseContext,
                             getString(R.string.createPlaylist_error),
@@ -80,33 +99,36 @@ class SearchFragment : Fragment(), PassDataForSelectPlaylist {
         )
 
         val searchView = binding.searchSongArtist
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener, androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Log.e("text submit", ".")
                 searchAdapter.getFilter().filter(query)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.e("text change",newText.toString())
                 searchAdapter.getFilter().filter(newText)
                 return true
             }
 
         })
 
-
-        notifyDataSetChange()
-    }
-    fun notifyDataSetChange(){
-        viewModel.updateData()
     }
 
+
+    @SuppressLint("NotifyDataSetChanged")
+    private val updateListSong = Observer<ArrayList<*>> {
+        listSong = it
+        searchAdapter.listSong = listSong as ArrayList<Song>
+
+    }
+
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == RECOGNIZER_CODE && resultCode == RESULT_OK){
+        if (requestCode == RECOGNIZER_CODE && resultCode == RESULT_OK) {
             val text = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-            search_song_artist.setQuery(text!![0].toString(),true)
+            search_song_artist.setQuery(text!![0].toString(), true)
         }
     }
 
@@ -114,16 +136,15 @@ class SearchFragment : Fragment(), PassDataForSelectPlaylist {
 
         RoomRepository.updateCachedPlaylist()
 
-        val addSongToPlaylistDialog = RoomRepository.cachedPlaylistArray?.let {
+        val addSongToPlaylistDialog = RoomRepository.cachedPlaylistArray.let {
             AddSongFromSongToPlaylistDialog(
                 it
             )
         }
 
 
-        addSongToPlaylistDialog?.setTargetFragment(this, 0)
-        this.fragmentManager?.let { it1 -> addSongToPlaylistDialog?.show(it1, "pl") }
-
+        addSongToPlaylistDialog.setTargetFragment(this, 0)
+        this.fragmentManager?.let { it1 -> addSongToPlaylistDialog.show(it1, "pl") }
     }
 
     override fun passDataToInvokingFragment(playlist: ArrayList<Playlist>) {
@@ -141,7 +162,7 @@ class SearchFragment : Fragment(), PassDataForSelectPlaylist {
         }
     }
 
-    fun addSongToPlaylist(playlist: Playlist) {
+    private fun addSongToPlaylist(playlist: Playlist) {
         GlobalScope.launch {
 
             RoomRepository.addSongsToPlaylist(

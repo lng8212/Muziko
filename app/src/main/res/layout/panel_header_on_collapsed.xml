@@ -8,14 +8,13 @@
 
     <ImageView
         android:id="@+id/img_on_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_img_song" />
+        tools:src="@drawable/muziko" />
 
     <LinearLayout
         android:layout_width="0dp"

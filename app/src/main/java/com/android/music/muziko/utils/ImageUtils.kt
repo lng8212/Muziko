@@ -6,7 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.widget.ImageView
-import com.android.music.ui.FilePathUtlis
+import com.android.music.ui.FilePathUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -29,14 +29,14 @@ object ImageUtils {
         val options = BitmapFactory.Options()
         try {
             val sArtworkUri =
-                Uri.parse(FilePathUtlis.getAlbumsUri())
+                Uri.parse(FilePathUtils.getAlbumsUri())
 
 
             val uri = ContentUris.withAppendedId(sArtworkUri, album_id!!)
-            var pfd =
+            val pfd =
                 context.contentResolver.openFileDescriptor(uri, "r")
             if (pfd != null) {
-                var fileDescriptor: FileDescriptor? = pfd.fileDescriptor
+                val fileDescriptor: FileDescriptor? = pfd.fileDescriptor
                 bm = BitmapFactory.decodeFileDescriptor(fileDescriptor, null, options)
             }
         } catch (exception: java.lang.Exception) {

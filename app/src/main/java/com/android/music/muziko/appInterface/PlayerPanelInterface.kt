@@ -1,6 +1,5 @@
 package com.android.music.muziko.appInterface
 
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
 interface PlayerPanelInterface {
     fun setSongImage()

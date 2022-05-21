@@ -2,19 +2,19 @@ package com.android.music.muziko.repository
 
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
+import com.android.music.muziko.activity.MainActivity
 import com.android.music.muziko.appInterface.RoomRepositoryInterface
 import com.android.music.muziko.model.MyDatabase
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.model.Recently
+import com.android.music.muziko.model.Song
 import com.android.music.muziko.utils.DatabaseConverterUtils
 import com.android.music.muziko.utils.SongUtils
 import com.android.music.ui.Favorites
-import com.android.music.muziko.model.Song
-import com.android.music.muziko.activity.MainActivity
 import com.android.music.ui.fragments.LibraryFragment
 import kotlinx.coroutines.*
 
-object RoomRepository : RoomRepositoryInterface{
+object RoomRepository : RoomRepositoryInterface {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
     var localDatabase: MyDatabase = MyDatabase.getDatabase(
@@ -41,8 +41,8 @@ object RoomRepository : RoomRepositoryInterface{
     //    ----------------------------------------------- Playlist ----------------------------------------------------
     override fun updateCachedPlaylist() {
         GlobalScope.launch { //  GlobalScope tồn tại xuyên suốt lúc app hoạt động
-                            // lifecycleScope ràng buộc với vòng đời của Activity or Fragment
-                            // CoroutineScope
+            // lifecycleScope ràng buộc với vòng đời của Activity or Fragment
+            // CoroutineScope
             cachedPlaylistArray = getPlaylistFromDatabase()
         }
     }
@@ -51,7 +51,6 @@ object RoomRepository : RoomRepositoryInterface{
         applicationScope.launch {
             localDatabase.playlistDAO().addPlaylist(playlist)
         }
-        Log.e("room repo", playlist.id.toString())
         cachedPlaylistArray.add(playlist)
     }
 
@@ -78,8 +77,8 @@ object RoomRepository : RoomRepositoryInterface{
         if (playlist != null) {
 
             val ids = DatabaseConverterUtils.stringToArraylist(playlist.songs)
-            for (i in ids){
-                if (i.equals(songsId)){
+            for (i in ids) {
+                if (i.equals(songsId)) {
                     return true
                 }
             }
@@ -128,17 +127,13 @@ object RoomRepository : RoomRepositoryInterface{
         }
     }
 
-    override fun listOfPlaylistsContainSpecificSong(songId: Long): ArrayList<String>
-    {
-        var pls = arrayListOf<String>()
+    override fun listOfPlaylistsContainSpecificSong(songId: Long): ArrayList<String> {
+        val pls = arrayListOf<String>()
 
-        for(playlist in cachedPlaylistArray)
-        {
+        for (playlist in cachedPlaylistArray) {
             val ids = DatabaseConverterUtils.stringToArraylist(playlist.songs)
-            for(id in ids)
-            {
-                if (id.toLong() == songId)
-                {
+            for (id in ids) {
+                if (id.toLong() == songId) {
                     pls.add(playlist.id)
                 }
             }
@@ -188,16 +183,14 @@ object RoomRepository : RoomRepositoryInterface{
 
         runBlocking {
 
-            if (playlist != null) {
-                for (song_id in songsId) {
-                    localDatabase.playlistDAO().addSongToPlaylist(
-                        playlist.id,
-                        playlist.songs
-                    )
-                }
-                increaseCountInDatabase(playlist)
+            for (song_id in songsId) {
+                localDatabase.playlistDAO().addSongToPlaylist(
+                    playlist.id,
+                    playlist.songs
+                )
             }
-//            TODO(Toast : operation failed! please try later)
+            increaseCountInDatabase(playlist)
+            //            TODO(Toast : operation failed! please try later)
         }
     }
 
@@ -243,7 +236,6 @@ object RoomRepository : RoomRepositoryInterface{
     }
 
 
-
 //----------------------favourite-------------------------------------
 
     override fun updateCachedFav() {
@@ -259,22 +251,22 @@ object RoomRepository : RoomRepositoryInterface{
         SongUtils.getSongById(songsId)?.let { cachedFavArray.add(it) }
     }
 
-    fun removeSongFromDB(song: Song)
-    {
+    fun removeSongFromDB(song: Song) {
 
         val fav = Favorites(song.id!!)
         applicationScope.launch {
             localDatabase.favoriteDao().deleteSong(fav)
         }
     }
-    private fun removeSongFromCachedFavArray(song: Song)
-    {
+
+    private fun removeSongFromCachedFavArray(song: Song) {
         val iter: MutableIterator<Song> = cachedFavArray.iterator()
 
         while (iter.hasNext()) {
-            if (iter.next().id!! == song!!.id) iter.remove()
+            if (iter.next().id!! == song.id) iter.remove()
         }
     }
+
     override fun removeSongFromFavorites(song: Song) {
         removeSongFromDB(song)
         removeSongFromCachedFavArray(song)
@@ -314,7 +306,6 @@ object RoomRepository : RoomRepositoryInterface{
     }
 
 
-
 //--------------------------Recently----------------------------
 
     override fun updateCachedRecently() {
@@ -322,10 +313,9 @@ object RoomRepository : RoomRepositoryInterface{
     }
 
 
-
     override fun addSongToRecently(songsId: Long) {
         Log.e("addRoom", songsId.toString())
-        val rec = Recently(songsId,System.currentTimeMillis())
+        val rec = Recently(songsId, System.currentTimeMillis())
         updateCachedRecently()
         Log.e("RoomRepository", songsId.toString())
         applicationScope.launch {
@@ -366,28 +356,26 @@ object RoomRepository : RoomRepositoryInterface{
         val allSongsInStorage = LibraryFragment.viewModel.getDataset() as ArrayList<Song>
 //        Log.e("allSongInStorage", allSongsInStorage.size.toString())
         for (song in allSongsInStorage) {
-            if (song.id ==recently.songId) {
+            if (song.id == recently.songId) {
                 return song
             }
         }
         return null
     }
 
-    fun removeSongFromDBRec(song: Song)
-    {
+    fun removeSongFromDBRec(song: Song) {
 
-        val rec = Recently(song.id!!,System.currentTimeMillis())
+        val rec = Recently(song.id!!, System.currentTimeMillis())
         applicationScope.launch {
             localDatabase.recentlyDao().deleteSong(rec)
         }
     }
 
-    private fun removeSongFromCachedRecArray(song: Song)
-    {
+    private fun removeSongFromCachedRecArray(song: Song) {
         val iter: MutableIterator<Song> = cachedRecArray.iterator()
 
         while (iter.hasNext()) {
-            if (iter.next().id!! == song!!.id) iter.remove()
+            if (iter.next().id!! == song.id) iter.remove()
         }
     }
 }

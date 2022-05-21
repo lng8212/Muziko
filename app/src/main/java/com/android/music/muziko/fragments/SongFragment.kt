@@ -1,12 +1,13 @@
 package com.android.music.ui.fragments
 
-import android.app.Activity
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,63 +25,54 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class SongFragment : Fragment(), PassDataForSelectPlaylist {
-    companion object{
-        lateinit var binding: FragmentSongBinding
-        lateinit var songAdapter: SongAdapter
-        lateinit var viewModel: SongViewModel
+    private lateinit var binding: FragmentSongBinding
+    private lateinit var songAdapter: SongAdapter
+    private lateinit var listSong: ArrayList<*>
+    companion object {
         lateinit var mactivity: FragmentActivity
         lateinit var selectedSong: Song
         lateinit var selectedPlaylists: ArrayList<Playlist>
-
-        fun notifyDataSetChange(){
-            viewModel.updateData()
-        }
     }
+
+    private lateinit var viewModel: SongViewModel
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSongBinding.inflate(inflater,container,false)
+        binding = FragmentSongBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(SongViewModel::class.java)
 
-        context?.let { viewModel.sendDataToFragment(it) }
-        val updateListSong = Observer<ArrayList<*>>{
-            songAdapter.listSong = it as ArrayList<Song>
-            binding.songsRv.adapter = songAdapter
+        activity?.runOnUiThread{
+            context?.let { viewModel.sendDataToFragment(it) }
+            listSong = viewModel.getDataset()
         }
         viewModel.dataset.observe(viewLifecycleOwner, updateListSong)
-        songAdapter = activity?.let { viewModel.dataset.value?.let { it1 -> SongAdapter(it1 as ArrayList<Song>, it) } }!!
+        songAdapter = SongAdapter(listSong as ArrayList<Song>, requireContext())
         val rcv = binding.songsRv
         rcv.apply {
             adapter = songAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
+
         songAdapter.OnDataSend(
-            object : SongAdapter.OnDataSend{
-                override fun onSend(context: Activity, song: Song) {
+            object : SongAdapter.OnDataSend {
+                override fun onSend(context: Context, song: Song) {
                     selectedSong = song
 
-                    if (RoomRepository.cachedPlaylistArray != null) {
-                        if (RoomRepository.cachedPlaylistArray.size > 0) {
-                            createDialogToSelectPlaylist()
-                        } else {
-                            val i = RoomRepository.cachedPlaylistArray
-                            Toast.makeText(
-                                requireActivity().baseContext,
-                                getString(R.string.createPlaylist_error),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                    if (RoomRepository.cachedPlaylistArray.size > 0) {
+                        createDialogToSelectPlaylist()
                     } else {
+                        val i = RoomRepository.cachedPlaylistArray
                         Toast.makeText(
                             requireActivity().baseContext,
                             getString(R.string.createPlaylist_error),
@@ -91,32 +83,37 @@ class SongFragment : Fragment(), PassDataForSelectPlaylist {
 
             }
         )
+    }
 
-        notifyDataSetChange()
+    @SuppressLint("NotifyDataSetChanged")
+    private val updateListSong = Observer<ArrayList<*>> {
+        listSong = it
+        songAdapter.listSong = listSong as ArrayList<Song>
+
     }
 
     fun createDialogToSelectPlaylist() {
 
         RoomRepository.updateCachedPlaylist()
 
-        val addSongToPlaylistDialog = RoomRepository.cachedPlaylistArray?.let {
+        val addSongToPlaylistDialog = RoomRepository.cachedPlaylistArray.let {
             AddSongFromSongToPlaylistDialog(
                 it
             )
         }
 
 
-        addSongToPlaylistDialog?.setTargetFragment(this, 0)
-        this.fragmentManager?.let { it1 -> addSongToPlaylistDialog?.show(it1, "pl") }
+        addSongToPlaylistDialog.setTargetFragment(this, 0)
+        this.fragmentManager?.let { it1 -> addSongToPlaylistDialog.show(it1, "pl") }
 
     }
 
     override fun onResume() {
         super.onResume()
-
-        viewModel.updateData()
-
-        mactivity = requireActivity()
+        activity?.runOnUiThread {
+            viewModel.updateData()
+            mactivity = requireActivity()
+        }
 
     }
 
@@ -135,7 +132,7 @@ class SongFragment : Fragment(), PassDataForSelectPlaylist {
         }
     }
 
-    fun addSongToPlaylist(playlist: Playlist) {
+    private fun addSongToPlaylist(playlist: Playlist) {
         GlobalScope.launch {
 
             RoomRepository.addSongsToPlaylist(

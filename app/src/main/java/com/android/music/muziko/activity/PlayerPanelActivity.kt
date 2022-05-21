@@ -15,17 +15,18 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.android.music.R
 import com.android.music.databinding.ActivityPlayerPanelBinding
+import com.android.music.muziko.activity.MainActivity.Companion.activity
 import com.android.music.muziko.appInterface.PlayerPanelInterface
+import com.android.music.muziko.appInterface.VoidCallback
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.repository.RoomRepository
-import com.android.music.muziko.utils.TimeUtils
 import com.android.music.muziko.utils.ImageUtils
-import com.android.music.muziko.activity.MainActivity.Companion.activity
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import com.android.music.muziko.utils.TimeUtils
 
 
-class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnClickListener {
-    private lateinit var binding : ActivityPlayerPanelBinding
+class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface, View.OnClickListener {
+    private lateinit var binding: ActivityPlayerPanelBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerPanelBinding.inflate(layoutInflater)
@@ -45,8 +46,8 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         Log.e("update", Coordinator.currentPlayingSong!!.toString())
         var check = false
         for (i in RoomRepository.cachedFavArray) {
-            if(Coordinator.currentPlayingSong!!.id == i.id){
-                Log.e("Current",Coordinator.currentPlayingSong!!.toString())
+            if (Coordinator.currentPlayingSong!!.id == i.id) {
+                Log.e("Current", Coordinator.currentPlayingSong!!.toString())
                 binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
                 check = true
             }
@@ -55,11 +56,13 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         setSongTitle()
         setSongImage()
         // set up seek bar
-        binding.playerRemote.seekBar.max = (Coordinator.currentPlayingSong!!.duration!!.toInt())/1000
+        binding.playerRemote.seekBar.max =
+            (Coordinator.currentPlayingSong!!.duration!!.toInt()) / 1000
         Log.e("current position", Coordinator.getPositionInPlayer().toString())
-        binding.playerRemote.seekBar.progress = Coordinator.getPositionInPlayer()/1000
-        Log.e("max",binding.playerRemote.seekBar.max.toString() )
-        binding.playerRemote.musicMin.text = TimeUtils.getReadableDuration(Coordinator.getPositionInPlayer().toLong())
+        binding.playerRemote.seekBar.progress = Coordinator.getPositionInPlayer() / 1000
+        Log.e("max", binding.playerRemote.seekBar.max.toString())
+        binding.playerRemote.musicMin.text =
+            TimeUtils.getReadableDuration(Coordinator.getPositionInPlayer().toLong())
         binding.playerRemote.musicMax.text =
             Coordinator.currentPlayingSong?.duration?.let {
                 TimeUtils.getReadableDuration(
@@ -68,14 +71,19 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
             }
         // set up playback state (shuffle, repeat)
         when (Coordinator.repeatMode) {
-            PlaybackStateCompat.REPEAT_MODE_ONE -> binding.playerRemote.repeatContainer.displayedChild = 2
-            PlaybackStateCompat.REPEAT_MODE_ALL -> binding.playerRemote.repeatContainer.displayedChild = 1
-            PlaybackStateCompat.REPEAT_MODE_NONE -> binding.playerRemote.repeatContainer.displayedChild = 3
+            PlaybackStateCompat.REPEAT_MODE_ONE -> binding.playerRemote.repeatContainer.displayedChild =
+                2
+            PlaybackStateCompat.REPEAT_MODE_ALL -> binding.playerRemote.repeatContainer.displayedChild =
+                1
+            PlaybackStateCompat.REPEAT_MODE_NONE -> binding.playerRemote.repeatContainer.displayedChild =
+                3
         }
 
         when (Coordinator.shuffleMode) {
-            PlaybackStateCompat.SHUFFLE_MODE_NONE -> binding.playerRemote.shuffleContainer.displayedChild = 2
-            PlaybackStateCompat.SHUFFLE_MODE_ALL -> binding.playerRemote.shuffleContainer.displayedChild = 1
+            PlaybackStateCompat.SHUFFLE_MODE_NONE -> binding.playerRemote.shuffleContainer.displayedChild =
+                2
+            PlaybackStateCompat.SHUFFLE_MODE_ALL -> binding.playerRemote.shuffleContainer.displayedChild =
+                1
         }
     }
 
@@ -93,7 +101,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                 ImageUtils.loadImageToImageView(
                     it,
                     binding.musicAlbumImage,
-                    R.drawable.ic_img_song
+                    R.drawable.muziko
                 )
             }
         }
@@ -103,6 +111,7 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         binding.musicTitleTv.text = Coordinator.currentPlayingSong?.title
         binding.txtArtist.text = Coordinator.currentPlayingSong?.artist
     }
+
     private fun setOnEventListeners() {
         binding.playerRemote.btnNext.setOnClickListener(this)
         binding.playerRemote.btnPrev.setOnClickListener(this)
@@ -110,23 +119,25 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         binding.playerRemote.shuffleContainer.setOnClickListener(this)
         binding.playerRemote.repeatContainer.setOnClickListener(this)
         binding.playerRemote.favorContainer.setOnClickListener(this)
-       // binding.playerRemote.seekBar.setOnSeekBarChangeListener(this)
         binding.playerRemote.seekBar.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener{
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, percent: Int, fromUser: Boolean) {
-                if (seekBar != null) {
-//                    Log.e("seekbar max ", seekBar.max.toString())
+                when {
+                    seekBar != null -> {
+                        //                    Log.e("seekbar max ", seekBar.max.toString())
+                    }
                 }
                 if (Coordinator.isPlaying()) {
 //                    if(fromUser){
-                        // change the time when pull on seek bar
-                        var newPercent : Float = Coordinator.getPositionInPlayer().toFloat() / (Coordinator.currentPlayingSong?.duration?.toFloat()!!)
+                    // change the time when pull on seek bar
+                    val newPercent: Float = Coordinator.getPositionInPlayer()
+                        .toFloat() / (Coordinator.currentPlayingSong?.duration?.toFloat()!!)
 //                        Log.e("percent", (newPercent).toString())
 //                        Log.e("time now", ((newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()).toString())
-                        Log.e("percent", newPercent.toString())
-                        binding.playerRemote.musicMin.text = TimeUtils.getReadableDuration(
-                            (newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()
-                        )
+                    Log.e("percent", newPercent.toString())
+                    binding.playerRemote.musicMin.text = TimeUtils.getReadableDuration(
+                        (newPercent * TimeUtils.getDurationOfCurrentMusic()!!).toLong()
+                    )
 //                    }
 
                 }
@@ -139,14 +150,18 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                 if (p0 != null) {
 //                    Log.e("progress pulling", p0.progress.toString())
 //                    Log.e("time seek", (((p0.progress/2).toFloat()/100.0 * Coordinator.currentPlayingSong?.duration!!).toInt()).toString())
-                    Coordinator.seekTo((p0.progress*1000))
+                    Coordinator.seekTo((p0.progress * 1000))
                 }
             }
 
         }
         )
-        binding.imgBack.setOnClickListener{
-            onBackPressed()
+        binding.imgBack.setOnClickListener {
+            AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                override fun execute() {
+                    onBackPressed()
+                }
+            }, 0.95f)
         }
     }
 
@@ -155,91 +170,116 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
         when (v) {
 
             binding.playerRemote.btnNext -> {
-                Log.e("next", "next")
-                Coordinator.playNextSong()
-                updatePanel()
+                AnimationHelper.scaleAnimation(v, object : VoidCallback {
+                    override fun execute() {
+                        Coordinator.playNextSong()
+                        updatePanel()
+                    }
+                }, 0.95f)
+
             }
 
             binding.playerRemote.favorContainer -> {
-                RoomRepository.updateCachedFav()
-                RoomRepository.convertFavSongsToRealSongs()
-                var check = false
-                for (i in RoomRepository.cachedFavArray) {
-                    if(Coordinator.currentPlayingSong!!.id == i.id){
-                        Log.e("Current",Coordinator.currentPlayingSong!!.toString())
-                        binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
-                        RoomRepository.removeSongFromFavorites(Coordinator.currentPlayingSong!!)
-                        check = true
+                AnimationHelper.scaleAnimation(v, object : VoidCallback {
+                    override fun execute() {
+                        RoomRepository.updateCachedFav()
+                        RoomRepository.convertFavSongsToRealSongs()
+                        var check = false
+                        for (i in RoomRepository.cachedFavArray) {
+                            if (Coordinator.currentPlayingSong!!.id == i.id) {
+                                binding.playerRemote.favIcon.setImageResource(R.drawable.ic_unfavorite)
+                                RoomRepository.removeSongFromFavorites(Coordinator.currentPlayingSong!!)
+                                check = true
+                            }
+                        }
+                        if (!check) {
+                            binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
+                            RoomRepository.addSongToFavorites(Coordinator.currentPlayingSong!!.id!!)
+                        }
                     }
-                }
-                if (!check) {
-                    binding.playerRemote.favIcon.setImageResource(R.drawable.ic_favorite)
-                    RoomRepository.addSongToFavorites(Coordinator.currentPlayingSong!!.id!!)
-                }
+                }, 0.95f)
 
 
             }
 
             binding.playerRemote.btnPrev -> {
-                Coordinator.playPrevSong()
-                updatePanel()
+                AnimationHelper.scaleAnimation(v, object : VoidCallback {
+                    override fun execute() {
+                        Coordinator.playPrevSong()
+                        updatePanel()
+                    }
+                }, 0.95f)
             }
 
             binding.playerRemote.playOrPauseLayout -> {
 
-                if (Coordinator.isPlaying()) {
-                    Coordinator.pause()
-                } else {
-                    Coordinator.resume()
-                }
-                switchPlayPauseButton()
+                AnimationHelper.scaleAnimation(v, object : VoidCallback {
+                    override fun execute() {
+
+                        if (Coordinator.isPlaying()) {
+                            Coordinator.pause()
+                        } else {
+                            Coordinator.resume()
+                        }
+                        switchPlayPauseButton()
+
+                    }
+                }, 0.95f)
             }
 
             binding.playerRemote.shuffleContainer -> {
-                if (Coordinator.shuffleMode == PlaybackStateCompat.SHUFFLE_MODE_NONE) {
+                AnimationHelper.scaleAnimation(v, object : VoidCallback {
+                    override fun execute() {
+                        if (Coordinator.shuffleMode == PlaybackStateCompat.SHUFFLE_MODE_NONE) {
 
-                    Coordinator.shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_ALL
+                            Coordinator.shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_ALL
 
-                    binding.playerRemote.shuffleContainer.displayedChild = 1
+                            binding.playerRemote.shuffleContainer.displayedChild = 1
 
-                    Coordinator.updateNowPlayingQueue()
+                            Coordinator.updateNowPlayingQueue()
 
-                } else {
+                        } else {
 
-                    Coordinator.shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_NONE
+                            Coordinator.shuffleMode = PlaybackStateCompat.SHUFFLE_MODE_NONE
 
-                    binding.playerRemote.shuffleContainer.displayedChild = 2
+                            binding.playerRemote.shuffleContainer.displayedChild = 2
 
-                    Coordinator.updateNowPlayingQueue()
-                }
+                            Coordinator.updateNowPlayingQueue()
+                        }
+                    }
+                }, 0.95f)
             }
 
             binding.playerRemote.repeatContainer -> {
-                when (Coordinator.repeatMode) {
-                    PlaybackStateCompat.REPEAT_MODE_NONE -> {
-                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_ALL
+                AnimationHelper.scaleAnimation(v, object : VoidCallback {
+                    override fun execute() {
+                        when (Coordinator.repeatMode) {
+                            PlaybackStateCompat.REPEAT_MODE_NONE -> {
+                                Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_ALL
 
-                        binding.playerRemote.repeatContainer.displayedChild = 1
+                                binding.playerRemote.repeatContainer.displayedChild = 1
 
-                        Coordinator.updateNowPlayingQueue()
+                                Coordinator.updateNowPlayingQueue()
+                            }
+
+                            PlaybackStateCompat.REPEAT_MODE_ALL -> {
+                                Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_ONE
+
+                                binding.playerRemote.repeatContainer.displayedChild = 2
+
+                                Coordinator.updateNowPlayingQueue()
+                            }
+
+                            PlaybackStateCompat.REPEAT_MODE_ONE -> {
+                                Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_NONE
+
+                                binding.playerRemote.repeatContainer.displayedChild = 3
+
+                                Coordinator.updateNowPlayingQueue()
+                            }
+                        }
                     }
-
-                    PlaybackStateCompat.REPEAT_MODE_ALL -> {
-                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_ONE
-
-                        binding.playerRemote.repeatContainer.displayedChild = 2
-
-                        Coordinator.updateNowPlayingQueue()
-                    }
-
-                    PlaybackStateCompat.REPEAT_MODE_ONE -> {
-                        Coordinator.repeatMode = PlaybackStateCompat.REPEAT_MODE_NONE
-
-                        binding.playerRemote.repeatContainer.displayedChild = 3
-
-                        Coordinator.updateNowPlayingQueue()
-                    }
-                }
+                }, 0.95f)
             }
 
         }
@@ -263,10 +303,10 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface,View.OnCli
                     seekTo(mCurrentPosition)
                     setRemainingTime(mCurrentPosition)
 
-                    if (mCurrentPosition == duration?.toInt()?.minus(1) ?: 0) {
+                    if (mCurrentPosition == (duration?.toInt()?.minus(1) ?: 0)) {
                         Coordinator.takeActionBasedOnRepeatMode(
-                            MainActivity.activity.getString(R.string.onSongCompletion),
-                            MainActivity.activity.getString(R.string.play_next)
+                            activity.getString(R.string.onSongCompletion),
+                            activity.getString(R.string.play_next)
                         )
                         updatePanel()
                     }

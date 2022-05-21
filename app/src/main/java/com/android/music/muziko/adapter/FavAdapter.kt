@@ -1,19 +1,20 @@
 package com.android.music.muziko.adapter
 
-import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.R
 import com.android.music.databinding.ItemFavouriteBinding
+import com.android.music.muziko.activity.MainActivity
+import com.android.music.muziko.appInterface.VoidCallback
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.helper.Coordinator
-import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
+import com.android.music.muziko.utils.ImageUtils
 
-import com.android.music.muziko.activity.MainActivity
-
-class FavAdapter(var listSong: ArrayList<Song>, val context: Activity): RecyclerView.Adapter<FavAdapter.FavViewHolder>(){
+class FavAdapter(var listSong: ArrayList<Song>, val context: Context): RecyclerView.Adapter<FavAdapter.FavViewHolder>(){
     var position = 0
     inner class FavViewHolder(private var binding: ItemFavouriteBinding):RecyclerView.ViewHolder(binding.root){
         var title = binding.txtTitleItemFavourite
@@ -33,16 +34,20 @@ class FavAdapter(var listSong: ArrayList<Song>, val context: Activity): Recycler
         }
         fun onClickItem(){
             binding.songContainer.setOnClickListener {
-                upDatePosition(adapterPosition)
-                Coordinator.sourceOfSelectedSong = "fav"
-                Coordinator.currentDataSource = listSong
-                Coordinator.playSelectedSong(listSong[adapterPosition])
-                RoomRepository.addSongToRecently(listSong[adapterPosition].id!!.toLong())
-                MainActivity.activity.updateVisibility(listSong[adapterPosition])
+                AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                    override fun execute() {
+                        upDatePosition(adapterPosition)
+                        Coordinator.sourceOfSelectedSong = "fav"
+                        Coordinator.currentDataSource = listSong
+                        Coordinator.playSelectedSong(listSong[adapterPosition])
+                        RoomRepository.addSongToRecently(listSong[adapterPosition].id!!.toLong())
+                        MainActivity.activity.updateVisibility(listSong[adapterPosition])
+                    }
+                }, 0.95f)
             }
         }
         fun onCLickLike(){
-            likeButton.setOnClickListener(){
+            likeButton.setOnClickListener {
                 likeButton.setImageResource(R.drawable.ic_unfavorite)
                 RoomRepository.removeSongFromFavorites(listSong[adapterPosition])
             }
@@ -53,7 +58,7 @@ class FavAdapter(var listSong: ArrayList<Song>, val context: Activity): Recycler
         position = newPosition
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):FavAdapter.FavViewHolder {
-        var binding = ItemFavouriteBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemFavouriteBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return FavViewHolder(binding)
     }
 
@@ -71,7 +76,4 @@ class FavAdapter(var listSong: ArrayList<Song>, val context: Activity): Recycler
         return listSong.size
     }
 
-    fun getCurrentPosition(): Int {
-        return position
-    }
 }

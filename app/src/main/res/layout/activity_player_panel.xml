@@ -14,14 +14,16 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:srcCompat="@drawable/ic_arrow_left"
-        android:layout_gravity="left"/>
+        android:layout_gravity="left"
+        tools:ignore="ContentDescription" />
     <ImageView
         android:layout_marginTop="50dp"
         android:id="@+id/music_album_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_music_background" />
+        android:src="@drawable/ic_music_background"
+        tools:ignore="ContentDescription" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -41,7 +43,7 @@
             android:gravity="start"
             android:singleLine="true"
             android:textColor="#283333"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +59,7 @@
             android:gravity="start"
             android:singleLine="true"
             android:textColor="#283333"
-            android:textSize="15dp"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/music_title_tv"

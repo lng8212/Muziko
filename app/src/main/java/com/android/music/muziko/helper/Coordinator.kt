@@ -1,17 +1,19 @@
 package com.android.music.muziko.helper
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import com.android.music.R
+import com.android.music.muziko.activity.MainActivity
 import com.android.music.muziko.appInterface.CoordinatorInterface
 import com.android.music.muziko.model.Song
-import com.android.music.muziko.activity.MainActivity
 
 
 // object for controlling play music
 object Coordinator : CoordinatorInterface {
     override lateinit var nowPlayingQueue: ArrayList<Song> // queue songs is playing
+    @SuppressLint("StaticFieldLeak")
     override lateinit var mediaPlayerAgent: MediaPlayerAgent
 
     override var position: Int = -1
@@ -24,10 +26,6 @@ object Coordinator : CoordinatorInterface {
     var repeatMode = PlaybackStateCompat.REPEAT_MODE_NONE
 
     var currentPlayingSong: Song? = null // song is playing
-        set(value) {
-            field = value
-            //MainActivity.playerPanelFragment.updatePanel()
-        }
 
     override fun setup(context: Context) { // set up mediaPlayer
         mediaPlayerAgent = MediaPlayerAgent(context)
@@ -216,7 +214,7 @@ object Coordinator : CoordinatorInterface {
 
     override fun getNextSong(): Song {
         position += 1
-        val p = getPositionInNowPlayingQueue()
+        getPositionInNowPlayingQueue()
         return nowPlayingQueue[position]
     }
 
@@ -226,7 +224,7 @@ object Coordinator : CoordinatorInterface {
 
     override fun getPrevSong(): Song {
         position -= 1
-        val p = getPositionInNowPlayingQueue()
+        getPositionInNowPlayingQueue()
         return nowPlayingQueue[position]
     }
 

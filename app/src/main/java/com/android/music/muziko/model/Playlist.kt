@@ -13,6 +13,4 @@ data class Playlist(
     @ColumnInfo var name: String = "",
                          @ColumnInfo var countOfSongs: Int = 0,
                          @ColumnInfo var songs: String
-): Parcelable {
-
-}
+): Parcelable

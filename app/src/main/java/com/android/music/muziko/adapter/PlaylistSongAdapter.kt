@@ -8,21 +8,19 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.R
 import com.android.music.databinding.ItemPlaylistSongBinding
+import com.android.music.muziko.activity.MainActivity
+import com.android.music.muziko.appInterface.VoidCallback
 import com.android.music.muziko.fragments.PlaylistSongsFragment
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.helper.Coordinator
-import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
-import com.android.music.muziko.activity.MainActivity
+import com.android.music.muziko.utils.ImageUtils
 
 class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity): RecyclerView.Adapter<PlaylistSongAdapter.PlaylistSongViewHolder>(){
 
-    var dataset: ArrayList<Song>
+    var dataset: ArrayList<Song> = listSong
     var position = 0
-
-    init {
-        dataset = listSong
-    }
 
 
     inner class PlaylistSongViewHolder(var binding: ItemPlaylistSongBinding): RecyclerView.ViewHolder(binding.root){
@@ -43,13 +41,16 @@ class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity)
         }
         fun onClickItem(){
             binding.songContainer.setOnClickListener{
-                Log.e("adapter songs", "onClick")
-                upDatePosition(adapterPosition)
-                Coordinator.sourceOfSelectedSong = "playlist"
-                Coordinator.currentDataSource = listSong
-                Coordinator.playSelectedSong(listSong[adapterPosition])
-                RoomRepository.addSongToRecently(listSong[adapterPosition].id!!.toLong())
-                MainActivity.activity.updateVisibility(listSong[adapterPosition])
+                AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                    override fun execute() {
+                        upDatePosition(adapterPosition)
+                        Coordinator.sourceOfSelectedSong = "playlist"
+                        Coordinator.currentDataSource = listSong
+                        Coordinator.playSelectedSong(listSong[adapterPosition])
+                        RoomRepository.addSongToRecently(listSong[adapterPosition].id!!.toLong())
+                        MainActivity.activity.updateVisibility(listSong[adapterPosition])
+                    }
+                }, 0.95f)
             }
         }
     }
@@ -59,7 +60,7 @@ class PlaylistSongAdapter (var listSong: ArrayList<Song>, var context: Activity)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistSongViewHolder {
-        var binding = ItemPlaylistSongBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemPlaylistSongBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PlaylistSongViewHolder(binding)
     }
 

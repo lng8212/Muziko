@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.music.R
 import com.android.music.databinding.AddSongFromSongToPlaylistBinding
 import com.android.music.muziko.adapter.AddSongFromSongToPlaylistAdapter
-import com.android.music.muziko.adapter.AddSongToPlaylistAdapter
 import com.android.music.muziko.appInterface.PassDataForSelectPlaylist
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.utils.ScreenSizeUtils
@@ -24,10 +23,10 @@ class AddSongFromSongToPlaylistDialog (val array: ArrayList<Playlist>) : DialogF
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = AddSongFromSongToPlaylistBinding.inflate(inflater, container, false)
-        dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner_bg);
+        dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner_bg)
 
         playlistAdapter = activity?.let {
             AddSongFromSongToPlaylistAdapter(

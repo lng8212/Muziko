@@ -1,9 +1,9 @@
 package com.android.music.ui
 
-import android.app.Activity
+import android.annotation.SuppressLint
+import android.content.Context
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -15,18 +15,19 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.R
 import com.android.music.databinding.ItemSongBinding
-import com.android.music.muziko.dialogs.SongDetailsDialog
 import com.android.music.muziko.activity.MainActivity
-import com.android.music.muziko.utils.ImageUtils
+import com.android.music.muziko.appInterface.VoidCallback
+import com.android.music.muziko.dialogs.SongDetailsDialog
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
+import com.android.music.muziko.utils.ImageUtils
 import com.android.music.muziko.utils.SongUtils
 import com.android.music.ui.fragments.SongFragment
 import java.util.*
-import kotlin.collections.ArrayList
 
-class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
+class SongAdapter(var listSong : ArrayList<Song>, val context: Context) : RecyclerView.Adapter<SongAdapter.SongViewHolder>() {
     var position = 0 // position of current item if click
     lateinit var dataSend: OnDataSend
     var listSearchSong : ArrayList<Song> = ArrayList()
@@ -55,14 +56,17 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
         @RequiresApi(Build.VERSION_CODES.R)
         fun onClickItem(){
             itemRcv.setOnClickListener{
-                Log.e("adapter songs", "onClick")
-                upDatePosition(adapterPosition)
+                AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                    override fun execute() {
+                        upDatePosition(adapterPosition)
 
-                Coordinator.sourceOfSelectedSong = "songs"
-                Coordinator.currentDataSource = listSong
-                Coordinator.playSelectedSong(listSong[adapterPosition])
-                RoomRepository.addSongToRecently(listSong[adapterPosition].id!!.toLong())
-                MainActivity.activity.updateVisibility(listSong[adapterPosition])
+                        Coordinator.sourceOfSelectedSong = "songs"
+                        Coordinator.currentDataSource = listSong
+                        Coordinator.playSelectedSong(listSong[adapterPosition])
+                        RoomRepository.addSongToRecently(listSong[adapterPosition].id!!.toLong())
+                        MainActivity.activity.updateVisibility(listSong[adapterPosition])
+                    }
+                }, 0.95f)
             }
             binding.imgMenuItemSongs.setOnClickListener { it ->
                 val popUpMenu = PopupMenu(context, it)
@@ -86,28 +90,24 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
 
     private val userFilter =object : Filter(){
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            var filteredList: ArrayList<Song> = ArrayList()
+            val filteredList: ArrayList<Song> = ArrayList()
             if(constraint == null || constraint.isEmpty()){
-                Log.e("search","null text")
                 listSearchSong.let{filteredList.addAll(it)}
-                Log.e("list songs if null text", listSearchSong.size.toString())
-                Log.e("filterlist if null text", filteredList.size.toString())
             }
             else{
                 val query = constraint.toString().trim().lowercase(Locale.getDefault())
-                Log.d("Result", listSearchSong.size.toString())
                 listSearchSong.forEach{
-                    if(it.title?.toLowerCase(Locale.ROOT)?.contains(query) == true){
+                    if(it.title?.lowercase(Locale.ROOT)?.contains(query) == true){
                         filteredList.add(it)
                     }
                 }
-                Log.e("list songs searched", filteredList.size.toString())
             }
             val results = FilterResults()
             results.values = filteredList
             return results
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             if(results?.values is ArrayList<*>){
                 listSong.clear()
@@ -128,7 +128,7 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
                 }
 
                 else{
-                    Toast.makeText(context, "please try again", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -150,12 +150,13 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
 
                     RoomRepository.removeSongFromFavorites(listSong[position])
 
-                    getSongUri(position)?.let { SongUtils.deleteMusic(SongFragment.mactivity.baseContext, SongFragment.mactivity, it) }
+                    getSongUri(position)?.let { SongUtils.deleteMusic(context, SongFragment.mactivity, it) }
 
                 }
                 else{
-                    getSongUri(position)?.let { SongUtils.del(getSong(position).id.toString(), it) }
+                    getSongUri(position)?.let { SongUtils.del(getSong(position).id.toString()) }
                 }
+
 
             }
             R.id.details_menu_item -> {
@@ -166,8 +167,8 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
                 val manager: FragmentManager =
                     (context as AppCompatActivity).supportFragmentManager
 
-                manager ?.beginTransaction()
-                    ?.let { it -> songDetailsDialog.show(it, "songDetails") }
+                manager.beginTransaction()
+                    .let { it -> songDetailsDialog.show(it, "songDetails") }
 
 
             }
@@ -192,7 +193,7 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongAdapter.SongViewHolder {
-        var binding = ItemSongBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemSongBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return SongViewHolder(binding)
     }
 
@@ -202,18 +203,9 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
         this.position = position
         holder.apply {
             bind(song)
-            Log.e("adapter", "bind")
             onClickItem()
         }
-//        holder.itemRcv.setOnClickListener {
-//            Log.e("adapter songs", "onClick")
-//            upDatePosition(getCurrentPosition())
-//            Coordinator.setup(context)
-//            Coordinator.sourceOfSelectedSong = "songs"
-//            Coordinator.currentDataSource = listSong
-//            Coordinator.playSelectedSong(listSong[getCurrentPosition()])
-//            MainActivity.activity.updateVisibility()
-//        }
+
     }
 
     override fun getItemCount(): Int {
@@ -224,15 +216,12 @@ class SongAdapter(var listSong : ArrayList<Song>, val context: Activity) : Recyc
         position = newPosition
     }
 
-    fun getCurrentPosition():Int{
-        return position
-    }
-    fun getSongUri(position: Int): Uri? {
+    private fun getSongUri(position: Int): Uri? {
         return listSong[position].uri
     }
 
     interface OnDataSend {
-        fun onSend(context: Activity, song: Song)
+        fun onSend(context: Context, song: Song)
     }
 
     fun OnDataSend(dataSend: OnDataSend) {

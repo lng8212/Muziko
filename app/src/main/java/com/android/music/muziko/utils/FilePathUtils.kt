@@ -1,17 +1,12 @@
 package com.android.music.ui
 
 import android.net.Uri
-import android.os.Environment
-import android.os.Environment.DIRECTORY_MUSIC
 import android.provider.MediaStore
-import java.io.File
 
 //find file paths for shared/external storage
 //using android.os.Environment / getExternalStorageDirectory / etc.
 
-object FilePathUtlis {
-    private val MUSICS_INTERNAL_STORAGE: File =
-        Environment.getExternalStoragePublicDirectory(DIRECTORY_MUSIC)
+object FilePathUtils {
 
     fun getMusicsUri(): Uri {
         return MediaStore.Audio.Media.EXTERNAL_CONTENT_URI

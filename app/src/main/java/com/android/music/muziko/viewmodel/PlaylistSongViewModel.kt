@@ -2,11 +2,10 @@ package com.android.music.muziko.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.android.music.muziko.repository.PlaylistSongRepository
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.repository.PlaylistSongRepository
 
-class PlaylistSongViewModel : BaseViewModel(){
+class PlaylistSongViewModel : BaseViewModel() {
 
     lateinit var playlistSongRepository: PlaylistSongRepository
     private var playlistId: String = ""
@@ -15,8 +14,7 @@ class PlaylistSongViewModel : BaseViewModel(){
         dataset = MutableLiveData()
     }
 
-    fun setPlaylistId(pId: String, array: ArrayList<Song>)
-    {
+    fun setPlaylistId(pId: String, array: ArrayList<Song>) {
         playlistId = pId
         playlistSongRepository = PlaylistSongRepository(playlistId, array)
         updateData()
@@ -34,7 +32,7 @@ class PlaylistSongViewModel : BaseViewModel(){
         return dataset.value as ArrayList<Song>
     }
 
-    fun removeSongFromPlaylist(songId: String){
+    fun removeSongFromPlaylist(songId: String) {
         playlistSongRepository.removeSongFromPlaylist(songId)
         updateData()
     }

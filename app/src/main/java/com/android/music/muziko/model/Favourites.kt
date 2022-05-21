@@ -9,5 +9,4 @@ data class Favorites(
     @PrimaryKey(autoGenerate = true)
 //    @ColumnInfo var fId : Long,
     @ColumnInfo val songId: Long
-) {
-}
+)

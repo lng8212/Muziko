@@ -9,5 +9,4 @@ data class Recently(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo val songId: Long,
     @ColumnInfo val time: Long
-) {
-}
+)

@@ -2,14 +2,14 @@ package com.android.music.muziko.repository
 
 import com.android.music.muziko.appInterface.PlaylistPageRepositoryInterface
 import com.android.music.muziko.fragments.PlaylistsFragment
-import com.android.music.muziko.utils.DatabaseConverterUtils
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.utils.DatabaseConverterUtils
 import kotlinx.coroutines.runBlocking
 
 class PlaylistSongRepository(private val playlistId: String, val array: ArrayList<Song>):
     PlaylistPageRepositoryInterface{
     override fun getSongsIdFromDatabase(): String {
-        var songsOfPlaylist = ""
+        var songsOfPlaylist: String
         runBlocking {
             songsOfPlaylist = RoomRepository.localDatabase.playlistDAO().getSongsOfPlaylist(playlistId)
         }
@@ -27,7 +27,7 @@ class PlaylistSongRepository(private val playlistId: String, val array: ArrayLis
     }
 
     override fun getSongs(): ArrayList<Song> {
-        var songs: ArrayList<Song> = arrayListOf()
+        val songs: ArrayList<Song> = arrayListOf()
         val songsIdInString = getSongsIdFromDatabase()
         if (songsIdInString != "") {
             val songsIdInArraylist = convertStringToArraylist(songsIdInString)

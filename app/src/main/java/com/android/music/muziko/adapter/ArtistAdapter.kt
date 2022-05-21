@@ -5,16 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.databinding.ItemArtistsBinding
+import com.android.music.muziko.appInterface.VoidCallback
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.utils.ImageUtils
 
 class ArtistAdapter (var arrayList: ArrayList<Song>, val context: Activity, private val listener: OnItemClickListener) : RecyclerView.Adapter<ArtistAdapter.ArtistViewHoder>(){
 
-    var dataset: ArrayList<Song>
-
-    init {
-        dataset = arrayList
-    }
+    var dataset: ArrayList<Song> = arrayList
 
 
     inner class ArtistViewHoder (var binding: ItemArtistsBinding) : RecyclerView.ViewHolder(binding.root){
@@ -33,19 +31,24 @@ class ArtistAdapter (var arrayList: ArrayList<Song>, val context: Activity, priv
 
         init {
             itemView.setOnClickListener {
-                listener.onItemClick(adapterPosition)
+                AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                    override fun execute() {
+                        listener.onItemClick(adapterPosition)
+                    }
+                }, 0.95f)
+
             }
 
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHoder {
-        var binding = ItemArtistsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemArtistsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ArtistViewHoder(binding)
     }
 
     override fun onBindViewHolder(holder: ArtistViewHoder, position: Int) {
-        var artist = dataset[position]
+        val artist = dataset[position]
         holder.bind(artist)
     }
 

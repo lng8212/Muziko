@@ -10,8 +10,8 @@ import com.android.music.R
 import com.android.music.databinding.AddSongsToPlaylistsBinding
 import com.android.music.muziko.adapter.AddSongToPlaylistAdapter
 import com.android.music.muziko.appInterface.PassDataForSelectSong
-import com.android.music.muziko.utils.ScreenSizeUtils
 import com.android.music.muziko.model.Song
+import com.android.music.muziko.utils.ScreenSizeUtils
 import kotlinx.android.synthetic.main.add_songs_to_playlists.view.*
 
 class AddSongToPlaylistDialog(val array: ArrayList<Song>) : DialogFragment(){
@@ -23,11 +23,11 @@ class AddSongToPlaylistDialog(val array: ArrayList<Song>) : DialogFragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = AddSongsToPlaylistsBinding.inflate(inflater, container, false)
 
-        dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner_bg);
+        dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner_bg)
         playlistAdapter = activity?.let {
             AddSongToPlaylistAdapter(
                 it,

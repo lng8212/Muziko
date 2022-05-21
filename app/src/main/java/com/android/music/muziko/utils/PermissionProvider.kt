@@ -14,7 +14,10 @@ import com.android.music.muziko.activity.MainActivity
 class PermissionProvider: ActivityCompat.OnRequestPermissionsResultCallback {
 
     var permissionIsGranted : Boolean = false
-    private val PERMISSIONS_REQUEST_CODE = 1
+    companion object{
+        private const val PERMISSIONS_REQUEST_CODE = 1
+    }
+
     lateinit var activity: Activity
 
     fun askForPermission(activity: Activity, permissions: Array<out String>)

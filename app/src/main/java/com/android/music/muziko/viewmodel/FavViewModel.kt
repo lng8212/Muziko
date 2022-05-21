@@ -2,16 +2,14 @@ package com.android.music.muziko.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.FavRepository
-import com.android.music.ui.SongsRepository
 
-class FavViewModel: BaseViewModel() {
+class FavViewModel : BaseViewModel() {
     var favRepository: FavRepository
 
 
-    init{
+    init {
         dataset = MutableLiveData()
         favRepository = FavRepository()
 
@@ -22,10 +20,10 @@ class FavViewModel: BaseViewModel() {
     }
 
     override fun updateData(data: String?) {
-        dataset.value =  favRepository.getFavSongs() as ArrayList<Any>
+        dataset.value = favRepository.getFavSongs() as ArrayList<Any>
     }
 
-    override fun getDataset(): ArrayList<Song>{
+    override fun getDataset(): ArrayList<Song> {
         return dataset.value as ArrayList<Song>
     }
 }

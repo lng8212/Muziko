@@ -3,7 +3,7 @@ package com.android.music.muziko.utils
 object DatabaseConverterUtils {
     fun stringToArraylist(songs: String): ArrayList<String> {
 
-        var arr = listOf<String>()
+        val arr = mutableListOf<String>()
 
         arr += songs.trim().splitToSequence(',')
             .filter { it.isNotEmpty() }

@@ -22,5 +22,4 @@ data class Song(
     val artistName: String? = "",
     val composer: String? = "",
     val albumArtist: String?= ""
-) {
-}
+)

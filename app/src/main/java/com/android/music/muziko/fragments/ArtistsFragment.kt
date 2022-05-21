@@ -1,10 +1,10 @@
 package com.android.music.muziko.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.music.R
 import com.android.music.databinding.FragmentArtistsBinding
 import com.android.music.muziko.adapter.ArtistAdapter
+import com.android.music.muziko.appInterface.VoidCallback
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.viewmodel.ArtistsViewModel
 
@@ -27,11 +29,16 @@ class ArtistsFragment : Fragment(), ArtistAdapter.OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentArtistsBinding.inflate(inflater, container, false)
 
         binding.constraintArtistsBackLibrary.setOnClickListener {
-            findNavController().navigate(R.id.action_artistsFragment_to_navigation_library)
+            AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                override fun execute() {
+                    findNavController().navigate(R.id.action_artistsFragment_to_navigation_library)
+                }
+            }, 0.95f)
+
         }
 
         setupViewModel()

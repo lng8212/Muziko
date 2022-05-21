@@ -4,14 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
-import com.android.music.ui.FilePathUtlis
+import com.android.music.ui.FilePathUtils
 import java.io.File
 
 object FileUtils {
 
     enum class FILE_TYPES {
         MUSIC {
-            val path = FilePathUtlis.getMusicsUri()
+            val path = FilePathUtils.getMusicsUri()
         },
         PLAYLIST
     }
@@ -40,12 +40,12 @@ object FileUtils {
     ): Cursor? {
 
         val path: Uri = when (fileType) {
-            FILE_TYPES.MUSIC -> FilePathUtlis.getMusicsUri()
-            FILE_TYPES.PLAYLIST -> FilePathUtlis.getPlayListsUri()
+            FILE_TYPES.MUSIC -> FilePathUtils.getMusicsUri()
+            FILE_TYPES.PLAYLIST -> FilePathUtils.getPlayListsUri()
         }
 
         try {
-            return context?.contentResolver?.query(
+            return context.contentResolver?.query(
                 path,
                 projection,
                 selection,

@@ -7,27 +7,29 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.android.music.R
 import com.android.music.databinding.ItemPlaylistsLibraryBinding
+import com.android.music.muziko.appInterface.VoidCallback
 import com.android.music.muziko.fragments.PlaylistsFragment
+import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.repository.PlaylistRepository
 
 class PlaylistAdapter (var arrayList: ArrayList<Playlist>, val context: Activity, private val listener: OnItemClickListener) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>(){
 
-    var dataset: ArrayList<Playlist>
+    var dataset: ArrayList<Playlist> = arrayList
     lateinit var dataSend: PlaylistAdapter.OnDataSend
 
-    init {
-        dataset = arrayList
-    }
-
     inner class PlaylistViewHolder(var binding: ItemPlaylistsLibraryBinding): RecyclerView.ViewHolder(binding.root){
-        var name_playlist = binding.txtNamePlaylist
+        private var name_playlist = binding.txtNamePlaylist
         fun bind(playlist: Playlist){
             name_playlist.text = playlist.name
         }
         init {
             itemView.setOnClickListener {
-                listener.onItemClick(adapterPosition)
+                AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                    override fun execute() {
+                        listener.onItemClick(adapterPosition)
+                    }
+                }, 0.95f)
             }
 
         }
@@ -45,7 +47,7 @@ class PlaylistAdapter (var arrayList: ArrayList<Playlist>, val context: Activity
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
-        var binding = ItemPlaylistsLibraryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemPlaylistsLibraryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PlaylistViewHolder(binding)
     }
 
@@ -84,7 +86,7 @@ class PlaylistAdapter (var arrayList: ArrayList<Playlist>, val context: Activity
         fun onSend(context: Activity, id: String)
     }
 
-    fun OnDataSend(dataSend: OnDataSend) {
+    fun onDataSend(dataSend: OnDataSend) {
         this.dataSend = dataSend
     }
 }
