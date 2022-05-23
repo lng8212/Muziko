@@ -102,12 +102,10 @@ class MainActivity : AppCompatActivity() {
         Coordinator.setup(baseContext) // set up media player
         RoomRepository.createDatabase()
 
-//        Coordinator.setup(baseContext) // set up
 
 
         supportActionBar?.hide()
 
-        // set up navigation
         val navView: BottomNavigationView = binding.navView
         val navHostFragment  = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
         val navController = navHostFragment.navController

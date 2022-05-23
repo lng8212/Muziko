@@ -1,6 +1,7 @@
 package com.android.music.muziko.adapter
 
 import android.content.Context
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.android.music.muziko.helper.Coordinator
 import com.android.music.muziko.model.Song
 import com.android.music.muziko.repository.RoomRepository
 import com.android.music.muziko.utils.ImageUtils
+import com.android.music.ui.fragments.FavouriteFragment
 
 class FavAdapter(var listSong: ArrayList<Song>, val context: Context): RecyclerView.Adapter<FavAdapter.FavViewHolder>(){
     var position = 0
@@ -42,6 +44,7 @@ class FavAdapter(var listSong: ArrayList<Song>, val context: Context): RecyclerV
                         Coordinator.playSelectedSong(listSong[adapterPosition])
                         RoomRepository.addSongToRecently(listSong[adapterPosition].id!!.toLong())
                         MainActivity.activity.updateVisibility(listSong[adapterPosition])
+
                     }
                 }, 0.95f)
             }
@@ -50,6 +53,9 @@ class FavAdapter(var listSong: ArrayList<Song>, val context: Context): RecyclerV
             likeButton.setOnClickListener {
                 likeButton.setImageResource(R.drawable.ic_unfavorite)
                 RoomRepository.removeSongFromFavorites(listSong[adapterPosition])
+                Handler().postDelayed({
+                    FavouriteFragment.viewModel?.updateData()
+                }, 500)
             }
 
         }

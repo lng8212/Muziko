@@ -16,8 +16,11 @@ import com.android.music.muziko.viewmodel.FavViewModel
 class FavouriteFragment : Fragment() {
     private lateinit var binding: FragmentFavouriteBinding
     private lateinit var favSongsAdapter: FavAdapter
-    private lateinit var viewModel: FavViewModel
     private lateinit var listFavSong: ArrayList<*>
+
+    companion object {
+        var viewModel: FavViewModel? = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,24 +31,26 @@ class FavouriteFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel?.updateData()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(FavViewModel::class.java)
-
         activity?.runOnUiThread {
-            context?.let { viewModel.sendDataToFragment() }
-            listFavSong = viewModel.getDataset()
+            context?.let { viewModel!!.sendDataToFragment() }
+            listFavSong = viewModel!!.getDataset()
         }
 
-        viewModel.dataset.observe(viewLifecycleOwner, favSongsObserver)
-        favSongsAdapter =  FavAdapter(listFavSong as ArrayList<Song>, requireContext())
+        viewModel!!.dataset.observe(viewLifecycleOwner, favSongsObserver)
+        favSongsAdapter = FavAdapter(listFavSong as ArrayList<Song>, requireContext())
 
         val recyclerView = binding.recyclerviewFavourite
         recyclerView.apply {
             adapter = favSongsAdapter
             layoutManager = LinearLayoutManager(context)
         }
-
-
     }
     private val favSongsObserver = Observer<ArrayList<*>> {
         favSongsAdapter.listSong = it as ArrayList<Song>

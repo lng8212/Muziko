@@ -375,4 +375,5 @@ class PlayerPanelActivity : AppCompatActivity(), PlayerPanelInterface, View.OnCl
         super.onStop()
         unregisterReceiver(broadcastNotificationReceiver)
     }
+
 }

@@ -13,25 +13,20 @@ import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.repository.PlaylistRepository
 
-class PlaylistAdapter (var arrayList: ArrayList<Playlist>, val context: Activity, private val listener: OnItemClickListener) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>(){
+class PlaylistAdapter(
+    var arrayList: ArrayList<Playlist>,
+    val context: Activity,
+    val onItemClickListener: (Int) -> Unit
+) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
 
     var dataset: ArrayList<Playlist> = arrayList
     lateinit var dataSend: PlaylistAdapter.OnDataSend
 
-    inner class PlaylistViewHolder(var binding: ItemPlaylistsLibraryBinding): RecyclerView.ViewHolder(binding.root){
+    inner class PlaylistViewHolder(var binding: ItemPlaylistsLibraryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         private var name_playlist = binding.txtNamePlaylist
-        fun bind(playlist: Playlist){
+        fun bind(playlist: Playlist) {
             name_playlist.text = playlist.name
-        }
-        init {
-            itemView.setOnClickListener {
-                AnimationHelper.scaleAnimation(it, object : VoidCallback {
-                    override fun execute() {
-                        listener.onItemClick(adapterPosition)
-                    }
-                }, 0.95f)
-            }
-
         }
     }
 
@@ -52,18 +47,28 @@ class PlaylistAdapter (var arrayList: ArrayList<Playlist>, val context: Activity
     }
 
     override fun onBindViewHolder(holder: PlaylistViewHolder, position: Int) {
-        val playlist = dataset[position]
+        val pos = position
+        val playlist = dataset[pos]
         holder.apply {
             bind(playlist)
         }
 
         val playlistRepository = PlaylistRepository(context)
+
+        holder.itemView.setOnClickListener {
+            AnimationHelper.scaleAnimation(it, object : VoidCallback {
+                override fun execute() {
+                    onItemClickListener(pos)
+                }
+            }, 0.95f)
+        }
+
         holder.binding.imgNextSongPlaylist.setOnClickListener {
             val popUpMenu = PopupMenu(context, it)
             popUpMenu.inflate(R.menu.playlists_popup_menu)
 
             popUpMenu.setOnMenuItemClickListener {
-                val id = playlistRepository.getPlaylists()[position].id
+                val id = playlistRepository.getPlaylists()[pos].id
 
                 return@setOnMenuItemClickListener handleMenuButtonClickListener(
                     it.itemId,

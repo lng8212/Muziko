@@ -11,6 +11,6 @@ import kotlinx.android.parcel.Parcelize
 data class Playlist(
     @PrimaryKey var id: String = "",
     @ColumnInfo var name: String = "",
-                         @ColumnInfo var countOfSongs: Int = 0,
-                         @ColumnInfo var songs: String
+    @ColumnInfo var countOfSongs: Int = 0,
+    @ColumnInfo var songs: String
 ): Parcelable

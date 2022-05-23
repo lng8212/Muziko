@@ -3,7 +3,6 @@ package com.android.music.muziko.fragments
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +19,11 @@ import com.android.music.muziko.helper.AnimationHelper
 import com.android.music.muziko.model.Playlist
 import com.android.music.muziko.viewmodel.PlaylistViewModel
 
-class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
+class PlaylistsFragment : Fragment() {
 
-    lateinit var binding: FragmentPlaylistsBinding
-    lateinit var playlistAdapter: PlaylistAdapter
+    private lateinit var binding: FragmentPlaylistsBinding
+    private lateinit var playlistAdapter: PlaylistAdapter
+    private lateinit var listFav: ArrayList<Playlist>
 
     companion object {
         var viewModel: PlaylistViewModel? = null
@@ -54,16 +54,15 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
 
         setupViewModel()
 
-        playlistAdapter =
-            activity?.let {
-                viewModel?.let { it1 ->
-                    PlaylistAdapter(
-                        it1.getDataset() as ArrayList<Playlist>,
-                        it,
-                        this
-                    )
-                }
-            }!!
+        activity?.runOnUiThread {
+            listFav = viewModel?.getDataset() as ArrayList<Playlist>
+        }
+        playlistAdapter = PlaylistAdapter(listFav, requireActivity()) {
+            val playlist = playlistAdapter.arrayList[it]
+            val action =
+                PlaylistsFragmentDirections.actionPlaylistsFragmentToPlaylistSongsFragment(playlist)
+            findNavController().navigate(action)
+        }
 
         return binding.root
     }
@@ -75,8 +74,9 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
     }
 
     private val playlistUpdateObserver = Observer<ArrayList<*>> {
-        playlistAdapter.dataset = it as ArrayList<Playlist>
-        binding.recyclerviewPlaylistsLibrary.adapter = playlistAdapter
+        listFav = it as ArrayList<Playlist>
+        playlistAdapter.arrayList = listFav
+        playlistAdapter.notifyDataSetChanged()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -103,16 +103,6 @@ class PlaylistsFragment : Fragment(), PlaylistAdapter.OnItemClickListener {
                 mHandler.postDelayed(this, 1000)
             }
         })
-    }
-
-
-    override fun onItemClick(position: Int) {
-        val playlist = playlistAdapter.arrayList[position]
-        Log.e("id", playlist.id)
-        Log.e("playlist", playlist.toString())
-        val action =
-            PlaylistsFragmentDirections.actionPlaylistsFragmentToPlaylistSongsFragment(playlist)
-        findNavController().navigate(action)
     }
 
 

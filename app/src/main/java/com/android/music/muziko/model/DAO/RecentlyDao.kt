@@ -14,9 +14,6 @@ interface RecentlyDao {
     @Query("DELETE FROM recently_table")
     suspend fun deleteAll()
 
-//    @Query("SELECT * FROM recently_table")
-//    fun getRecently(): List<Recently>
-
     @Query("SELECT * FROM recently_table ORDER BY time DESC")
     fun getRecentlyTime(): List<Recently>
 }
